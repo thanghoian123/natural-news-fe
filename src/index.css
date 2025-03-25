@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Satoshi', 'sans-serif';
+  --breakpoint-3xl: 120rem;
+
+  /* Avocado color palette */
+  --color-avocado-100: oklch(0.99 0 0);
+  --color-avocado-200: oklch(0.98 0.04 113.22);
+  --color-avocado-300: oklch(0.94 0.11 115.03);
+  --color-avocado-400: oklch(0.92 0.19 114.08);
+  --color-avocado-500: oklch(0.84 0.18 117.33);
+  --color-avocado-600: oklch(0.53 0.12 118.34);
+
+  /* Primary color based on #7765FD */
+  --color-primary-100: oklch(0.98 0.05 280);
+  --color-primary-200: oklch(0.95 0.1 280);
+  --color-primary-300: oklch(0.88 0.2 280);
+  --color-primary-400: oklch(0.75 0.3 280);
+  --color-primary-500: oklch(0.6 0.35 280);
+  --color-primary-600: oklch(0.5 0.4 280);
+  --color-primary-700: oklch(0.4 0.45 280);
+
+  --color-text-dark: #f4f4fa;
+  --color-background-dark: #2d2d30;
+
+  /* Easing */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+}
