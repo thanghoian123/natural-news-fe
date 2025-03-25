@@ -3,7 +3,7 @@ import { loginAPI, getUserAPI } from '../apis/userApi';
 
 const initialState = {
   token: localStorage.getItem('token') || null,
-  user: null,
+  user: localStorage.getItem('user') || null,
 };
 
 // Async thunk for logging in
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
 );
 
 // Async thunk for fetching user details
-export const fetchUser = createAsyncThunk('user/fetchUser', async (_, { rejectWithValue }) => {
+export const fetchUser = createAsyncThunk('user/fetchUser', async (token, { rejectWithValue }) => {
   try {
     const response = await getUserAPI();
     return response; // This should be an array, so pick the first user if needed
@@ -52,6 +52,7 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
       localStorage.removeItem('token');
+      window.location.href = '/login'; // Force navigation (fixes stale state issues)
     },
     clearToken: (state) => {
       state.token = null;

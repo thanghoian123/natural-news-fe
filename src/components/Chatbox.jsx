@@ -3,10 +3,11 @@ import InputChat from './InputChat';
 import { useSelector } from 'react-redux';
 import Bubble from './Bubble';
 
-export default function Chatbox({ onSendMessage }) {
+export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const { sessions, activeSession } = useSelector((state) => state.chat);
+  const { user } = useSelector((state) => state.user);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
 
@@ -41,6 +42,7 @@ export default function Chatbox({ onSendMessage }) {
             sender={msg.sender}
             text={msg.text}
             isStreaming={index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming} // ✅ Stream only last bot message
+            onRegenerateMessage={onRegenerateMessage}
           />
         ))}
         <div ref={chatEndRef} /> {/* Scroll anchor */}
@@ -51,6 +53,7 @@ export default function Chatbox({ onSendMessage }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         sendMessage={handleSendMessage}
+        tokenRemaining={user?.reward || 0}
       />
 
       <p className="text-center text-[10px] text-[#73737E] mt-2">

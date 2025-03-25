@@ -1,12 +1,40 @@
-import { useEffect, useRef, useCallback } from 'react';
-import { appendMessage } from '../redux/chatSlice';
+import { useEffect, useRef, useCallback, useState } from 'react';
+import { appendMessage, regenerateMessage } from '../redux/chatSlice';
 
 export default function useWebSocket(activeSession, dispatch) {
   const socketRef = useRef(null);
   const messageRef = useRef('');
   const reconnecting = useRef(false);
+  const [url, setUrl] = useState('');
 
-  const socketUrl = activeSession ? `ws://127.0.0.1:8000/chats/ws/llm/${activeSession}` : null;
+  const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${activeSession}/regenerate`;
+  const socketUrl = activeSession
+    ? `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${activeSession}`
+    : null;
+
+  useEffect(() => {
+    if (activeSession) {
+      setUrl(socketUrl);
+    }
+  }, [activeSession]);
+
+  useEffect(() => {
+    if (url) {
+      connectWebSocket(url);
+    }
+  }, [url]);
+
+  const onRegenerateMessage = async () => {
+    disconnectWebSocket();
+    setUrl(regenerateUrl);
+    dispatch(regenerateMessage());
+    // Wait a bit for WebSocket to reconnect before sending a message
+    setTimeout(() => {
+      if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+        socketRef.current.send('');
+      }
+    }, 500);
+  };
 
   const disconnectWebSocket = useCallback(() => {
     if (socketRef.current) {
@@ -49,36 +77,47 @@ export default function useWebSocket(activeSession, dispatch) {
     [dispatch, activeSession]
   );
 
-  const connectWebSocket = useCallback(() => {
-    if (!socketUrl) return;
-    console.log(`🔄 Connecting WebSocket for session: ${activeSession}`);
+  const connectWebSocket = useCallback(
+    (newUrl) => {
+      if (!newUrl) return;
+      console.log(`🔄 Connecting WebSocket for session: ${activeSession}`);
 
-    disconnectWebSocket();
+      disconnectWebSocket();
 
-    socketRef.current = new WebSocket(socketUrl);
+      socketRef.current = new WebSocket(newUrl);
 
-    socketRef.current.onopen = () => {
-      console.log(`✅ WebSocket Connected: ${activeSession}`);
-      reconnecting.current = false;
-    };
+      socketRef.current.onopen = () => {
+        console.log(`✅ WebSocket Connected: ${activeSession}`);
+        reconnecting.current = false;
+      };
 
-    socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
+      socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
 
-    socketRef.current.onerror = (error) => console.error('❌ WebSocket Error:', error);
+      socketRef.current.onerror = (error) => console.error('❌ WebSocket Error:', error);
 
-    socketRef.current.onclose = (event) => {
-      console.log(`🔴 WebSocket Disconnected (Code: ${event.code}, Reason: ${event.reason})`);
-    };
-  }, [socketUrl, activeSession, disconnectWebSocket, handleIncomingMessage]);
+      socketRef.current.onclose = (event) => {
+        console.log(`🔴 WebSocket Disconnected (Code: ${event.code}, Reason: ${event.reason})`);
+      };
+    },
+    [activeSession, disconnectWebSocket, handleIncomingMessage]
+  );
 
   useEffect(() => {
     if (!activeSession) return;
 
     disconnectWebSocket();
-    setTimeout(() => connectWebSocket(), 100);
+    setTimeout(() => connectWebSocket(socketUrl), 100);
 
     return () => disconnectWebSocket();
   }, [activeSession, connectWebSocket, disconnectWebSocket]);
 
-  return { socketRef, disconnectWebSocket, connectWebSocket, reconnecting };
+  return {
+    socketRef,
+    disconnectWebSocket,
+    connectWebSocket,
+    reconnecting,
+    onRegenerateMessage,
+    setUrl,
+    socketUrl,
+  };
 }

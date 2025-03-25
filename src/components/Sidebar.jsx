@@ -11,7 +11,7 @@ import ProfileDetail from './ProfileDetail';
 
 export default function Sidebar() {
   const { addToast } = useToast();
-
+  const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -75,7 +75,9 @@ export default function Sidebar() {
                 }`}
                 onClick={() => dispatch(setActiveSession(chat.id))}
               >
-                <span className="text-[14px] font-[400] dark:text-text-dark text-[#252526]">
+                <span
+                  className={`text-[14px] font-[400] dark:text-text-dark text-[#252526] ${activeSession === chat.id && `text-white`}`}
+                >
                   {chat.id}
                 </span>
                 <div className="opacity-0 group-hover:opacity-100 transition">
@@ -104,7 +106,7 @@ export default function Sidebar() {
           <div className="flex flex-col pl-[10px]">
             <p className="text-black dark:text-white text-[14px]">View Profile</p>
 
-            <p className="text-[#73737E] text-[12px]">email</p>
+            <p className="text-[#73737E] text-[12px]">{user?.email || ''}</p>
           </div>
 
           {/* <button
@@ -137,7 +139,7 @@ export default function Sidebar() {
       )}
 
       <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
-        <ProfileDetail />
+        <ProfileDetail user={user} />
       </Modal>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Paperclip } from 'lucide-react';
 
 function InputChat(props) {
-  const { value, onChange, sendMessage } = props;
+  const { value, onChange, sendMessage, tokenRemaining = 0 } = props;
   const sendButtonRef = useRef(null); // Tạo ref cho nút gửi
 
   return (
@@ -22,7 +22,8 @@ function InputChat(props) {
       />
       <div className="flex justify-between items-center w-full mt-[12px]">
         <p className="promt text-[#73737E] text-[12px]">
-          Each prompt uses 1 token. You have 42 tokens remaining this month. Learn More
+          Each prompt uses 1 token. You have {tokenRemaining} tokens remaining this month. Learn
+          More
         </p>
 
         <div className="flex items-center text-[#73737E] dark:text-[#e5e5ec]">

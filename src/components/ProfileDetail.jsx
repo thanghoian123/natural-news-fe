@@ -1,37 +1,37 @@
 import { AtSign, Check, Sparkle, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/userSlice';
 
-function ProfileDetail() {
+function ProfileDetail({ user }) {
+  const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
   const [selectedEngine, setSelectedEngine] = useState(1);
   const dataMapping = [
     {
-      label: 'jason@naturalnews.com',
+      label: user?.email || '',
       iconLeft: <AtSign className="w-[14px]" />,
       rightAction: (
-        <a href="#" className="text-primary-700">
+        <span
+          className="text-primary-700 cursor-pointer"
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
           Log out
-        </a>
+        </span>
       ),
     },
     {
-      label: '42 tokens',
+      label: `${user?.reward} messages remaining`,
       iconLeft: <Sparkle className="w-[14px]" />,
-      rightAction: (
-        <a href="#" className="text-primary-700">
-          How to get more
-        </a>
-      ),
+      rightAction: <span className="text-primary-700 cursor-pointer">How to get more</span>,
     },
     {
       label: 'Standard User',
       iconLeft: <User className="w-[14px]" />,
-      rightAction: (
-        <a href="#" className="text-primary-700">
-          How to get more
-        </a>
-      ),
+      rightAction: <span className="text-primary-700 cursor-pointer">How to get more</span>,
     },
   ];
 

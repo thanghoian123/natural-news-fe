@@ -11,6 +11,7 @@ function LoginHandler() {
   const dispatch = useDispatch();
   const { addToast } = useToast();
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
+
   const [error, setError] = useState('');
 
   const validateEmail = (value) => {

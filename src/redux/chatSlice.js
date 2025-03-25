@@ -93,6 +93,19 @@ const chatSlice = createSlice({
         }
       }
     },
+    regenerateMessage: (state) => {
+      const { activeSession } = state;
+      const session = state.sessions.find((s) => s.id === activeSession);
+
+      if (session && session.history.length > 0) {
+        const lastMessage = session.history[session.history.length - 1];
+
+        // Check if the last message is from the assistant
+        if (lastMessage.sender === 'assistant') {
+          session.history.pop(); // Remove the last message
+        }
+      }
+    },
     setActiveSession: (state, action) => {
       state.activeSession = action.payload;
     },
@@ -150,6 +163,11 @@ const chatSlice = createSlice({
   },
 });
 
-export const { setActiveSession, deleteSession, clearChatHistory, appendMessage } =
-  chatSlice.actions;
+export const {
+  setActiveSession,
+  deleteSession,
+  clearChatHistory,
+  appendMessage,
+  regenerateMessage,
+} = chatSlice.actions;
 export default chatSlice.reducer;

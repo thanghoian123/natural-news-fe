@@ -16,7 +16,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     // Get token from localStorage
     const token = localStorage.getItem('token');
-    console.log('🚀 ~ token:', token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -33,7 +32,6 @@ axiosInstance.interceptors.request.use(
 // Response Interceptor
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log('✅ Response:', response);
     return response.data; // Directly return data
   },
   (error) => {

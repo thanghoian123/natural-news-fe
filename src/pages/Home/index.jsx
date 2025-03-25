@@ -4,16 +4,22 @@ import Sidebar from '../../components/Sidebar';
 import ChatBox from '../../components/Chatbox';
 import { fetchChatSessions, sendMessage } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
+import { fetchUser } from '../../redux/userSlice';
 function HomePage() {
   const dispatch = useDispatch();
   const activeSession = useSelector((state) => state.chat.activeSession);
-  const { reconnecting, socketRef, disconnectWebSocket, connectWebSocket } = useWebSocket(
-    activeSession,
-    dispatch
-  );
+  const {
+    reconnecting,
+    socketRef,
+    disconnectWebSocket,
+    connectWebSocket,
+    onRegenerateMessage,
+    socketUrl,
+  } = useWebSocket(activeSession, dispatch);
 
   useEffect(() => {
     dispatch(fetchChatSessions());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   const handleSendMessage = useCallback(
@@ -23,7 +29,7 @@ function HomePage() {
 
         console.log('⚠️ WebSocket is not open, reconnecting...');
         reconnecting.current = true;
-        connectWebSocket();
+        connectWebSocket(socketUrl);
 
         setTimeout(() => {
           reconnecting.current = false;
@@ -68,7 +74,7 @@ function HomePage() {
       <div className="flex flex-col items-baseline md:flex-row md:items-start">
         <Sidebar disconnectWebSocket={disconnectWebSocket} />
         <div className="px-2 md:px-14 flex-1 flex justify-center">
-          <ChatBox onSendMessage={handleSendMessage} />
+          <ChatBox onSendMessage={handleSendMessage} onRegenerateMessage={onRegenerateMessage} />
         </div>
       </div>
     </div>

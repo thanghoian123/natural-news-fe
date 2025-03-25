@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Copy, RefreshCw } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-function Bubble({ sender, text, isStreaming, onRegenerate, handleCopy }) {
+function Bubble({ sender, text, isStreaming, onRegenerateMessage, handleCopy }) {
   const [streamedText, setStreamedText] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -15,7 +17,7 @@ function Bubble({ sender, text, isStreaming, onRegenerate, handleCopy }) {
       const timeout = setTimeout(() => {
         setStreamedText((prev) => prev + [...text][index]);
         setIndex(index + 1);
-      }, 30);
+      }, 10);
 
       return () => clearTimeout(timeout);
     }
@@ -31,12 +33,12 @@ function Bubble({ sender, text, isStreaming, onRegenerate, handleCopy }) {
         }`}
         style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
       >
-        {streamedText}
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamedText}</ReactMarkdown>
       </div>
       {sender !== 'user' && (
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2 dark:text-text-dark text-black">
           <button
-            onClick={onRegenerate}
+            onClick={onRegenerateMessage}
             className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
           >
             <RefreshCw size={14} />
