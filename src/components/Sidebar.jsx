@@ -8,18 +8,19 @@ import { useToast } from '../contexts/ToastContext';
 import { useTheme } from '../contexts/ThemeContext';
 import Modal from './Modal';
 import ProfileDetail from './ProfileDetail';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
   const { addToast } = useToast();
   const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-
+  const navigate = useNavigate();
   const { sessions, activeSession } = useSelector((state) => state.chat);
 
   const dispatch = useDispatch();
   const handleNewSession = () => {
-    dispatch(startNewSession());
+    dispatch(startNewSession(user?.id));
   };
 
   // Function to remove chat
@@ -29,6 +30,13 @@ export default function Sidebar() {
       addToast('Chat deleted successfully!', 'success');
     } else {
       addToast('Failed to delete chat.', 'error');
+    }
+  };
+
+  const handleChatClick = (chat) => {
+    if (chat?.id) {
+      dispatch(setActiveSession(chat.id));
+      navigate(`/chat?id=${chat.id}`);
     }
   };
 
@@ -73,12 +81,12 @@ export default function Sidebar() {
                     ? 'bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] text-white'
                     : 'hover:bg-white dark:hover:bg-background-dark text-black'
                 }`}
-                onClick={() => dispatch(setActiveSession(chat.id))}
+                onClick={() => handleChatClick(chat)}
               >
                 <span
                   className={`text-[14px] font-[400] dark:text-text-dark text-[#252526] ${activeSession === chat.id && `text-white`}`}
                 >
-                  {chat.id}
+                  {chat.title}
                 </span>
                 <div className="opacity-0 group-hover:opacity-100 transition">
                   <Trash

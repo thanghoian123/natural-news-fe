@@ -4,14 +4,15 @@ import axiosInstance from '../apis/axiosInstance'; // Ensure axios is set up wit
 // ✅ Fetch chat sessions from API
 export const fetchChatSessions = createAsyncThunk(
   'chat/fetchChatSessions',
-  async (_, { rejectWithValue }) => {
+  async (userid, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get('/chats/user/1'); // replace it with user ID
+      const response = await axiosInstance.get(`/chats/user/${userid}`); // replace it with user ID
       // Convert API response format to Redux-friendly state
       return response.map((session) => ({
         id: session.id.toString(),
         userId: session.user_id,
         createdAt: session.created_at,
+        title: session.title || '',
         history: session.messages.map((msg) => ({
           sender: msg.role === 'user' ? 'user' : 'assistant',
           text: msg.content,
@@ -55,13 +56,14 @@ const initialState = {
 // ✅ Create a new chat session
 export const startNewSession = createAsyncThunk(
   'chat/startNewSession',
-  async (_, { rejectWithValue }) => {
+  async (userId, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('/chats/?user_id=1');
+      const response = await axiosInstance.post(`/chats/?user_id=${userId}`);
       return {
         id: response.id.toString(),
         userId: response.user_id,
         createdAt: response.created_at,
+        title: '',
         history: [],
       };
     } catch (error) {

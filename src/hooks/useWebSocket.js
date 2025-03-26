@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { appendMessage, regenerateMessage } from '../redux/chatSlice';
 
-export default function useWebSocket(activeSession, dispatch) {
+export default function useWebSocket(activeSession, dispatch, userID) {
   const socketRef = useRef(null);
   const messageRef = useRef('');
   const reconnecting = useRef(false);
@@ -9,14 +9,14 @@ export default function useWebSocket(activeSession, dispatch) {
 
   const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${activeSession}/regenerate`;
   const socketUrl = activeSession
-    ? `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${activeSession}`
+    ? `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${userID}/${activeSession}`
     : null;
 
   useEffect(() => {
-    if (activeSession) {
+    if (activeSession && userID) {
       setUrl(socketUrl);
     }
-  }, [activeSession]);
+  }, [activeSession, userID]);
 
   useEffect(() => {
     if (url) {
@@ -74,7 +74,7 @@ export default function useWebSocket(activeSession, dispatch) {
 
       streamNextChunk();
     },
-    [dispatch, activeSession]
+    [dispatch, activeSession, userID]
   );
 
   const connectWebSocket = useCallback(
@@ -99,7 +99,7 @@ export default function useWebSocket(activeSession, dispatch) {
         console.log(`🔴 WebSocket Disconnected (Code: ${event.code}, Reason: ${event.reason})`);
       };
     },
-    [activeSession, disconnectWebSocket, handleIncomingMessage]
+    [activeSession, disconnectWebSocket, handleIncomingMessage, userID]
   );
 
   useEffect(() => {
@@ -109,7 +109,7 @@ export default function useWebSocket(activeSession, dispatch) {
     setTimeout(() => connectWebSocket(socketUrl), 100);
 
     return () => disconnectWebSocket();
-  }, [activeSession, connectWebSocket, disconnectWebSocket]);
+  }, [activeSession, connectWebSocket, disconnectWebSocket, userID]);
 
   return {
     socketRef,

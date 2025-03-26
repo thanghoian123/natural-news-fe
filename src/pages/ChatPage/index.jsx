@@ -5,9 +5,15 @@ import ChatBox from '../../components/Chatbox';
 import { fetchChatSessions, sendMessage } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
 import { fetchUser } from '../../redux/userSlice';
-function HomePage() {
+import { useSearchParams } from 'react-router-dom';
+function ChatPage() {
   const dispatch = useDispatch();
   const activeSession = useSelector((state) => state.chat.activeSession);
+  const { user } = useSelector((state) => state.user);
+  const [searchParams] = useSearchParams();
+
+  const chatID = searchParams.get('id'); // "JohnDoe"
+  console.log('🚀 ~ ChatPage ~ chatID:', chatID);
   const {
     reconnecting,
     socketRef,
@@ -15,12 +21,17 @@ function HomePage() {
     connectWebSocket,
     onRegenerateMessage,
     socketUrl,
-  } = useWebSocket(activeSession, dispatch);
+  } = useWebSocket(activeSession, dispatch, user?.id);
 
   useEffect(() => {
-    dispatch(fetchChatSessions());
     dispatch(fetchUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user?.id) {
+      dispatch(fetchChatSessions(user.id));
+    }
+  }, [user]);
 
   const handleSendMessage = useCallback(
     (text) => {
@@ -71,7 +82,7 @@ function HomePage() {
 
   return (
     <div className="bg-white dark:bg-background-dark">
-      <div className="flex flex-col items-baseline md:flex-row md:items-start">
+      <div className="flex flex-col md:flex-row md:items-start">
         <Sidebar disconnectWebSocket={disconnectWebSocket} />
         <div className="px-2 md:px-14 flex-1 flex justify-center">
           <ChatBox onSendMessage={handleSendMessage} onRegenerateMessage={onRegenerateMessage} />
@@ -81,4 +92,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default ChatPage;
