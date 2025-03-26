@@ -1,37 +1,19 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Sidebar from '../../components/Sidebar';
 import ChatBox from '../../components/Chatbox';
-import { fetchChatSessions, sendMessage } from '../../redux/chatSlice';
+import { sendMessage } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
-import { fetchUser } from '../../redux/userSlice';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 function ChatPage() {
   const dispatch = useDispatch();
-  const activeSession = useSelector((state) => state.chat.activeSession);
   const { user } = useSelector((state) => state.user);
   const [searchParams] = useSearchParams();
-
   const chatID = searchParams.get('id'); // "JohnDoe"
-  console.log('🚀 ~ ChatPage ~ chatID:', chatID);
-  const {
-    reconnecting,
-    socketRef,
-    disconnectWebSocket,
-    connectWebSocket,
-    onRegenerateMessage,
-    socketUrl,
-  } = useWebSocket(activeSession, dispatch, user?.id);
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchChatSessions(user.id));
-    }
-  }, [user]);
+  const { reconnecting, socketRef, connectWebSocket, onRegenerateMessage, socketUrl } =
+    useWebSocket(chatID, dispatch, user?.id);
+  const location = useLocation();
+  const initialMessage = location.state?.initialMessage || '';
+  console.log('🚀 ~ ChatPage ~ initialMessage:', initialMessage);
 
   const handleSendMessage = useCallback(
     (text) => {
@@ -49,7 +31,7 @@ function ChatPage() {
             socketRef.current.send(text);
             dispatch(
               sendMessage({
-                sessionId: activeSession,
+                sessionId: chatID,
                 message: {
                   sender: 'user',
                   text,
@@ -68,7 +50,7 @@ function ChatPage() {
       socketRef.current.send(text);
       dispatch(
         sendMessage({
-          sessionId: activeSession,
+          sessionId: chatID,
           message: {
             sender: 'user',
             text,
@@ -77,19 +59,16 @@ function ChatPage() {
         })
       );
     },
-    [socketRef, dispatch, activeSession, connectWebSocket]
+    [socketRef, dispatch, chatID, connectWebSocket]
   );
 
-  return (
-    <div className="bg-white dark:bg-background-dark">
-      <div className="flex flex-col md:flex-row md:items-start">
-        <Sidebar disconnectWebSocket={disconnectWebSocket} />
-        <div className="px-2 md:px-14 flex-1 flex justify-center">
-          <ChatBox onSendMessage={handleSendMessage} onRegenerateMessage={onRegenerateMessage} />
-        </div>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    if (initialMessage) {
+      handleSendMessage(initialMessage);
+    }
+  }, [initialMessage]);
+
+  return <ChatBox onSendMessage={handleSendMessage} onRegenerateMessage={onRegenerateMessage} />;
 }
 
 export default ChatPage;

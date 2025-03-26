@@ -22,7 +22,7 @@
   --color-primary-500: oklch(0.6 0.35 280);
   --color-primary-600: oklch(0.5 0.4 280);
   --color-primary-700: oklch(0.4 0.45 280);
-
+  --color-primary: #7765fd;
   --color-text-dark: #f4f4fa;
   --color-background-dark: #2d2d30;
 

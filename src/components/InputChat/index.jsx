@@ -3,10 +3,10 @@ import { Paperclip } from 'lucide-react';
 
 function InputChat(props) {
   const { value, onChange, sendMessage, tokenRemaining = 0 } = props;
-  const sendButtonRef = useRef(null); // Tạo ref cho nút gửi
+  const sendButtonRef = useRef(null);
 
   return (
-    <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col w-full rounded-2xl">
+    <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col w-full rounded-2xl border-primary border-1 border-primary">
       <input
         type="text"
         className="flex-11 p-2 text-sm border-b border-gray-200 outline-none pb-[24px] w-full text-[#73737E]"

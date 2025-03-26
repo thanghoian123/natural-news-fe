@@ -25,7 +25,7 @@ const Dropdown = ({ options = [], onSelect, label, onPress }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={onPressBtn}
-        className="text-black hover:ring-primary-700 focus:ring-1 focus:outline-none focus:ring-primary-700 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  w-full justify-center border-1 border-[#9D9DAB] text-nowrap text-[12px]"
+        className="text-black hover:ring-primary-700 focus:ring-1 focus:outline-none focus:ring-primary-700 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center dark:text-[white]  w-full justify-center border-1 border-[#9D9DAB] text-nowrap text-[12px]"
       >
         {label}
       </button>

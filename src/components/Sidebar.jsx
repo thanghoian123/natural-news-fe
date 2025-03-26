@@ -1,29 +1,27 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Menu, X, Trash, PlusIcon, Moon, SunIcon, MoonIcon } from 'lucide-react'; // Icons
+import { Menu, X, Trash, PlusIcon, Sparkle } from 'lucide-react'; // Icons
 import logo from '../assets/logo.svg'; // Adjust path as needed
 import { useDispatch, useSelector } from 'react-redux';
 import { removeChatSession, setActiveSession, startNewSession } from '../redux/chatSlice';
 import { useToast } from '../contexts/ToastContext';
-import { useTheme } from '../contexts/ThemeContext';
 import Modal from './Modal';
 import ProfileDetail from './ProfileDetail';
 import { useNavigate } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function Sidebar({ children }) {
   const { addToast } = useToast();
   const { user } = useSelector((state) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Toggle menu
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { sessions, activeSession } = useSelector((state) => state.chat);
-
   const dispatch = useDispatch();
+
   const handleNewSession = () => {
     dispatch(startNewSession(user?.id));
   };
 
-  // Function to remove chat
   const handleDeleteChat = async (id) => {
     const result = await dispatch(removeChatSession(id));
     if (removeChatSession.fulfilled.match(result)) {
@@ -37,40 +35,65 @@ export default function Sidebar() {
     if (chat?.id) {
       dispatch(setActiveSession(chat.id));
       navigate(`/chat?id=${chat.id}`);
+      setIsOpen(false); // Close dropdown on mobile
     }
   };
 
-  return (
-    <div className="flex w-full md:w-fit justify-between items-center bg-blend-exclusion dark:bg-blend-color-burn">
-      {/* Sidebar */}
-      <div
-        className={`bg-[#F4F4FA] dark:bg-[#252526] p-5 transition-all md:relative md:w-64 flex flex-col h-screen ${
-          isOpen ? 'fixed left-0 top-0 h-full w-[85%] z-50' : 'hidden md:flex'
-        }`}
-      >
-        {/* Close Button (Small Screens) */}
-        <button
-          className="md:hidden absolute top-4 right-4 text-gray-600"
-          onClick={() => setIsOpen(false)}
-        >
-          <X />
-        </button>
+  const handleNavigateToHome = () => {
+    navigate(`/home`);
+    setIsOpen(false);
+  };
 
+  return (
+    <div className="flex flex-col">
+      {/* Navbar (Mobile View) */}
+      <div className="lg:hidden fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 z-50 bg-white dark:bg-[#252526]">
+        {/* Left Side: Hamburger Menu & Logo */}
+        <div className="flex items-center space-x-3">
+          <button className="text-gray-600" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+          <img src={logo} alt="Logo" className="w-24" />
+        </div>
+
+        {/* Right Side: New Chat Button */}
+        <button
+          className="p-2 bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-sm text-white flex items-center text-[12px]"
+          onClick={handleNewSession}
+        >
+          <PlusIcon className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Sidebar (Desktop View) */}
+      <div
+        className={`hidden lg:flex flex-col w-64 h-screen bg-[#F4F4FA] dark:bg-[#252526] p-5 fixed left-0 top-0 z-40`}
+      >
         {/* Logo */}
-        <div className="flex items-center space-x-2 mb-6">
+        <div className="mb-6">
           <img src={logo} alt="Logo" className="w-30" />
         </div>
 
-        <button
-          className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-sm cursor-pointer text-white flex text-[12px] items-center"
-          onClick={handleNewSession}
-        >
-          <PlusIcon />
-          Add New Chat
-        </button>
+        {/* Buttons */}
+        <div className="flex gap-2">
+          <button
+            className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-sm text-white flex text-[12px] items-center flex-2"
+            onClick={handleNewSession}
+          >
+            <PlusIcon />
+            New Chat
+          </button>
+          <button
+            className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#0b062e] rounded-sm text-white flex text-[12px] items-center flex-1"
+            onClick={handleNavigateToHome}
+          >
+            <Sparkle className="w-[14px] mr-2" />
+            Tools
+          </button>
+        </div>
 
         {/* Chat History */}
-        <div className="flex flex-col flex-1 overflow-y-auto chat-wrap">
+        <div className="flex flex-col flex-1 overflow-y-auto">
           <h2 className="text-gray-400 text-sm mb-3">Recent Chats</h2>
           <ul className="space-y-2">
             {sessions.map((chat) => (
@@ -84,7 +107,9 @@ export default function Sidebar() {
                 onClick={() => handleChatClick(chat)}
               >
                 <span
-                  className={`text-[14px] font-[400] dark:text-text-dark text-[#252526] ${activeSession === chat.id && `text-white`}`}
+                  className={`text-[14px] font-[400] dark:text-text-dark text-[#252526] ${
+                    activeSession === chat.id && `text-white`
+                  }`}
                 >
                   {chat.title}
                 </span>
@@ -102,50 +127,116 @@ export default function Sidebar() {
           </ul>
         </div>
 
-        {/* Theme Toggle Button (Placed at the end) */}
+        {/* Profile Section */}
         <div
-          className="flex items-center rounded-md hover:bg-white dark:hover:bg-background-dark p-[5px]"
+          className="flex items-center rounded-md hover:bg-white dark:hover:bg-background-dark p-[5px] mt-auto cursor-pointer"
           onClick={() => setIsOpenModal(true)}
         >
-          <div class="relative inline-flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-primary-700 rounded-full dark:bg-gray-600">
-            <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+          <div className="relative inline-flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-primary-700 rounded-full dark:bg-gray-600">
+            <span className="font-medium text-gray-600 dark:text-gray-300">
+              {user?.name?.charAt(0) || 'U'}
+            </span>
           </div>
-
           <div className="flex flex-col pl-[10px]">
             <p className="text-black dark:text-white text-[14px]">View Profile</p>
-
             <p className="text-[#73737E] text-[12px]">{user?.email || ''}</p>
           </div>
-
-          {/* <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-primary-700 text-white dark:bg-gray-800 mt-auto"
-          >
-            {theme === 'light' ? <MoonIcon size={20} /> : <SunIcon size={20} />}
-          </button> */}
         </div>
       </div>
 
-      {/* Mobile Toggle Button */}
-      <button className="md:hidden p-2" onClick={() => setIsOpen(true)}>
-        <Menu className="text-gray-600" />
-      </button>
-
-      <button
-        className="md:hidden mx-2 my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-sm cursor-pointer"
-        onClick={handleNewSession}
-      >
-        <PlusIcon className="text-white" />
-      </button>
-
-      {/* Backdrop for small screens */}
+      {/* Dropdown Chat List (Mobile View) */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={() => setIsOpen(false)}
-        ></div>
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-[#00000099]  z-40"
+            onClick={() => setIsOpen(false)}
+          ></div>
+
+          {/* Sidebar Chat List */}
+          <div className="lg:hidden fixed top-0 left-0 h-screen w-[85%] max-w-[500px] bg-white dark:bg-[#252526] shadow-md p-4 z-50 overflow-y-auto flex flex-col">
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 text-gray-600 dark:text-gray-300"
+              onClick={() => setIsOpen(false)}
+            >
+              <X />
+            </button>
+
+            <div className="flex gap-2">
+              <button
+                className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-sm text-white flex text-[12px] items-center"
+                onClick={handleNewSession}
+              >
+                <PlusIcon />
+                New Chat
+              </button>
+              <button
+                className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#0b062e] rounded-sm text-white flex text-[12px] items-center"
+                onClick={handleNavigateToHome}
+              >
+                <Sparkle className="w-[14px] mr-2" />
+                Tools
+              </button>
+            </div>
+
+            <h2 className="text-gray-400 text-sm mb-3">Recent Chats</h2>
+
+            {/* Chat List - This takes remaining space */}
+            <ul className="space-y-2 flex-grow overflow-y-auto">
+              {sessions.map((chat) => (
+                <li
+                  key={chat.id}
+                  className={`group flex items-center justify-between p-2 cursor-pointer transition rounded-md ${
+                    activeSession === chat.id
+                      ? 'bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] text-white'
+                      : 'hover:bg-white dark:hover:bg-background-dark text-black'
+                  }`}
+                  onClick={() => handleChatClick(chat)}
+                >
+                  <span
+                    className={`text-[14px] font-[400] dark:text-text-dark text-[#252526] ${
+                      activeSession === chat.id && `text-white`
+                    }`}
+                  >
+                    {chat.title}
+                  </span>
+                  <div className="opacity-0 group-hover:opacity-100 transition">
+                    <Trash
+                      className="w-4 h-4 text-gray-400 hover:text-red-500 transition"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteChat(chat.id);
+                      }}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            {/* Profile Section - Stays at the Bottom */}
+            <div
+              className="flex items-center rounded-md hover:bg-white dark:hover:bg-background-dark p-[5px] mt-4 cursor-pointer"
+              onClick={() => setIsOpenModal(true)}
+            >
+              <div className="relative inline-flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-primary-700 rounded-full dark:bg-gray-600">
+                <span className="font-medium text-gray-600 dark:text-gray-300">
+                  {user?.name?.charAt(0) || 'U'}
+                </span>
+              </div>
+              <div className="flex flex-col pl-[10px]">
+                <p className="text-black dark:text-white text-[14px]">View Profile</p>
+                <p className="text-[#73737E] text-[12px]">{user?.email || ''}</p>
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
+      {/* Main Content */}
+      <div className="mt-[0px] lg:mt-64 lg:ml-64 p-5">{children}</div>
+
+      {/* Profile Modal */}
       <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
         <ProfileDetail user={user} />
       </Modal>

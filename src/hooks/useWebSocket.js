@@ -7,9 +7,9 @@ export default function useWebSocket(activeSession, dispatch, userID) {
   const reconnecting = useRef(false);
   const [url, setUrl] = useState('');
 
-  const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${activeSession}/regenerate`;
+  const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/llm/${activeSession}/regenerate`;
   const socketUrl = activeSession
-    ? `ws://127.0.0.1:8000/chats/ws/ingredients-checker/${userID}/${activeSession}`
+    ? `ws://127.0.0.1:8000/chats/ws/llm/${userID}/${activeSession}`
     : null;
 
   useEffect(() => {

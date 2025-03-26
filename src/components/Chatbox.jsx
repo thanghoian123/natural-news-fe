@@ -101,7 +101,6 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
     console.log('Selected:', option.value);
   };
   const isNewChat = !activeChat?.history.length;
-  console.log('🚀 ~ Chatbox ~ isNewChat:', isNewChat);
   return (
     <div className="flex flex-col w-full md:w-[100%] lg:w-[80%] h-screen px-[24px] py-4 items-center justify-center">
       {/* Chat messages */}
