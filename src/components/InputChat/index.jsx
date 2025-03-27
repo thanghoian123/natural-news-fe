@@ -27,8 +27,6 @@ function InputChat(props) {
         </p>
 
         <div className="flex items-center text-[#73737E] dark:text-[#e5e5ec]">
-          <Paperclip className="mr-2" />
-
           <button
             ref={sendButtonRef} // Gán ref vào nút
             className="px-4 py-2 text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD]"

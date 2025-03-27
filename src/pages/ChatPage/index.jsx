@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChatBox from '../../components/Chatbox';
-import { sendMessage } from '../../redux/chatSlice';
+import { sendMessage, setActiveSession } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
 import { useLocation, useSearchParams } from 'react-router-dom';
 function ChatPage() {
@@ -61,6 +61,11 @@ function ChatPage() {
     },
     [socketRef, dispatch, chatID, connectWebSocket]
   );
+  useEffect(() => {
+    if (chatID) {
+      dispatch(setActiveSession(chatID));
+    }
+  }, [chatID]);
 
   useEffect(() => {
     if (initialMessage) {

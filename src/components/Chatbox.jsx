@@ -6,6 +6,7 @@ import Dropdown from './Dropdown';
 
 export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   const [input, setInput] = useState('');
+  console.log('🚀 ~ Chatbox ~ input:', input);
   const [isStreaming, setIsStreaming] = useState(false);
   const { sessions, activeSession } = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
@@ -93,13 +94,12 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
 
   const handlePress = (prompt) => {
     setInput(prompt.messages);
-    console.log('🚀 ~ handlePress ~ prompt:', prompt);
   };
 
   const handleSelect = (option) => {
     setInput((pre) => `${pre} ${option.label}`);
-    console.log('Selected:', option.value);
   };
+
   const isNewChat = !activeChat?.history.length;
   return (
     <div className="flex flex-col w-full md:w-[100%] lg:w-[80%] h-screen px-[24px] py-4 items-center justify-center">

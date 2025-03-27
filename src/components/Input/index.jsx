@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CustomInput({ label, helperText, questionLabel, ...props }) {
+function CustomTextarea({ label, helperText, questionLabel, ...props }) {
   return (
     <div className="flex flex-col">
       <label className="font-[700] text-[19px] mb-[10px] dark:text-[#F4F4FA]">{label}</label>
@@ -8,11 +8,11 @@ function CustomInput({ label, helperText, questionLabel, ...props }) {
         {questionLabel}
       </label>
 
-      <input
-        type="text"
+      <textarea
         className="border p-2 w-full mt-1 rounded focus:ring-2 focus:ring-blue-400 dark:border-[#73737E] dark:text-[#F4F4FA]"
+        rows="4"
         {...props}
-      />
+      ></textarea>
       {helperText && (
         <span className="text-[12px] text-[#73737E] dark:text-[#9D9DAB] mt-1">{helperText}</span>
       )}
@@ -20,4 +20,4 @@ function CustomInput({ label, helperText, questionLabel, ...props }) {
   );
 }
 
-export default CustomInput;
+export default CustomTextarea;

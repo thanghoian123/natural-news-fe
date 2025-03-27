@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Menu, X, Trash, PlusIcon, Sparkle } from 'lucide-react'; // Icons
+import { Menu, X, Trash, PlusIcon, Sparkle, TrashIcon, Clock } from 'lucide-react'; // Icons
 import logo from '../assets/logo.svg'; // Adjust path as needed
 import { useDispatch, useSelector } from 'react-redux';
 import { removeChatSession, setActiveSession, startNewSession } from '../redux/chatSlice';
@@ -14,21 +14,34 @@ export default function Sidebar({ children }) {
   const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
+
   const navigate = useNavigate();
   const { sessions, activeSession } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
   const handleNewSession = () => {
-    dispatch(startNewSession(user?.id));
+    dispatch(startNewSession(user?.id)).then(({ payload }) => {
+      const chatID = payload?.id;
+      if (chatID) {
+        navigate(`/chat?id=${chatID}`);
+      }
+    });
   };
 
-  const handleDeleteChat = async (id) => {
-    const result = await dispatch(removeChatSession(id));
-    if (removeChatSession.fulfilled.match(result)) {
-      addToast('Chat deleted successfully!', 'success');
+  const handleDeleteChat = async () => {
+    if (deleteId) {
+      const result = await dispatch(removeChatSession(deleteId));
+      if (removeChatSession.fulfilled.match(result)) {
+        addToast('Chat deleted successfully!', 'success');
+      } else {
+        addToast('Failed to delete chat.', 'error');
+      }
     } else {
-      addToast('Failed to delete chat.', 'error');
+      addToast('Chat is not exist', 'error');
     }
+    setIsOpenConfirmDelete(false);
   };
 
   const handleChatClick = (chat) => {
@@ -42,6 +55,10 @@ export default function Sidebar({ children }) {
   const handleNavigateToHome = () => {
     navigate(`/home`);
     setIsOpen(false);
+  };
+
+  const handleNavigateHistory = () => {
+    navigate(`/history`);
   };
 
   return (
@@ -67,7 +84,7 @@ export default function Sidebar({ children }) {
 
       {/* Sidebar (Desktop View) */}
       <div
-        className={`hidden lg:flex flex-col w-64 h-screen bg-[#F4F4FA] dark:bg-[#252526] p-5 fixed left-0 top-0 z-40`}
+        className={`hidden lg:flex flex-col w-64 h-screen bg-[#F4F4FA] dark:bg-[#1e1e1e] p-5 fixed left-0 top-0 z-40`}
       >
         {/* Logo */}
         <div className="mb-6">
@@ -84,7 +101,7 @@ export default function Sidebar({ children }) {
             New Chat
           </button>
           <button
-            className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#0b062e] rounded-sm text-white flex text-[12px] items-center flex-1"
+            className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center flex-1"
             onClick={handleNavigateToHome}
           >
             <Sparkle className="w-[14px] mr-2" />
@@ -118,13 +135,24 @@ export default function Sidebar({ children }) {
                     className="w-4 h-4 text-gray-400 hover:text-red-500 transition"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteChat(chat.id);
+                      setDeleteId(chat.id);
+                      setIsOpenConfirmDelete(true);
                     }}
                   />
                 </div>
               </li>
             ))}
           </ul>
+        </div>
+
+        <div>
+          <button
+            className="my-4 p-2 bg-gradient-to-r bg-[#3E3E42] text-white rounded-sm flex text-[12px] items-center cursor-pointer"
+            onClick={handleNavigateHistory}
+          >
+            <Clock className="mr-2" />
+            Chat History
+          </button>
         </div>
 
         {/* Profile Section */}
@@ -172,7 +200,7 @@ export default function Sidebar({ children }) {
                 New Chat
               </button>
               <button
-                className="my-4 p-2 bg-gradient-to-r from-[#7765FD] to-[#0b062e] rounded-sm text-white flex text-[12px] items-center"
+                className="my-4 p-2 dark:bg-black rounded-sm text-white flex text-[12px] items-center"
                 onClick={handleNavigateToHome}
               >
                 <Sparkle className="w-[14px] mr-2" />
@@ -206,7 +234,8 @@ export default function Sidebar({ children }) {
                       className="w-4 h-4 text-gray-400 hover:text-red-500 transition"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleDeleteChat(chat.id);
+                        setDeleteId(chat.id);
+                        setIsOpenConfirmDelete(true);
                       }}
                     />
                   </div>
@@ -214,6 +243,15 @@ export default function Sidebar({ children }) {
               ))}
             </ul>
 
+            <div>
+              <button
+                className="my-4 p-2 bg-gradient-to-r bg-[#3E3E42] text-white rounded-sm flex text-[12px] items-center cursor-pointer"
+                onClick={handleNavigateHistory}
+              >
+                <Clock className="mr-2" />
+                Chat History
+              </button>
+            </div>
             {/* Profile Section - Stays at the Bottom */}
             <div
               className="flex items-center rounded-md hover:bg-white dark:hover:bg-background-dark p-[5px] mt-4 cursor-pointer"
@@ -239,6 +277,33 @@ export default function Sidebar({ children }) {
       {/* Profile Modal */}
       <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
         <ProfileDetail user={user} />
+      </Modal>
+
+      <Modal
+        isOpen={isOpenConfirmDelete}
+        title="Delete Chat"
+        onClose={() => setIsOpenConfirmDelete(false)}
+        customActions={
+          <div className="flex justify-start space-x-3 p-4">
+            <button
+              onClick={handleDeleteChat}
+              className=" flex items-center text-white bg-[#c2102b] hover:bg-[#d62d47] px-5 py-2 rounded-lg text-[14px]"
+            >
+              <TrashIcon className="w-[14px] h-[14px] mr-2" />
+              <span>Delete</span>
+            </button>
+            <button
+              onClick={() => setIsOpenConfirmDelete(false)}
+              className="text-gray-700 bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg"
+            >
+              Cancel
+            </button>
+          </div>
+        }
+      >
+        <span className="dark:text-white text-[14px]">
+          Are you sure you want to delete this chat?
+        </span>
       </Modal>
     </div>
   );

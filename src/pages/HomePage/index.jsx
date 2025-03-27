@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Modal from '../../components/Modal';
+import { useSelector } from 'react-redux';
 
 function HomePage() {
   const postList = [
@@ -52,6 +54,12 @@ function HomePage() {
       link: '/chat',
     },
   ];
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSelector((state) => state.user);
+
+  useLayoutEffect(() => {
+    setIsOpen(true);
+  }, []);
 
   return (
     <div className="mt-20 mb-20">
@@ -95,6 +103,35 @@ function HomePage() {
           </Link>
         ))}
       </div>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div>
+          <h1 className="text-[#9D9DAB] dark:text-white text-[38px] font-[700] text-center">
+            You have {user?.reward} questions remaining
+          </h1>
+
+          <p class="text-[#9D9DAB] text-center">
+            You can collect more tokens by clicking the
+            <span class="font-semibold">'redeem tokens' </span> link within{' '}
+            <span class="font-semibold">Natural News </span> and{' '}
+            <span class="font-semibold">Health Ranger Store</span> newsletters and promotions.{' '}
+            <a href="#" class="text-primary font-semibold hover:underline">
+              Learn More
+            </a>
+          </p>
+
+          <div className="flex justify-center">
+            <button
+              className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 
-export default function Modal({ isOpen, onClose, title, children, extraFooter }) {
+export default function Modal({ isOpen, onClose, title, children, extraFooter, customActions }) {
   if (!isOpen) return null; // Ensure modal is only rendered when open
 
   return (
@@ -10,7 +10,7 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter })
       <div className="fixed inset-0 bg-[#11111199] bg-opacity-50 z-50 flex items-center justify-center">
         <div className="relative p-4 w-fit min-w-md max-w-2xl bg-white dark:bg-[#252526] rounded-lg shadow-lg">
           {/* Modal Header */}
-          <div className="flex items-center justify-between p-4">
+          <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
 
             <button
@@ -42,6 +42,8 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter })
               </button>
             </div>
           )}
+
+          {customActions || null}
         </div>
       </div>
     </>

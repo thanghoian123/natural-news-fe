@@ -24,7 +24,7 @@ function ProfileDetail({ user }) {
       ),
     },
     {
-      label: `${user?.reward} messages remaining`,
+      label: `${user?.reward} questions remaining`,
       iconLeft: <Sparkle className="w-[14px]" />,
       rightAction: <span className="text-primary-700 cursor-pointer">How to get more</span>,
     },
@@ -55,16 +55,6 @@ function ProfileDetail({ user }) {
         </a>
       ),
     },
-
-    {
-      id: 3,
-      name: 'HRS Loyalty Program',
-      rightAction: (
-        <a href="#" className="text-primary-700">
-          connect
-        </a>
-      ),
-    },
   ];
   return (
     <div>
@@ -73,7 +63,8 @@ function ProfileDetail({ user }) {
           return (
             <div key={index} className="flex dark:text-white text-sm">
               {i.iconLeft ?? i.iconLeft}
-              <span className="ml-[8px]">{i.label}</span> &bull; {i.rightAction ?? i.rightAction}
+              <span className="ml-[8px]">{i.label}</span> &bull;
+              {i.rightAction ?? i.rightAction}
             </div>
           );
         })}

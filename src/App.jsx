@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ChatPage from './pages/ChatPage';
@@ -7,10 +7,12 @@ import withAuth from './HOCs/withAuth';
 import './index.css';
 import ProtectedLayout from './components/Layout/ProtectLayout';
 import ToolPage from './pages/ToolPage';
+import HistoryPage from './pages/HistoryPage';
 
 const ProtectedChat = withAuth(ChatPage);
 const ProtectedHome = withAuth(HomePage);
 const ProtectedTool = withAuth(ToolPage);
+const ProtectedHistory = withAuth(HistoryPage);
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/chat" element={<ProtectedChat />} />
           <Route path="/home/*" element={<ProtectedHome />} />
           <Route path="/tools/:category" element={<ProtectedTool />} />
+          <Route path="/history" element={<ProtectedHistory />} />
         </Route>
       </Routes>
     </Router>
