@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginAPI, getUserAPI } from '../apis/userApi';
-
+import { get } from 'lodash';
 const initialState = {
   token: localStorage.getItem('token') || null,
-  user: localStorage.getItem('user') || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  error: '',
 };
 
 // Async thunk for logging in
@@ -22,18 +23,23 @@ export const loginUser = createAsyncThunk(
       }
       throw new Error('Login failed');
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.error('Login Error:', error);
+      return rejectWithValue(error?.response?.data?.detail || error.message || 'Login failed');
     }
   }
 );
 
 // Async thunk for fetching user details
-export const fetchUser = createAsyncThunk('user/fetchUser', async (token, { rejectWithValue }) => {
+export const fetchUser = createAsyncThunk('user/fetchUser', async (_, { rejectWithValue }) => {
   try {
     const response = await getUserAPI();
-    return response; // This should be an array, so pick the first user if needed
+    if (!response) throw new Error('User data not found');
+    const user = get(response, '[0]');
+    localStorage.setItem('user', JSON.stringify(user)); // Store user data
+    return user;
   } catch (error) {
-    return rejectWithValue(error.message);
+    console.error('Fetch User Error:', error);
+    return rejectWithValue(error.message || 'Failed to fetch user data');
   }
 });
 
@@ -43,6 +49,7 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     setToken: (state, action) => {
       state.token = action.payload;
@@ -51,24 +58,34 @@ const userSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.error = '';
+
       localStorage.removeItem('token');
-      window.location.href = '/login'; // Force navigation (fixes stale state issues)
+      localStorage.removeItem('user');
+      window.location.href = '/login'; // Redirect to login page
     },
-    clearToken: (state) => {
-      state.token = null;
-      localStorage.removeItem('token');
+    clearError: (state) => {
+      state.error = '';
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
         state.token = action.payload;
+        state.error = ''; // Clear errors on success
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.payload || 'Login failed';
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
-        state.user = action.payload?.[0] || null; // Store first user object
+        state.user = action.payload;
+        state.error = ''; // Clear errors on success
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.error = action.payload || 'Failed to fetch user';
       });
   },
 });
 
-export const { setUser, setToken, logout, clearToken } = userSlice.actions;
+export const { setUser, setToken, logout, clearError } = userSlice.actions;
 export default userSlice.reducer;

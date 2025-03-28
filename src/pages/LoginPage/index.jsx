@@ -4,8 +4,16 @@ import LoginHandler from './handler';
 <image src={logo} />;
 
 function LoginPage() {
-  const { error, email, code, validateEmail, validateCode, handleContinue, isVerifyOTP } =
-    LoginHandler();
+  const {
+    error,
+    email,
+    code,
+    validateEmail,
+    validateCode,
+    handleContinue,
+    isVerifyOTP,
+    userError,
+  } = LoginHandler();
 
   return (
     <div className="p-[30px] w-[100vw]">
@@ -15,12 +23,14 @@ function LoginPage() {
       <div className="grid  grid-cols place-content-center">
         <div className="flex flex-col max-w-[340px] gap-2 items-center">
           <h1 className="text-center text-[38px] font-[700]">
-            {isVerifyOTP ? 'Enter Access Code' : 'Hello There'}
+            {userError ? `We're sorry but...` : isVerifyOTP ? 'Enter Access Code' : 'Hello There'}
           </h1>
           <div className=" text-center text-[14px] font-[400] text-[#2d2d30]">
-            {isVerifyOTP
-              ? `We've sent a six-digit access code to your inbox, please enter it below to continue.`
-              : 'Enter your Natural News or Health Ranger Store newsletter email address to continue.'}
+            {userError
+              ? `We're unable to find an account associated with that email address. Please try another.`
+              : isVerifyOTP
+                ? `We've sent a six-digit access code to your inbox, please enter it below to continue.`
+                : 'Enter your Natural News or Health Ranger Store newsletter email address to continue.'}
           </div>
 
           <div className="flex flex-col gap-2 w-full">

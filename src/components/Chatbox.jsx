@@ -6,7 +6,6 @@ import Dropdown from './Dropdown';
 
 export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   const [input, setInput] = useState('');
-  console.log('🚀 ~ Chatbox ~ input:', input);
   const [isStreaming, setIsStreaming] = useState(false);
   const { sessions, activeSession } = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
@@ -17,7 +16,7 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   const lastBotMessageIndex = activeChat?.history?.length - 1;
 
   const handleSendMessage = () => {
-    if (!input.trim() || !activeSession) return;
+    if (!input.trim()) return;
     onSendMessage(input);
     setIsStreaming(true);
     setInput('');
@@ -33,64 +32,6 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [activeChat?.history]);
-
-  const prompts = [
-    {
-      id: 1,
-      messages: 'Tell me about',
-      label: 'Tell me about',
-      options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
-      ],
-    },
-    {
-      id: 2,
-      messages: 'What are the benefits of',
-      label: 'What are the benefits',
-      options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
-      ],
-    },
-    {
-      id: 3,
-      messages: 'What are the dangers of',
-      label: 'What are the dangers',
-      options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
-      ],
-    },
-    {
-      id: 4,
-      messages: 'Give me advice',
-      label: 'Give me advice about',
-      options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
-      ],
-    },
-    {
-      id: 5,
-      label: 'Summarize',
-      messages: 'Summarize',
-      options: [
-        // { label: 'Dashboard', value: 'dashboard' },
-        // { label: 'Settings', value: 'settings' },
-        // { label: 'Earnings', value: 'earnings' },
-        // { label: 'Sign out', value: 'signout' },
-      ],
-    },
-  ];
 
   const handlePress = (prompt) => {
     setInput(prompt.messages);
@@ -127,21 +68,10 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
         onChange={(e) => setInput(e.target.value)}
         sendMessage={handleSendMessage}
         tokenRemaining={user?.reward || 0}
+        isNewChat={isNewChat}
+        handleSelectPrompt={handleSelect}
+        handlePressPropmt={handlePress}
       />
-      {isNewChat && (
-        <div className="flex justify-around gap-2 mt-4">
-          {prompts.map((p) => (
-            <div className="flex-1">
-              <Dropdown
-                label={p.label}
-                options={p.options}
-                onSelect={handleSelect}
-                onPress={() => handlePress(p)}
-              />
-            </div>
-          ))}
-        </div>
-      )}
 
       <p className="text-center text-[10px] text-[#73737E] mt-2">
         Enoch AI is experimental. Please verify all important information and always consult with

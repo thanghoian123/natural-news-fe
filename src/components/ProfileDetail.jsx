@@ -1,10 +1,11 @@
-import { AtSign, Check, Sparkle, User } from 'lucide-react';
+import { AtSign, Ban, Check, Sparkle, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
 
 function ProfileDetail({ user }) {
+  console.log('🚀 ~ user:', user);
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
   const [selectedEngine, setSelectedEngine] = useState(1);
@@ -39,9 +40,10 @@ function ProfileDetail({ user }) {
     {
       id: 1,
       name: 'Natural News Subscriber',
+      allows: ['Gold', 'Platinum', 'Silver', 'Bronze'],
       rightAction: (
         <a href="#" className="text-primary-700">
-          connect
+          Learn More
         </a>
       ),
     },
@@ -49,9 +51,10 @@ function ProfileDetail({ user }) {
     {
       id: 2,
       name: 'Health Ranger Store Buyer',
+      allows: ['Gold', 'Platinum', 'Silver'],
       rightAction: (
         <a href="#" className="text-primary-700">
-          connect
+          Learn More
         </a>
       ),
     },
@@ -78,14 +81,19 @@ function ProfileDetail({ user }) {
 
       <div className="flex flex-col gap-4">
         {engineList.map((i, index) => {
-          const isSelected = selectedEngine === i.id;
+          const isCheck = i.allows.includes(user.tier);
+          console.log('🚀 ~ {engineList.map ~ isCheck:', isCheck);
 
           return (
             <div key={index} className="flex dark:text-white text-sm">
-              <Check className={`w-[14px] ${isSelected ? `opacity-100` : `opacity-0`}`} />
+              {isCheck ? (
+                <Check className={`w-[14px] opacity-100`} />
+              ) : (
+                <Ban className={`w-[14px] opacity-100 text-[#e0203c]`} />
+              )}
               {/* {isSelected && } */}
               <span className="ml-[8px]">{i.name}</span>
-              {!isSelected && <>&bull; {i.rightAction ?? i.rightAction}</>}
+              {!isCheck && <>&bull; {i.rightAction ?? i.rightAction}</>}
             </div>
           );
         })}

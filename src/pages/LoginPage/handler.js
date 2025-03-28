@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
@@ -9,6 +9,7 @@ function LoginHandler() {
   const [code, setCode] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { error: userError } = useSelector((state) => state.user);
   const { addToast } = useToast();
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
 
@@ -72,6 +73,7 @@ function LoginHandler() {
     handleContinue,
     isVerifyOTP,
     onSendOTP,
+    userError,
   };
 }
 
