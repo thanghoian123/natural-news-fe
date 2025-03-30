@@ -35,14 +35,10 @@ axiosInstance.interceptors.response.use(
     return response.data; // Directly return data
   },
   (error) => {
-    console.error('❌ Response Error:', error.response);
-
     if (error.response) {
       const { status } = error.response;
-
       if (status === 401) {
         console.warn('⚠️ Unauthorized! Clearing token and redirecting to login...');
-
         // Clear token from localStorage on 401 Unauthorized
         localStorage.removeItem('token');
 

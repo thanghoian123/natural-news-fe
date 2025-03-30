@@ -45,8 +45,8 @@ function HistoryPage() {
         available.
       </p>
 
-      <div className="flex flex-col flex-1 overflow-y-auto mt-[32px]">
-        <ul className="space-y-2">
+      <div className="flex flex-col flex-1 overflow-y-auto mt-[32px] items-center">
+        <ul className="space-y-2 w-[500px] max-w-[70%] ">
           {sessions.map((chat) => (
             <li
               key={chat.id}
@@ -56,7 +56,7 @@ function HistoryPage() {
               <span className={`text-[14px] font-[400] dark:text-text-dark text-[#252526]`}>
                 {chat.title}
               </span>
-              <div className="opacity-0 opacity-100 transition">
+              <div className="opacity-100 transition">
                 <Trash
                   className="w-4 h-4 text-gray-400 hover:text-red-500 transition"
                   onClick={(e) => {

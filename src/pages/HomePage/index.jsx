@@ -231,7 +231,7 @@ function HomePage() {
   };
   return (
     <div className="mt-20 mb-20 flex-1 flex flex-col">
-      {user.tier !== 'Bronze' && (
+      {user?.tier !== 'Bronze' && (
         <>
           <h1 className="text-[46px] dark:text-[#E5E5EC]"> Enoch AI VIP Tools</h1>
           <p className="text-[23px] font-[300] text-primary mb-5">

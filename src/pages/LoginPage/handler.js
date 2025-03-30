@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../redux/userSlice';
+import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
 
 function LoginHandler() {
@@ -32,38 +32,23 @@ function LoginHandler() {
 
   const handleContinue = async () => {
     const result = await dispatch(loginUser(email));
-    // const result = await dispatch(removeChatSession(id));
     if (loginUser.fulfilled.match(result)) {
-      addToast('login successfully!', 'success');
-      navigate('/home');
+      setIsVerifyOTP(true);
     } else {
       addToast('Failed to login.', 'error');
     }
-    // if (!error) {
-    //   if (isVerifyOTP) {
-    //     // Verify otp
-    //     // Nagigate to home
-    //     dispatch(loginUser(email));
-    //     // navigate('/home');
-    //   } else {
-    //     // Call Send OTP
-    //     onSendOTP()
-    //       .then((result) => {
-    //         if (result) {
-    //           setIsVerifyOTP(true);
-    //           setEmail('');
-    //         }
-    //       })
-    //       .catch((e) => {
-    //         console.log('🚀 ~ result ~ e:', e);
-    //       });
-    //   }
-    // }
   };
 
-  const onSendOTP = async () => {
-    return;
+  const handleVerifyOtp = async () => {
+    const result = await dispatch(verifyOtp({ email, otp: code }));
+    if (verifyOtp.fulfilled.match(result)) {
+      navigate('/home');
+      addToast('login successfully!', 'success');
+    } else {
+      addToast('Failed to login.', 'error');
+    }
   };
+
   return {
     email,
     code,
@@ -72,8 +57,8 @@ function LoginHandler() {
     validateCode,
     handleContinue,
     isVerifyOTP,
-    onSendOTP,
     userError,
+    handleVerifyOtp,
   };
 }
 

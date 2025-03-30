@@ -51,6 +51,7 @@ const initialState = {
   activeSession: null, // Active chat session ID
   status: 'idle', // Loading state: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null, // Stores error messages
+  isLoading: false,
 };
 
 // ✅ Create a new chat session
@@ -94,8 +95,13 @@ const chatSlice = createSlice({
           session.history.push({ sender, text, createdAt: new Date().toISOString() });
         }
       }
+
+      if (state.isLoading) {
+        state.isLoading = false;
+      }
     },
     regenerateMessage: (state) => {
+      state.isLoading = true;
       const { activeSession } = state;
       const session = state.sessions.find((s) => s.id === activeSession);
 
@@ -123,10 +129,18 @@ const chatSlice = createSlice({
         session.history = [];
       }
     },
+    startLoading: (state) => {
+      state.isLoading = true; // ✅ Start loading
+    },
+    stopLoading: (state) => {
+      state.isLoading = false; // ✅ Stop loading
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(sendMessage.fulfilled, (state, action) => {
+        console.log('🚀 ~ .addCase ~ state:', state);
+        state.isLoading = true;
         const { sessionId, message } = action.payload;
         const session = state.sessions.find((s) => s.id === sessionId);
 
@@ -171,5 +185,7 @@ export const {
   clearChatHistory,
   appendMessage,
   regenerateMessage,
+  startLoading,
+  stopLoading,
 } = chatSlice.actions;
 export default chatSlice.reducer;

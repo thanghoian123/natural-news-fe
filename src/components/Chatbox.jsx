@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import InputChat from './InputChat';
 import { useSelector } from 'react-redux';
 import Bubble from './Bubble';
-import Dropdown from './Dropdown';
 
 export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const { sessions, activeSession } = useSelector((state) => state.chat);
+  const { sessions, activeSession, isLoading } = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
@@ -52,6 +51,7 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
               key={index}
               sender={msg.sender}
               text={msg.text}
+              isLoading={index === lastBotMessageIndex && isLoading}
               isStreaming={
                 index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming
               } // ✅ Stream only last bot message

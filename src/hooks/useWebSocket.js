@@ -6,7 +6,6 @@ export default function useWebSocket(activeSession, dispatch, userID) {
   const messageRef = useRef('');
   const reconnecting = useRef(false);
   const [url, setUrl] = useState('');
-
   const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/llm/${activeSession}/regenerate`;
   const socketUrl = activeSession
     ? `ws://127.0.0.1:8000/chats/ws/llm/${userID}/${activeSession}`
@@ -47,7 +46,6 @@ export default function useWebSocket(activeSession, dispatch, userID) {
 
   const handleIncomingMessage = useCallback(
     (event) => {
-      console.log('📩 Received:', event);
       messageRef.current = event;
 
       const streamNextChunk = () => {

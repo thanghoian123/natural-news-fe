@@ -4,8 +4,8 @@ export const sendOTP = (phoneNumber) => {
   return axiosInstance.post('/send-otp', { phone: phoneNumber });
 };
 
-export const verifyOTP = (phoneNumber, otpCode) => {
-  return axiosInstance.post('/verify-otp', { phone: phoneNumber, otp: otpCode });
+export const verifyOtpAPI = (email, otpCode) => {
+  return axiosInstance.post(`/users/verify-login?email=${email}&session_password=${otpCode}`);
 };
 
 export const loginAPI = (email) => {

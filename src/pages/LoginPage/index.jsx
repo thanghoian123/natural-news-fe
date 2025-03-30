@@ -11,6 +11,7 @@ function LoginPage() {
     validateEmail,
     validateCode,
     handleContinue,
+    handleVerifyOtp,
     isVerifyOTP,
     userError,
   } = LoginHandler();
@@ -77,7 +78,7 @@ function LoginPage() {
 
           <button
             className="px-4 py-2 w-full text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD]"
-            onClick={handleContinue}
+            onClick={() => (isVerifyOTP ? handleVerifyOtp() : handleContinue())}
           >
             {isVerifyOTP ? 'Login' : 'Continue'}
           </button>

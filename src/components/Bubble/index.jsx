@@ -3,8 +3,9 @@ import { Copy, RefreshCw } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useToast } from '../../contexts/ToastContext';
+import ChatSkeleton from './ChatSkeleton';
 
-function Bubble({ sender, text, isStreaming, onRegenerateMessage }) {
+function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
   const [streamedText, setStreamedText] = useState('');
   const [index, setIndex] = useState(0);
   const [copied, setCopied] = useState(false);
@@ -48,7 +49,11 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage }) {
         }`}
         style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
       >
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamedText}</ReactMarkdown>
+        {isLoading ? (
+          <ChatSkeleton />
+        ) : (
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamedText}</ReactMarkdown>
+        )}
       </div>
       {sender !== 'user' && (
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2 dark:text-text-dark text-black">
