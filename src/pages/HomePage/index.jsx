@@ -119,7 +119,7 @@ function HomePage() {
   };
 
   const renderContentByTier = () => {
-    const tier = user.tier;
+    const tier = user?.tier;
 
     if (tier === 'Bronze') {
       return (

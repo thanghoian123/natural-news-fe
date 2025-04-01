@@ -71,9 +71,8 @@ function InputChat(props) {
     },
   ];
   return (
-    <>
-      {' '}
-      <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col w-full rounded-2xl border-primary border-1 border-primary">
+    <div className="w-full md:w-[80%] lg:w-[60%] m-auto">
+      <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col  rounded-2xl border-primary border-1 border-primary ">
         <input
           type="text"
           className="flex-11 p-2 text-sm border-b border-gray-200 outline-none pb-[24px] w-full text-[#73737E]"
@@ -105,7 +104,7 @@ function InputChat(props) {
         </div>
       </div>
       {isNewChat && (
-        <div className="flex justify-around gap-2 mt-4">
+        <div className="flex justify-around gap-2 mt-4 flex-wrap">
           {prompts.map((p) => (
             <div className="flex-1">
               <Dropdown
@@ -118,7 +117,7 @@ function InputChat(props) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
