@@ -71,7 +71,7 @@ function HomePage() {
   }, []);
 
   const handleUpgrade = () => {
-    setIsOpenUpgrade(true);
+    // setIsOpenUpgrade(true);
   };
 
   const renderContentByTier = () => {

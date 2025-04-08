@@ -94,9 +94,9 @@ function InputChat(props) {
           </p>
 
           <div className="flex items-stretch gap-2 text-[#73737E] dark:text-[#e5e5ec]">
-            <div className="flex-1">
+            {/* <div className="flex-1">
               <RadioDropdown />
-            </div>
+            </div> */}
             <button
               ref={sendButtonRef}
               className="flex-1 px-4 py-2 text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD]"
