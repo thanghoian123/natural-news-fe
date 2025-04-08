@@ -42,7 +42,7 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
 
   const isNewChat = !activeChat?.history.length;
   return (
-    <div className="flex flex-col w-full md:w-[100%] lg:w-[80%] h-screen px-[24px] py-4 items-center justify-center">
+    <div className="flex flex-col w-full md:w-[100%] lg:w-[90%] h-screen px-[24px] py-4 items-center justify-center">
       {/* Chat messages */}
       {!isNewChat && (
         <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full">
@@ -51,10 +51,10 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
               key={index}
               sender={msg.sender}
               text={msg.text}
-              isLoading={index === lastBotMessageIndex && isLoading}
+              isLoading={index === lastBotMessageIndex && isLoading && msg.sender === 'assistant'}
               isStreaming={
                 index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming
-              } // ✅ Stream only last bot message
+              }
               onRegenerateMessage={onRegenerateMessage}
             />
           ))}

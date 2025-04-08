@@ -24,6 +24,8 @@
   --color-primary-700: oklch(0.4 0.45 280);
   --color-primary: #7765fd;
   --color-text-dark: #f4f4fa;
+  --color-text-light: #73737e;
+
   --color-text-error: #e0203c;
   --color-background-dark: #2d2d30;
 

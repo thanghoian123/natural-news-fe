@@ -52,6 +52,8 @@ const initialState = {
   status: 'idle', // Loading state: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null, // Stores error messages
   isLoading: false,
+  toolName: '', // New state for tool name
+  serviceName: 'llm', // New state for service name
 };
 
 // ✅ Create a new chat session
@@ -135,11 +137,17 @@ const chatSlice = createSlice({
     stopLoading: (state) => {
       state.isLoading = false; // ✅ Stop loading
     },
+    // Add reducers to handle the new state variables
+    setToolName: (state, action) => {
+      state.toolName = action.payload; // Set tool name
+    },
+    setServiceName: (state, action) => {
+      state.serviceName = action.payload; // Set service name
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(sendMessage.fulfilled, (state, action) => {
-        console.log('🚀 ~ .addCase ~ state:', state);
         state.isLoading = true;
         const { sessionId, message } = action.payload;
         const session = state.sessions.find((s) => s.id === sessionId);
@@ -187,5 +195,7 @@ export const {
   regenerateMessage,
   startLoading,
   stopLoading,
+  setToolName,
+  setServiceName,
 } = chatSlice.actions;
 export default chatSlice.reducer;
