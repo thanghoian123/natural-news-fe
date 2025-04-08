@@ -91,10 +91,17 @@ function ChatPage() {
   useEffect(() => {
     if (initialMessage) {
       handleSendMessage(initialMessage);
+      navigate(location.pathname + location.search, { replace: true, state: {} });
     }
   }, [initialMessage]);
 
-  return <ChatBox onSendMessage={handleSendMessage} onRegenerateMessage={onRegenerateMessage} />;
+  return (
+    <ChatBox
+      onSendMessage={handleSendMessage}
+      onRegenerateMessage={onRegenerateMessage}
+      activeSession={chatID}
+    />
+  );
 }
 
 export default ChatPage;

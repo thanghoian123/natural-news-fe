@@ -3,10 +3,10 @@ import InputChat from './InputChat';
 import { useSelector } from 'react-redux';
 import Bubble from './Bubble';
 
-export default function Chatbox({ onSendMessage, onRegenerateMessage }) {
+export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSession }) {
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const { sessions, activeSession, isLoading } = useSelector((state) => state.chat);
+  const { sessions, isLoading } = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);

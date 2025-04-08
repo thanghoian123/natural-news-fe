@@ -57,7 +57,7 @@ const mockList = [
   {
     title: 'Chat with Enoch AI',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Chat.jpg',
-    link: '/chat',
+    link: `/chat?_=${Date.now()}`,
     tierAllow: ['Gold', 'Platinum'],
   },
 ];
