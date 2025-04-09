@@ -5,21 +5,21 @@ import ToolItem from '../../components/Toolitem';
 const mockList = [
   {
     title: 'Chat with Enoch AI',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Chat.jpg',
+    imageSrc: 'src\\assets\\Tool-Chat.jpg',
     link: `/chat?_=${Date.now()}`,
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
     toolName: 'chat-with-enoch',
   },
   {
     title: 'Enoch Text Summarizer',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Summary.jpg',
+    imageSrc: 'src\\assets\\Tool-Summary.jpg',
     link: '/tools/summarizer',
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
     toolName: 'text-summarizer',
   },
   {
     title: 'Daily Meal Planner',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Daily-Meal-Planner.jpg',
+    imageSrc: 'src\\assets\\Tool-Daily-Meal-Planner.jpg',
     link: '/tools/planner',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
     toolName: 'daily-meal-planner',
@@ -27,7 +27,7 @@ const mockList = [
   {
     title: 'Natural Supplements & Ingredients Finder',
     imageSrc:
-      'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Supplements-and-Ingredients.jpg',
+      'src\\assets\\Tool-Supplements-and-Ingredients.jpg',
     link: '/tools/finder',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
     toolName: 'natural-supplements-ingredients-finder',
@@ -35,14 +35,14 @@ const mockList = [
   {
     title: 'Simplify Scientific Journals',
     imageSrc:
-      'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Simplify-Scientific-Journals.jpg',
+      'src\\assets\\Tool-Simplify-Scientific-Journals.jpg',
     link: '/tools/journals',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
     toolName: 'journals',
   },
   {
     title: 'Grocery Shopping Coach',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Grocery-Shopping-Coach.jpg',
+    imageSrc: 'src\\assets\\Tool-Grocery-Shopping-Coach.jpg',
     link: '/tools/grocery',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'grocery-shopping-coach',
@@ -50,28 +50,28 @@ const mockList = [
   {
     title: 'Personalized Wellness Plan',
     imageSrc:
-      'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Personalized-Wellness-Plan.jpg',
+      'src\\assets\\Tool-Personalized-Wellness-Plan.jpg',
     link: '/tools/wellness',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'personalized-wellness-plan',
   },
   {
     title: 'Longevity Roadmap',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Longevity-Roadmap.jpg',
+    imageSrc: 'src\\assets\\Tool-Longevity-Roadmap.jpg',
     link: '/tools/longevity',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'longevity-roadmap',
   },
   {
     title: 'Master Gardener',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Master-Gardener.jpg',
+    imageSrc: 'src\\assets\\Tool-Master-Gardener.jpg',
     link: '/tools/gardener',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'master-gardener',
   },
   {
     title: 'Ingredient Checker',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Ingredient-Checker.jpg',
+    imageSrc: 'src\\assets\\Tool-Ingredient-Checker.jpg',
     link: '/chat?type=ingredient',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'ingredients-checker',

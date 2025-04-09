@@ -101,15 +101,13 @@ export default function Sidebar({ children }) {
             <PlusIcon />
             New Chat
           </button>
-          {!isBronze && (
-            <button
-              className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center flex-1"
-              onClick={handleNavigateToHome}
-            >
-              <Sparkle className="w-[14px] mr-2" />
-              Tools
-            </button>
-          )}
+          <button
+            className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center flex-1"
+            onClick={handleNavigateToHome}
+          >
+            <Sparkle className="w-[14px] mr-2" />
+            Tools
+          </button>
         </div>
 
         {/* Chat History */}
@@ -202,15 +200,13 @@ export default function Sidebar({ children }) {
                 <PlusIcon />
                 New Chat
               </button>
-              {!isBronze && (
-                <button
-                  className="my-4 p-2 dark:bg-black rounded-sm text-white flex text-[12px] items-center"
-                  onClick={handleNavigateToHome}
-                >
-                  <Sparkle className="w-[14px] mr-2" />
-                  Tools
-                </button>
-              )}
+              <button
+                className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center flex-1"
+                onClick={handleNavigateToHome}
+              >
+                <Sparkle className="w-[14px] mr-2" />
+                Tools
+              </button>
             </div>
 
             <h2 className="text-gray-400 text-sm mb-3">Recent Chats</h2>
