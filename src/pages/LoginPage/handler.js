@@ -9,7 +9,7 @@ function LoginHandler() {
   const [code, setCode] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error: userError } = useSelector((state) => state.user);
+  const { error: userError, loading } = useSelector((state) => state.user);
   const { addToast } = useToast();
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
 
@@ -59,6 +59,7 @@ function LoginHandler() {
     isVerifyOTP,
     userError,
     handleVerifyOtp,
+    loading,
   };
 }
 

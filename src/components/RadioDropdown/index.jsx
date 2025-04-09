@@ -1,9 +1,9 @@
 import { Settings } from 'lucide-react';
 import React, { useState, useRef, useEffect } from 'react';
 
-const RadioDropdown = () => {
+const RadioDropdown = ({ onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('option1');
+  const [selected, setSelected] = useState(value);
   const dropdownRef = useRef(null);
 
   const options = [
@@ -13,7 +13,7 @@ const RadioDropdown = () => {
       subLabel: 'Uses standard AI reasoning to generate answer',
     },
     {
-      value: 'Reasoning Model',
+      value: 'reasoning',
       label: 'Reasoning Model',
       subLabel: 'Uses a human-like `thought process` to generate answer',
     },
@@ -54,6 +54,7 @@ const RadioDropdown = () => {
                     value={option.value}
                     checked={selected === option.value}
                     onChange={() => {
+                      onChange(option.value);
                       setSelected(option.value);
                       setIsOpen(false);
                     }}

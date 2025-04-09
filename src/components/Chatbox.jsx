@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import InputChat from './InputChat';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Bubble from './Bubble';
+import { setModelType } from '../redux/chatSlice';
 
 export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSession }) {
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const { sessions, isLoading } = useSelector((state) => state.chat);
+  const { sessions, isLoading, modelType } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
@@ -40,6 +42,10 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
     setInput((pre) => `${pre} ${option.label}`);
   };
 
+  const handleChangeModel = (option) => {
+    dispatch(setModelType(option));
+  };
+
   const isNewChat = !activeChat?.history.length;
   return (
     <div className="flex flex-col w-full md:w-[100%] lg:w-[90%] h-screen px-[24px] py-4 items-center justify-center">
@@ -71,6 +77,8 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
         isNewChat={isNewChat}
         handleSelectPrompt={handleSelect}
         handlePressPropmt={handlePress}
+        handleChangeModel={handleChangeModel}
+        modelType={modelType}
       />
 
       <p className="text-center text-[10px] text-[#73737E] mt-2">

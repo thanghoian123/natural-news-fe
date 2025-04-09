@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { Lock } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { setToolName } from '../../redux/chatSlice';
 
 const ToolItem = ({ post, index, userTier, onUpgrade }) => {
   const { tierAllow } = post;
   const isDisabled = !tierAllow.includes(userTier);
-
+  const dispatch = useDispatch();
   const handleUpgradeClick = () => {
     if (isDisabled && onUpgrade) {
       onUpgrade(); // Call the upgrade action passed from the parent
@@ -21,7 +23,9 @@ const ToolItem = ({ post, index, userTier, onUpgrade }) => {
           : 'lg:basis-[calc(33.333%-1rem)] basis-[calc(50%-1rem)]'
       } overflow-hidden group block rounded-lg ${isDisabled ? 'cursor-not-allowed' : ''}`}
       key={index}
-      onClick={(e) => isDisabled && e.preventDefault()}
+      onClick={(e) => {
+        isDisabled ? e.preventDefault() : dispatch(setToolName(post.toolName));
+      }}
     >
       {/* Lock Icon for Disabled Items */}
       {isDisabled && (

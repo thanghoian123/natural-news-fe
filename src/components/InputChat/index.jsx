@@ -12,6 +12,8 @@ function InputChat(props) {
     isNewChat,
     handleSelectPrompt,
     handlePressPropmt,
+    handleChangeModel,
+    modelType,
   } = props;
   const sendButtonRef = useRef(null);
   const prompts = [
@@ -71,6 +73,7 @@ function InputChat(props) {
       ],
     },
   ];
+
   return (
     <div className="w-full md:w-[80%] lg:w-[60%] m-auto">
       <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col  rounded-2xl border-primary border-1 border-primary ">
@@ -94,9 +97,9 @@ function InputChat(props) {
           </p>
 
           <div className="flex items-stretch gap-2 text-[#73737E] dark:text-[#e5e5ec]">
-            {/* <div className="flex-1">
-              <RadioDropdown />
-            </div> */}
+            <div className="flex-1">
+              <RadioDropdown onChange={handleChangeModel} value={modelType} />
+            </div>
             <button
               ref={sendButtonRef}
               className="flex-1 px-4 py-2 text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD]"

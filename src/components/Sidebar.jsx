@@ -161,7 +161,7 @@ export default function Sidebar({ children }) {
         {/* Profile Section */}
         <div
           className="flex items-center rounded-md hover:bg-white dark:hover:bg-background-dark p-[5px] mt-auto cursor-pointer"
-          // onClick={() => setIsOpenModal(true)}
+          onClick={() => setIsOpenModal(true)}
         >
           <div className="relative inline-flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-primary-700 rounded-full dark:bg-gray-600">
             <span className="font-medium text-gray-600 dark:text-gray-300">

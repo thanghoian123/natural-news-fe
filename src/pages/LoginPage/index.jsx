@@ -14,6 +14,7 @@ function LoginPage() {
     handleVerifyOtp,
     isVerifyOTP,
     userError,
+    loading,
   } = LoginHandler();
 
   return (
@@ -77,12 +78,14 @@ function LoginPage() {
           </div>
 
           <button
-            className="px-4 py-2 w-full text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD]"
+            className={`px-4 py-2 w-full text-white bg-gradient-to-r from-[#7765FD] to-[#5d4ad1] rounded-lg shadow-md hover:opacity-90 focus:ring-2 focus:ring-[#7765FD] ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             onClick={() => (isVerifyOTP ? handleVerifyOtp() : handleContinue())}
+            disabled={loading}
           >
-            {isVerifyOTP ? 'Login' : 'Continue'}
+            {loading ? 'Loading...' : isVerifyOTP ? 'Login' : 'Continue'}
           </button>
-
           {isVerifyOTP && (
             <p href="#" className="text-[#7765FD] hover:underline">
               Resend Code

@@ -1,25 +1,25 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { appendMessage, regenerateMessage } from '../redux/chatSlice';
 import { useSelector } from 'react-redux';
+const wsUrl = import.meta.env.VITE_WS_URL;
 
-export default function useWebSocket(activeSession, dispatch, userID) {
+export default function useWebSocket({ activeSession, dispatch, userID }) {
   const socketRef = useRef(null);
   const messageRef = useRef('');
   const reconnecting = useRef(false);
   const [url, setUrl] = useState('');
-  const { serviceName } = useSelector((state) => state.chat);
+  const { modelType, toolName } = useSelector((state) => state.chat);
+  const getSocketUrl = (chatId, userId, modelType, toolName) =>
+    chatId ? `${wsUrl}/${modelType}/${userId}/${chatId}/${toolName}` : null;
 
-  const getSocketUrl = (session, user, service) =>
-    session ? `ws://127.0.0.1:8000/chats/ws/${service}/${user}/${session}` : null;
-
-  const regenerateUrl = `ws://127.0.0.1:8000/chats/ws/${serviceName}/${activeSession}/regenerate`;
-  const socketUrl = getSocketUrl(activeSession, userID, serviceName);
+  const socketUrl = getSocketUrl(activeSession, userID, modelType, toolName);
+  const regenerateUrl = `${socketUrl}/regenerate`;
 
   useEffect(() => {
-    if (activeSession && userID && serviceName) {
+    if (activeSession && userID) {
       setUrl(socketUrl);
     }
-  }, [activeSession, userID, serviceName]);
+  }, [activeSession, userID, modelType, toolName]);
 
   useEffect(() => {
     if (url) connectWebSocket(url);

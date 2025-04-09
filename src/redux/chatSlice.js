@@ -52,8 +52,8 @@ const initialState = {
   status: 'idle', // Loading state: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null, // Stores error messages
   isLoading: false,
-  toolName: '', // New state for tool name
-  serviceName: 'llm', // New state for service name
+  toolName: 'chat-with-enoch', // New state for tool name
+  modelType: 'default', // New state for service name
 };
 
 // ✅ Create a new chat session
@@ -141,8 +141,8 @@ const chatSlice = createSlice({
     setToolName: (state, action) => {
       state.toolName = action.payload; // Set tool name
     },
-    setServiceName: (state, action) => {
-      state.serviceName = action.payload; // Set service name
+    setModelType: (state, action) => {
+      state.modelType = action.payload; // Set service name
     },
   },
   extraReducers: (builder) => {
@@ -196,6 +196,6 @@ export const {
   startLoading,
   stopLoading,
   setToolName,
-  setServiceName,
+  setModelType,
 } = chatSlice.actions;
 export default chatSlice.reducer;

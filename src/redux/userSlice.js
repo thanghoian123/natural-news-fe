@@ -7,6 +7,7 @@ const initialState = {
   user: JSON.parse(localStorage.getItem('user')) || null,
   otpSent: false,
   error: '',
+  loading: false, // ← Add this
 };
 
 // Async thunk for logging in (sends OTP)
@@ -85,21 +86,35 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = '';
+      })
       .addCase(loginUser.fulfilled, (state) => {
         state.otpSent = true;
+        state.loading = false;
         state.error = '';
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload || 'Failed to send OTP';
+      })
+
+      .addCase(verifyOtp.pending, (state) => {
+        state.loading = true;
+        state.error = '';
       })
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.token = action.payload;
-        state.otpSent = false; // Reset OTP state after verification
+        state.otpSent = false;
+        state.loading = false;
         state.error = '';
       })
       .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload || 'OTP verification failed';
       })
+
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.error = '';

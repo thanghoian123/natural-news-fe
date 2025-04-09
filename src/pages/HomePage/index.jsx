@@ -8,18 +8,21 @@ const mockList = [
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Chat.jpg',
     link: `/chat?_=${Date.now()}`,
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
+    toolName: 'chat-with-enoch',
   },
   {
     title: 'Enoch Text Summarizer',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Summary.jpg',
     link: '/tools/summarizer',
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
+    toolName: 'text-summarizer',
   },
   {
     title: 'Daily Meal Planner',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Daily-Meal-Planner.jpg',
     link: '/tools/planner',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
+    toolName: 'daily-meal-planner',
   },
   {
     title: 'Natural Supplements & Ingredients Finder',
@@ -27,6 +30,7 @@ const mockList = [
       'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Supplements-and-Ingredients.jpg',
     link: '/tools/finder',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
+    toolName: 'natural-supplements-ingredients-finder',
   },
   {
     title: 'Simplify Scientific Journals',
@@ -34,12 +38,14 @@ const mockList = [
       'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Simplify-Scientific-Journals.jpg',
     link: '/tools/journals',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
+    toolName: 'journals',
   },
   {
     title: 'Grocery Shopping Coach',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Grocery-Shopping-Coach.jpg',
     link: '/tools/grocery',
     tierAllow: ['Gold', 'Platinum'],
+    toolName: 'grocery-shopping-coach',
   },
   {
     title: 'Personalized Wellness Plan',
@@ -47,25 +53,29 @@ const mockList = [
       'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Personalized-Wellness-Plan.jpg',
     link: '/tools/wellness',
     tierAllow: ['Gold', 'Platinum'],
+    toolName: 'personalized-wellness-plan',
   },
   {
     title: 'Longevity Roadmap',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Longevity-Roadmap.jpg',
     link: '/tools/longevity',
     tierAllow: ['Gold', 'Platinum'],
+    toolName: 'longevity-roadmap',
   },
   {
     title: 'Master Gardener',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Master-Gardener.jpg',
     link: '/tools/gardener',
     tierAllow: ['Gold', 'Platinum'],
+    toolName: 'master-gardener',
   },
   {
     title: 'Ingredient Checker',
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Ingredient-Checker.jpg',
     link: '/chat?type=ingredient',
     tierAllow: ['Gold', 'Platinum'],
-  }
+    toolName: 'ingredients-checker',
+  },
 ];
 function HomePage() {
   const { user } = useSelector((state) => state.user);
@@ -77,7 +87,7 @@ function HomePage() {
   }, []);
 
   const handleUpgrade = () => {
-    // setIsOpenUpgrade(true);
+    setIsOpenUpgrade(true);
   };
 
   const renderContentByTier = () => {

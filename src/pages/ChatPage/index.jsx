@@ -1,28 +1,21 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChatBox from '../../components/Chatbox';
-import {
-  sendMessage,
-  setActiveSession,
-  setServiceName,
-  startNewSession,
-} from '../../redux/chatSlice';
+import { sendMessage, setActiveSession, startNewSession } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 function ChatPage() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [searchParams] = useSearchParams();
-  const type = searchParams.get('type'); // "ingredient"
   const navigate = useNavigate();
-  useEffect(() => {
-    if (type === 'ingredient') {
-      dispatch(setServiceName('ingredients-checker'));
-    }
-  }, [type, dispatch]);
   const chatID = searchParams.get('id'); // "JohnDoe"
   const { reconnecting, socketRef, connectWebSocket, onRegenerateMessage, socketUrl } =
-    useWebSocket(chatID, dispatch, user?.id);
+    useWebSocket({
+      activeSession: chatID,
+      dispatch,
+      userID: user?.id,
+    });
   const location = useLocation();
   const initialMessage = location.state?.initialMessage || '';
 
