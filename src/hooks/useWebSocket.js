@@ -44,7 +44,6 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
         messageRef.current = messageRef.current.slice(10);
 
         if (chunk) {
-          console.log('🚀 Streaming:', chunk);
           dispatch(appendMessage({ sessionId: activeSession, text: chunk, sender: 'assistant' }));
           setTimeout(streamNextChunk, 500);
         }
