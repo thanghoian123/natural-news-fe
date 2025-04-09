@@ -2,6 +2,7 @@ export const TYPE = {
   input: 'input',
   checkbox: 'checkbox',
   textarea: 'textarea',
+  dropdown: 'dropdown',
 };
 
 export const dataFormStructure = [

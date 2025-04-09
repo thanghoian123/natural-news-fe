@@ -6,7 +6,7 @@ import { logout } from '../redux/userSlice';
 
 function ProfileDetail({ user }) {
   const dispatch = useDispatch();
-  const { theme } = useTheme(); // toggleTheme
+  const { theme, toggleTheme } = useTheme();
   const dataMapping = [
     {
       label: user?.email || '',
@@ -118,13 +118,13 @@ function ProfileDetail({ user }) {
         <p className="text-[12px"> Theme:</p>
         <button
           className={`px-2 text-[#3e3e42] dark:text-white rounded-sm cursor-pointer flex text-[12px] items-center ${theme === 'light' && 'bg-primary-700 text-white'}`}
-          // onClick={toggleTheme}
+          onClick={toggleTheme}
         >
           light
         </button>
         <button
           className={` px-2 text-[#3e3e42] dark:text-white rounded-sm cursor-pointer flex text-[12px] items-center ${theme === 'dark' && 'bg-primary-700 text-white'}`}
-          // onClick={toggleTheme}
+          onClick={toggleTheme}
         >
           dark
         </button>

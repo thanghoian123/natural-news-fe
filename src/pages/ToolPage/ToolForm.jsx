@@ -6,7 +6,8 @@ import CustomInput from '../../components/Input';
 import { Sparkles } from 'lucide-react';
 import { TYPE, dataFormStructure } from './mocks';
 import CheckboxGroup from '../../components/Checkbox';
-import CustomTextarea from '../../components/Input';
+import CustomTextarea from '../../components/Textarea';
+import Dropdown from '../../components/Common/Dropdown';
 
 function ToolForm({ category }) {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function ToolForm({ category }) {
   const { user } = useSelector((state) => state.user);
   const [selectedValues, setSelectedValues] = useState([]);
   const findStructure = dataFormStructure.find((i) => i.key === category);
+
   const [formData, setFormData] = useState(() =>
     (findStructure.fields || []).reduce((acc, item) => ({ ...acc, [item.key]: item.default }), {})
   );
@@ -80,6 +82,18 @@ function ToolForm({ category }) {
                   questionLabel={questionLabel}
                   value={formData[key]}
                   onChange={(e) => handleChange(key, e.target.value)}
+                />
+              ) : type === TYPE.dropdown ? (
+                <Dropdown
+                  label={formData[key] || 'Select an option'}
+                  options={[
+                    '1 sentence',
+                    '1 paragraph',
+                    '2-3 paragraphs',
+                    '3-5 paragraphs',
+                    '5-10 paragraphs',
+                  ]}
+                  onSelect={(value) => handleChange(key, value)}
                 />
               ) : (
                 <CustomTextarea
