@@ -573,4 +573,29 @@ export const dataFormStructure = [
       },
     ],
   },
+  {
+    id: 8,
+    key: 'summarizer',
+    title: 'Enoch Text Summarizer',
+    subTitle:
+      'Type or copy/paste the text to summarize in the text box below.',
+    fields: [
+      {
+        label: 'Summary Length',
+        key: 'Summary Length',
+        default: 'N/A',
+        questionLabel: 'Select how long the final summary should be. or copy/paste the text of the journal in the text box below.',
+        helperText: '',
+        type: TYPE.dropdown,
+      },
+      {
+        label: 'What would you like to summarize?',
+        key: 'What would you like to summarize?',
+        default: 'N/A',
+        questionLabel: '',
+        helperText: 'Note: The longer the text, the longer it may take to complete a summary.',
+        type: TYPE.textarea,
+      },
+    ],
+  },
 ];

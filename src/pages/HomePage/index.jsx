@@ -4,16 +4,22 @@ import { useSelector } from 'react-redux';
 import ToolItem from '../../components/Toolitem';
 const mockList = [
   {
-    title: 'Daily Meal Planner',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Daily-Meal-Planner.jpg',
-    link: '/tools/planner',
+    title: 'Chat with Enoch AI',
+    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Chat.jpg',
+    link: `/chat?_=${Date.now()}`,
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
   },
   {
-    title: 'Grocery Shopping Coach',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Grocery-Shopping-Coach.jpg',
-    link: '/tools/grocery',
+    title: 'Enoch Text Summarizer',
+    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Summary.jpg',
+    link: '/tools/summarizer',
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
+  },
+  {
+    title: 'Daily Meal Planner',
+    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Daily-Meal-Planner.jpg',
+    link: '/tools/planner',
+    tierAllow: ['Gold', 'Platinum', 'Silver'],
   },
   {
     title: 'Natural Supplements & Ingredients Finder',
@@ -23,17 +29,24 @@ const mockList = [
     tierAllow: ['Gold', 'Platinum', 'Silver'],
   },
   {
+    title: 'Simplify Scientific Journals',
+    imageSrc:
+      'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Simplify-Scientific-Journals.jpg',
+    link: '/tools/journals',
+    tierAllow: ['Gold', 'Platinum', 'Silver'],
+  },
+  {
+    title: 'Grocery Shopping Coach',
+    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Grocery-Shopping-Coach.jpg',
+    link: '/tools/grocery',
+    tierAllow: ['Gold', 'Platinum'],
+  },
+  {
     title: 'Personalized Wellness Plan',
     imageSrc:
       'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Personalized-Wellness-Plan.jpg',
     link: '/tools/wellness',
-    tierAllow: ['Gold', 'Platinum', 'Silver'],
-  },
-  {
-    title: 'Master Gardener',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Master-Gardener.jpg',
-    link: '/tools/gardener',
-    tierAllow: ['Gold', 'Platinum', 'Silver'],
+    tierAllow: ['Gold', 'Platinum'],
   },
   {
     title: 'Longevity Roadmap',
@@ -42,10 +55,9 @@ const mockList = [
     tierAllow: ['Gold', 'Platinum'],
   },
   {
-    title: 'Simplify Scientific Journals',
-    imageSrc:
-      'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Simplify-Scientific-Journals.jpg',
-    link: '/tools/journals',
+    title: 'Master Gardener',
+    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Master-Gardener.jpg',
+    link: '/tools/gardener',
     tierAllow: ['Gold', 'Platinum'],
   },
   {
@@ -53,13 +65,7 @@ const mockList = [
     imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Ingredient-Checker.jpg',
     link: '/chat?type=ingredient',
     tierAllow: ['Gold', 'Platinum'],
-  },
-  {
-    title: 'Chat with Enoch AI',
-    imageSrc: 'https://demo.naturalnews.com/vipai/Assets/Images/Tool-Chat.jpg',
-    link: `/chat?_=${Date.now()}`,
-    tierAllow: ['Gold', 'Platinum'],
-  },
+  }
 ];
 function HomePage() {
   const { user } = useSelector((state) => state.user);
