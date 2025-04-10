@@ -13,7 +13,7 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
     chatId ? `${wsUrl}/${modelType}/${userId}/${chatId}/${toolName}` : null;
 
   const socketUrl = getSocketUrl(activeSession, userID, modelType, toolName);
-  const regenerateUrl = `${socketUrl}/regenerate`;
+  const regenerateUrl = `${socketUrl}?regenerate=regenerate`;
 
   useEffect(() => {
     if (activeSession && userID) {

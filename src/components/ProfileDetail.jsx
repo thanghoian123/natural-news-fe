@@ -3,6 +3,7 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
+import { deleteMyChatHistory } from '../redux/chatSlice';
 
 function ProfileDetail({ user }) {
   const dispatch = useDispatch();
@@ -105,8 +106,8 @@ function ProfileDetail({ user }) {
           kept.
         </p>
         <button
+          onClick={() => dispatch(deleteMyChatHistory())}
           className="my-4 p-2 bg-[#E0203C] rounded-sm cursor-pointer text-white flex text-[12px] items-center"
-          onClick={() => {}}
         >
           Clear History
         </button>

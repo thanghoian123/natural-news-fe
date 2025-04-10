@@ -46,6 +46,19 @@ export const removeChatSession = createAsyncThunk(
     }
   }
 );
+
+export const deleteMyChatHistory = createAsyncThunk(
+  'chat/deleteMyChatHistory',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axiosInstance.delete(`/chats/delete-my-history`);
+    } catch (err) {
+      console.error('❌ Failed to delete chat history:', err);
+      return rejectWithValue(err.response?.data || 'Failed to delete chat history');
+    }
+  }
+);
+
 const initialState = {
   sessions: [], // ✅ Stores chat sessions
   activeSession: null, // Active chat session ID
@@ -66,7 +79,7 @@ export const startNewSession = createAsyncThunk(
         id: response.id.toString(),
         userId: response.user_id,
         createdAt: response.created_at,
-        title: '',
+        title: 'New Chat',
         history: [],
       };
     } catch (error) {
@@ -182,6 +195,13 @@ const chatSlice = createSlice({
         }
       })
       .addCase(removeChatSession.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(deleteMyChatHistory.fulfilled, (state) => {
+        state.sessions = [];
+        state.activeSession = null;
+      })
+      .addCase(deleteMyChatHistory.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
