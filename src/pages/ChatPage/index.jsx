@@ -10,12 +10,18 @@ function ChatPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const chatID = searchParams.get('id'); // "JohnDoe"
-  const { reconnecting, socketRef, connectWebSocket, onRegenerateMessage, socketUrl } =
-    useWebSocket({
-      activeSession: chatID,
-      dispatch,
-      userID: user?.id,
-    });
+  const {
+    reconnecting,
+    socketRef,
+    connectWebSocket,
+    onRegenerateMessage,
+    socketUrl,
+    pendingMessage,
+  } = useWebSocket({
+    activeSession: chatID,
+    dispatch,
+    userID: user?.id,
+  });
   const location = useLocation();
   const initialMessage = location.state?.initialMessage || '';
 
@@ -28,49 +34,33 @@ function ChatPage() {
             navigate(`/chat?id=${chatID}`, { state: { initialMessage: text } });
           }
         });
-      } else {
-        if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-          if (reconnecting.current) return;
-
-          console.log('⚠️ WebSocket is not open, reconnecting...');
-          reconnecting.current = true;
-          connectWebSocket(socketUrl);
-
-          setTimeout(() => {
-            reconnecting.current = false;
-            if (socketRef.current?.readyState === WebSocket.OPEN) {
-              console.log('📤 Sending (after reconnect):', text);
-              socketRef.current.send(text);
-              dispatch(
-                sendMessage({
-                  sessionId: chatID,
-                  message: {
-                    sender: 'user',
-                    text,
-                    createdAt: new Date().toISOString(),
-                  },
-                })
-              );
-            } else {
-              console.error('❌ Failed to send message after reconnect.');
-            }
-          }, 500);
-          return;
-        }
-
-        console.log('📤 Sending:', text);
-        socketRef.current.send(text);
-        dispatch(
-          sendMessage({
-            sessionId: chatID,
-            message: {
-              sender: 'user',
-              text,
-              createdAt: new Date().toISOString(),
-            },
-          })
-        );
+        return;
       }
+
+      const isSocketReady = socketRef.current?.readyState === WebSocket.OPEN;
+
+      if (!isSocketReady) {
+        if (reconnecting.current) return;
+
+        console.log('⚠️ WebSocket not ready, reconnecting and queuing message...');
+        reconnecting.current = true;
+        pendingMessage.current = { text };
+        connectWebSocket(socketUrl);
+        return;
+      }
+
+      // Send immediately if socket is open
+      socketRef.current.send(text);
+      dispatch(
+        sendMessage({
+          sessionId: chatID,
+          message: {
+            sender: 'user',
+            text,
+            createdAt: new Date().toISOString(),
+          },
+        })
+      );
     },
     [socketRef, dispatch, chatID, connectWebSocket]
   );

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { appendMessage, regenerateMessage } from '../redux/chatSlice';
+import { appendMessage, regenerateMessage, sendMessage } from '../redux/chatSlice';
 import { useSelector } from 'react-redux';
 const wsUrl = import.meta.env.VITE_WS_URL;
 
 export default function useWebSocket({ activeSession, dispatch, userID }) {
   const socketRef = useRef(null);
   const messageRef = useRef('');
+  const pendingRegenerate = useRef(false);
+  const pendingMessage = useRef(null);
   const reconnecting = useRef(false);
   const [url, setUrl] = useState('');
   const { modelType, toolName } = useSelector((state) => state.chat);
@@ -62,7 +64,23 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
       socketRef.current = new WebSocket(newUrl);
       socketRef.current.onopen = () => {
         console.log(`✅ WebSocket Connected: ${activeSession}`);
+
         reconnecting.current = false;
+
+        if (pendingMessage.current) {
+          socketRef.current.send(pendingMessage.current.text);
+          dispatch(
+            sendMessage({
+              sessionId: activeSession,
+              message: {
+                sender: 'user',
+                text: pendingMessage.current.text,
+                createdAt: new Date().toISOString(),
+              },
+            })
+          );
+          pendingMessage.current = null;
+        }
       };
       socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
       socketRef.current.onerror = (error) => console.error('❌ WebSocket Error:', error);
@@ -79,14 +97,11 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
     return disconnectWebSocket;
   }, [activeSession, connectWebSocket, disconnectWebSocket, socketUrl]);
 
-  const onRegenerateMessage = async () => {
+  const onRegenerateMessage = () => {
     disconnectWebSocket();
-    setUrl(regenerateUrl);
+    pendingRegenerate.current = true;
+    setUrl(regenerateUrl); // This triggers connectWebSocket via useEffect
     dispatch(regenerateMessage());
-    setTimeout(
-      () => socketRef.current?.readyState === WebSocket.OPEN && socketRef.current.send(''),
-      500
-    );
   };
 
   return {
@@ -97,5 +112,6 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
     onRegenerateMessage,
     setUrl,
     socketUrl,
+    pendingMessage,
   };
 }
