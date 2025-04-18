@@ -35,11 +35,11 @@ const ToolItem = ({ post, index, userTier, onUpgrade }) => {
       )}
 
       {/* Image with hover scaling (grayscale applied only to image) */}
-      <div className={`PostThumb relative overflow-hidden ${isDisabled ? 'opacity-60' : ''}`}>
+      <div className={`PostThumb relative overflow-hidden `}>
         <img
           src={post.imageSrc}
           alt={post.title}
-          className={`w-full transition-transform duration-300 ease-in-out group-hover:scale-110 ${isDisabled ? 'filter grayscale' : ''}`}
+          className={`w-full transition-transform duration-300 ease-in-out group-hover:scale-110`}
         />
         {/* Overlay effect */}
         <div

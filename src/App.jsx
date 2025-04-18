@@ -10,7 +10,7 @@ import ToolPage from './pages/ToolPage';
 import HistoryPage from './pages/HistoryPage';
 
 const ProtectedChat = withAuth(ChatPage);
-const ProtectedHome = withAuth(HomePage);
+const ProtectedHome = HomePage;
 const ProtectedTool = withAuth(ToolPage);
 const ProtectedHistory = withAuth(HistoryPage);
 

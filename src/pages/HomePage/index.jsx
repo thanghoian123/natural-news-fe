@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import Modal from '../../components/Modal';
 import { useSelector } from 'react-redux';
 import ToolItem from '../../components/Toolitem';
+import InputChat from '../../components/InputChat';
 const mockList = [
   {
     title: 'Chat with Enoch AI',
@@ -26,16 +27,14 @@ const mockList = [
   },
   {
     title: 'Natural Supplements & Ingredients Finder',
-    imageSrc:
-      'src\\assets\\Tool-Supplements-and-Ingredients.jpg',
+    imageSrc: 'src\\assets\\Tool-Supplements-and-Ingredients.jpg',
     link: '/tools/finder',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
     toolName: 'natural-supplements-ingredients-finder',
   },
   {
     title: 'Simplify Scientific Journals',
-    imageSrc:
-      'src\\assets\\Tool-Simplify-Scientific-Journals.jpg',
+    imageSrc: 'src\\assets\\Tool-Simplify-Scientific-Journals.jpg',
     link: '/tools/journals',
     tierAllow: ['Gold', 'Platinum', 'Silver'],
     toolName: 'journals',
@@ -49,8 +48,7 @@ const mockList = [
   },
   {
     title: 'Personalized Wellness Plan',
-    imageSrc:
-      'src\\assets\\Tool-Personalized-Wellness-Plan.jpg',
+    imageSrc: 'src\\assets\\Tool-Personalized-Wellness-Plan.jpg',
     link: '/tools/wellness',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'personalized-wellness-plan',
@@ -81,6 +79,7 @@ function HomePage() {
   const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUpgrade, setIsOpenUpgrade] = useState(false);
+  const [input, setInput] = useState('');
 
   useLayoutEffect(() => {
     setIsOpen(true);
@@ -107,44 +106,82 @@ function HomePage() {
       </div>
     );
   };
+
+  const handleSendMessage = () => {
+    if (!input.trim()) return;
+    setInput('');
+  };
+
+  const handleSelect = (option) => {
+    setInput((pre) => `${pre} ${option.label}`);
+  };
+
+  const handlePress = (prompt) => {
+    setInput(prompt.messages);
+  };
+
   return (
-    <div className="mt-20 mb-20 flex-1 flex flex-col">
-      <>
-        <h1 className="text-[46px] dark:text-[#E5E5EC]"> Enoch AI VIP Tools</h1>
-        <p className="text-[23px] font-[300] text-primary mb-5">
-          Use the power of Enoch AI to enhance your health and wellness
+    <div className="flex-1 flex flex-col w-full">
+      <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42] flex flex-col items-center ">
+        <h1 className="text-primary text-center text-[38px] font-[300]">Ask Enoch Anything</h1>
+        <div className="w-[60%]">
+          <InputChat
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            sendMessage={handleSendMessage}
+            tokenRemaining={user?.reward || 0}
+            handleSelectPrompt={handleSelect}
+            handlePressPropmt={handlePress}
+          />
+        </div>
+
+        <p className="text-center text-[10px] text-[#73737E] mt-2 m-auto max-w-[560px]">
+          Enoch AI is experimental. These statements are not intended to diagnose, treat, or cure
+          any medical condition. Please verify all important information and always seek advice from
+          your doctor, healthcare professional, or naturopath before making any changes to your
+          existing medication or health routine.
         </p>
-      </>
-      {renderContentByTier()}
+      </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div>
-          <h1 className="text-[#9D9DAB] dark:text-white text-[38px] font-[700] text-center">
-            You have {user?.reward} questions remaining
-          </h1>
+      <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center ">
+        <div className="w-[60%]">
+          <h1 className="text-primary text-center text-[38px] font-[300]">What is Enoch?</h1>
 
-          <p class="text-[#9D9DAB] text-center">
-            You can collect more tokens by clicking the
-            <span class="font-semibold">'redeem tokens' </span> link within{' '}
-            <span class="font-semibold">Natural News </span> and{' '}
-            <span class="font-semibold">Health Ranger Store</span> newsletters and promotions.{' '}
-            <a href="#" class="text-primary font-semibold hover:underline">
-              Learn More
-            </a>
+          <p className="dark:text-white text-[12px] text-left">
+            Enoch is the world's #1 AI language model on reality benchmarks. Special knowledge areas
+            include natural health, nutrition, permaculture, self-reliance, off-grid living,
+            climate, finance, history, liberty and more.
           </p>
 
-          <div className="flex justify-center">
-            <button
-              className="my-4 p-2 bg-black  rounded-sm text-white flex text-[12px] items-center"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              Close
-            </button>
-          </div>
+          <p className="dark:text-white text-[12px] text-left">
+            Enoch is capable of deep research, generating content, summarizing content, answering
+            questions, basic reasoning and more.
+          </p>
         </div>
-      </Modal>
+        <div className="text-gray-700  text-[12px] mt-7">
+          <a href="#" className="text-[#7765FD] hover:underline">
+            Prompting Guide
+          </a>{' '}
+          •
+          <a href="#" className="text-[#7765FD] hover:underline">
+            About Enoch
+          </a>{' '}
+          •
+          <a href="#" className="text-[#7765FD] hover:underline">
+            Downloadable Versions
+          </a>
+        </div>
+      </div>
+      <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center ">
+        <div className="w-[60%]">
+          <h1 className="text-primary text-center text-[38px] font-[300]">Prompt Tools</h1>
+          <p className="dark:text-white text-center text-[24px] font-[300] mb-4">
+            Use these exclusive tools to help construct a detailed prompt:
+          </p>
+
+          {renderContentByTier()}
+        </div>
+      </div>
 
       <Modal isOpen={isOpenUpgrade} onClose={() => setIsOpenUpgrade(false)}>
         <div>
