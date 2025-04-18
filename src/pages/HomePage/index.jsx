@@ -172,7 +172,10 @@ function HomePage() {
           </a>
         </div>
       </div>
-      <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center ">
+      <div
+        className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center "
+        id="SectionHomeTools"
+      >
         <div className="w-[60%]">
           <h1 className="text-primary text-center text-[38px] font-[300]">Prompt Tools</h1>
           <p className="dark:text-white text-center text-[24px] font-[300] mb-4">
@@ -182,6 +185,11 @@ function HomePage() {
           {renderContentByTier()}
         </div>
       </div>
+
+      <div
+        className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center "
+        id="SectionHomeTools"
+      ></div>
 
       <Modal isOpen={isOpenUpgrade} onClose={() => setIsOpenUpgrade(false)}>
         <div>
