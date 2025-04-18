@@ -29,7 +29,7 @@ const ToolItem = ({ post, index, userTier, onUpgrade }) => {
     >
       {/* Lock Icon for Disabled Items */}
       {isDisabled && (
-        <div className="absolute top-2 left-2 bg-black p-2 rounded-sm z-40">
+        <div className="absolute top-2 left-2 bg-black p-2 rounded-sm z-1">
           <Lock className="text-white w-3 h-3" />
         </div>
       )}
