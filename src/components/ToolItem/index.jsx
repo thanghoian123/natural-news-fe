@@ -17,11 +17,7 @@ const ToolItem = ({ post, index, userTier, onUpgrade }) => {
   return (
     <Link
       to={isDisabled ? '#' : post.link}
-      className={`Post relative ${
-        index >= 3 && index <= 6
-          ? 'lg:basis-[calc(25%-1rem)] basis-[calc(50%-1rem)]'
-          : 'lg:basis-[calc(33.333%-1rem)] basis-[calc(50%-1rem)]'
-      } overflow-hidden group block rounded-lg ${isDisabled ? 'cursor-not-allowed' : ''}`}
+      className={`Post relative lg:basis-[calc(33.333%-1rem)] basis-[calc(50%-1rem)] overflow-hidden group block rounded-lg ${isDisabled ? 'cursor-not-allowed' : ''}`}
       key={index}
       onClick={(e) => {
         isDisabled ? e.preventDefault() : dispatch(setToolName(post.toolName));

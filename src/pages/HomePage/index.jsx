@@ -1,8 +1,9 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '../../components/Modal';
 import { useSelector } from 'react-redux';
 import ToolItem from '../../components/Toolitem';
 import InputChat from '../../components/InputChat';
+import { useNavigate } from 'react-router-dom';
 const mockList = [
   {
     title: 'Chat with Enoch AI',
@@ -77,14 +78,9 @@ const mockList = [
 ];
 function HomePage() {
   const { user } = useSelector((state) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
   const [isOpenUpgrade, setIsOpenUpgrade] = useState(false);
   const [input, setInput] = useState('');
-
-  useLayoutEffect(() => {
-    setIsOpen(true);
-  }, []);
-
+  const navigate = useNavigate();
   const handleUpgrade = () => {
     setIsOpenUpgrade(true);
   };
@@ -110,6 +106,7 @@ function HomePage() {
   const handleSendMessage = () => {
     if (!input.trim()) return;
     setInput('');
+    navigate(`/Received`, { state: { initialMessage: input } });
   };
 
   const handleSelect = (option) => {

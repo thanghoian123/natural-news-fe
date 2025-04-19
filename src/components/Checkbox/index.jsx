@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import React from 'react';
 
 const CheckboxGroup = ({
@@ -7,6 +8,7 @@ const CheckboxGroup = ({
   label = '',
   questionLabel = '',
   helperText = '',
+  isHorizontal = false,
 }) => {
   const handleCheckboxChange = (value) => {
     const updatedValues = selectedValues.includes(value)
@@ -22,17 +24,20 @@ const CheckboxGroup = ({
       <label className="font-[400] text-[14px] mb-[10px] text-[#2D2D30] dark:text-[#E5E5EC]">
         {questionLabel}
       </label>
-      <div className="grid grid-cols-2 gap-4">
+      <div className={!isHorizontal ? 'flex flex-wrap gap-2 flex-col' : 'grid grid-cols-2 gap-4'}>
         {options.map((option) => (
-          <label key={option.value} className="flex items-center space-x-2 cursor-pointer">
+          <label key={option.value} className="flex items-center space-x-2 cursor-pointer ">
             <input
               type="checkbox"
               value={option.value}
               checked={selectedValues.includes(option.value)}
               onChange={() => handleCheckboxChange(option.value)}
-              className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary"
+              className="peer hidden"
             />
-            <span className="dark:text-[#E5E5EC] text-[14px] font-[300]">{option.label}</span>
+            <div className="w-4 h-4 rounded border border-gray-300 flex items-center justify-center peer-checked:bg-primary">
+              {selectedValues.includes(option.value) && <Check className="text-white" />}
+            </div>
+            <span className="dark:text-[#E5E5EC] font-[300] text-[12px]">{option.label}</span>
           </label>
         ))}
       </div>
