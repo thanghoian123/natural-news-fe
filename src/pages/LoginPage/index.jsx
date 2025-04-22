@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from '../../assets/logo.svg';
+import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
 import LoginHandler from './handler';
-<image src={logo} />;
 
 function LoginPage() {
   const {
@@ -21,7 +20,7 @@ function LoginPage() {
     <div id="Page">
       <div class="Masthead StickyTop">
         <a href="Home">
-          <img alt="Enoch AI" class="Logo" src="Assets/Images/Logo-Color.svg" />
+          <img alt="Enoch AI" class="Logo" src={logoColor} />
         </a>
       </div>
 

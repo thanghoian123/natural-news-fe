@@ -2,30 +2,40 @@ import React from 'react';
 import { X } from 'lucide-react';
 
 export default function Modal({ isOpen, onClose, title, children, extraFooter, customActions }) {
-  if (!isOpen) return null; // Ensure modal is only rendered when open
+  if (!isOpen) return null;
 
   return (
-    <>
-      {/* Backdrop with opacity */}
-      <div className="fixed inset-0 bg-[#11111199] bg-opacity-50 z-50 flex items-center justify-center">
-        <div className="relative p-4 w-fit min-w-md max-w-2xl bg-white dark:bg-[#252526] rounded-lg shadow-lg">
-          {/* Modal Header */}
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+    <div className="fixed inset-0 z-50">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 BlurBox backdrop"
+        onClick={onClose} // Optional: close modal on backdrop click
+      />
 
+      {/* Modal Content */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative w-full max-w-[520px] p-4 bg-white dark:bg-[#252526] rounded-lg shadow-lg ">
+          {/* Modal Header */}
+          <div className="flex justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="text-gray-500 hover:bg-gray-200 rounded-lg p-2"
+              className="text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg p-2"
             >
               <X size={20} />
             </button>
           </div>
 
-          {/* Modal Content */}
-          <div className="p-4">{children}</div>
+          {/* Modal Body */}
+          <div className="px-6">
+            <p className="text-[19px] font-semibold text-gray-900 dark:text-white font-700">
+              {title}
+            </p>
 
-          {/* Extra Footer Buttons (optional) */}
+            {children}
+          </div>
+
+          {/* Optional Footer */}
           {extraFooter && (
             <div className="flex justify-end space-x-3 p-4 border-t">
               <button
@@ -43,9 +53,10 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter, c
             </div>
           )}
 
-          {customActions || null}
+          {/* Custom actions (if provided) */}
+          {customActions}
         </div>
       </div>
-    </>
+    </div>
   );
 }
