@@ -47,7 +47,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
             ? 'dark:bg-[#7765FD] bg-ui-bg !text-white rounded-l-lg rounded-br-lg'
             : 'text-white rounded-r-lg rounded-bl-lg'
         }`}
-        style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
+        style={{ whiteSpace: 'pre-wrap' }}
       >
         {isLoading ? (
           <ChatSkeleton />
