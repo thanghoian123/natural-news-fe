@@ -185,7 +185,15 @@ export default function Sidebar({ children }) {
                         </p>
                       </div>
                       <div className="AutoCol ChatOptions">
-                        <div className="ButtonIcon ButtonIconSmall ButtonChatDelete" title="Delete">
+                        <div
+                          className="ButtonIcon ButtonIconSmall ButtonChatDelete"
+                          title="Delete"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeleteId(chat.id);
+                            setIsOpenConfirmDelete(true);
+                          }}
+                        >
                           <div className="Icon">
                             <span className="Mask MaskDelete"></span>
                           </div>
@@ -243,6 +251,34 @@ export default function Sidebar({ children }) {
         </div>
         <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
           <ProfileDetail user={user} />
+        </Modal>
+
+        <Modal isOpen={isOpenConfirmDelete} onClose={() => setIsOpenConfirmDelete(false)}>
+          <div class="Card">
+            <div class="Subhead">Delete Chat?</div>
+            <div class="Block Text">Are you sure you want to delete this chat?</div>
+
+            <div class="ButtonBox ButtonBox ButtonBoxLeft">
+              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
+                <div class="Auto">
+                  <div class="AutoCol AutoIcon">
+                    <div class="Icon IconSmall">
+                      <span class="Mask MaskDelete"></span>
+                    </div>
+                  </div>
+                  <div class="AutoCol AutoLabel" onClick={handleDeleteChat}>
+                    Delete
+                  </div>
+                </div>
+              </button>
+              <button
+                class="Button ButtonGray ButtonClose"
+                onClick={() => setIsOpenConfirmDelete(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </Modal>
       </div>
     </>

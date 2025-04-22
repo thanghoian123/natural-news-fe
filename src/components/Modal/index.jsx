@@ -14,15 +14,15 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter, c
 
       {/* Modal Content */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-full max-w-[520px] p-4 bg-white dark:bg-[#252526] rounded-lg shadow-lg ">
+        <div className="relative w-full max-w-[520px] p-[40px] bg-white dark:bg-[#252526] rounded-lg shadow-lg ">
           {/* Modal Header */}
-          <div className="flex justify-end">
+          <div className="absolute top-0 right-0">
             <button
               type="button"
               onClick={onClose}
               className="text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg p-2"
             >
-              <X size={20} />
+              <X size={15} />
             </button>
           </div>
 
