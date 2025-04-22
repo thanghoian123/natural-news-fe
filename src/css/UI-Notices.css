@@ -1,0 +1,35 @@
+/* NOTICES */
+
+.Notice .ButtonIcon:hover { background-color: var(--Trans1); }
+
+.Notice { display: none; position: fixed; left: 0px; bottom: 0px; z-index: 200; background-color: var(--CardBG); border: solid 1px var(--CardBorder); }
+.Notice .Content { padding: 30px; position: relative; }
+.Notice .Close { display: block!important; position: absolute; z-index: 201; right: 0px; top: 0px; cursor: pointer; }
+.Notice .Headline { margin-bottom: 10px; color: var(--CardHeadline); text-align: center; }
+.Notice .Subhead { margin-bottom: 10px; color: var(--CardSubhead); text-align: center; }
+.Notice .Text { margin-bottom: 10px; font-size: var(--FSSmall); color: var(--CardText); text-align: center; }
+.Notice .Text a { color: var(--CardLink); }
+
+.Notice .Form { margin-bottom: 10px; }
+
+@media (min-width: 440px) {
+.Notice { max-width: 360px; left: 20px; bottom: 20px; border-radius: 5px; }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.UIMessage { display: none; margin: 0px auto; padding: 0px 20px; position: fixed; width: 100%; height: 50px; left: 0px; bottom: -20px; z-index: 500000; text-align: center; }
+.UIMessage .UIBox { display: inline-block; margin: 0px auto; padding: 15px; text-align: center; border-radius: 3px; position: relative; background-color: var(--UIBG); color: var(--UIText); }
+
+@media (min-width: 1050px) {
+.UIMessage { padding-left: 300px; }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+@media (min-width: 440px) {
+#CookieNotice { }
+#CookieNotice { left: auto; right: 20px; }
+}
+
+/* ////////////////////////////////////////////////////////////////// */

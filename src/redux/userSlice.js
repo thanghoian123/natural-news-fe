@@ -49,9 +49,8 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (_, { rejectWi
   try {
     const response = await getUserAPI();
     if (!response) throw new Error('User data not found');
-    const user = get(response, '[0]');
-    localStorage.setItem('user', JSON.stringify(user));
-    return user;
+    localStorage.setItem('user', JSON.stringify(response));
+    return response;
   } catch (error) {
     console.error('Fetch User Error:', error);
     return rejectWithValue(error.message || 'Failed to fetch user data');

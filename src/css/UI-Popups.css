@@ -1,0 +1,55 @@
+/* POPUPS */
+
+.Popup .Close:hover { background-color: var(--Trans1); }
+
+@media (max-width: 599.9px) {
+.Popup { display: none; padding: 0px; position: fixed; width: 100%; height: 100%; max-height: 85%; left: 0px; bottom: 0px; z-index: 40000; background-color: var(--CardBG); }
+.Popup a { }
+.PopupTable { display: block; }
+.PopupCol { display: block; position: relative; }
+.Popup .Content { padding: 0px; }
+.Popup .Close { position: absolute; z-index: 101; top: 0px; right: 0px; cursor: pointer; }
+.Popup .Card { padding: 30px; overflow-x: hidden; overflow-y: auto; height: 100%; }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+@media (min-width: 600px) {
+.Popup { display: none; position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; z-index: 40000; overflow-x: hidden; overflow-y: auto; }
+.Popup a { }
+.PopupTable { display: table; width: 100%; height: 100%; }
+.PopupCol { display: table-cell; width: auto; padding: 15px; vertical-align: middle; }
+.Popup .Content { position: relative; margin: 0px auto; max-width: 520px; background-color: var(--CardBG); border-radius: 15px; }
+.Popup .Close { position: absolute; z-index: 101; top: 5px; right: 5px; cursor: pointer; }	
+.Popup .Card { display: block; padding: 40px; margin: 0px auto; overflow-x: hidden; overflow-y: auto; height: 100%; max-height: 600px; }
+
+.PopupWide .Content { max-width: 800px; }
+.PopupWide .Card { display: block; padding: 20px; }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ProfileItem { margin-bottom: 8px; }
+.ProfileItem .AutoIcon { width: 30px; height: 30px; }
+.ProfileItem .AutoLabel { width: auto; }
+.ProfileItem .AutoLabel b { color: var(--Headline); }
+.ProfileGroup { display: block; border-bottom: solid 1px var(--CardBorder); padding-bottom: 10px; margin: 10px 0px; }
+.ProfileGroup .Text { margin-bottom: 8px; }
+.ProfileGroup .ProfileItem:last-child { margin-bottom: 0px; }
+
+.ProfileBox { display: table; width: 100%; margin-top: 15px; }
+.ProfileInfo { display: table-cell; width: auto; padding-righ: 30px; vertical-align: top; }
+.ProfileAction { display: table-cell; width: 120px; vertical-align: top; }
+
+#SubscribeEnabled .Icon span { background-color: var(--UIBG); }
+#StoreEnabled .Icon span { background-color: var(--UIBG); }
+#StoreDisabled .Icon span { background-color: var(--Red); }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ThemeTab { color: var(--Headline); border-radius: 3px; padding: 3px 6px; cursor: pointer; font-size: var(--FSSmall); }
+.ThemeTab:hover { background-color: var(--ThemeHover); }
+.ThemeTabActive { background-color: var(--UIBG); color: var(--UIText); }
+.ThemeTabActive:hover { background-color: var(--UIBG); color: var(--UIText); }
+
+/* ////////////////////////////////////////////////////////////////// */

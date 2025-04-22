@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 const Dropdown = ({ options = [], onSelect, label, onPress }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  console.log('🚀 ~ Dropdown ~ onPress:', onPress);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -22,30 +23,35 @@ const Dropdown = ({ options = [], onSelect, label, onPress }) => {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div ref={dropdownRef} className=" inline-block my-2  ">
       <button
         onClick={onPressBtn}
-        className="text-black hover:ring-primary-700 focus:ring-1 focus:outline-none focus:ring-primary-700 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center dark:text-[white]  w-full justify-center border-1 border-[#9D9DAB] text-nowrap text-[12px]"
+        className={`Button ButtonTransBorder Preset NoClose px-4 py-2 rounded focus:outline-none ${
+          isOpen ? 'ring-2 ring-ui-bg !text-ui-bg' : ''
+        } `}
+        id={`Button${label.replace(/\s+/g, '')}`}
       >
         {label}
       </button>
-      {isOpen && options.length > 0 && (
-        <div className="absolute z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-            {options.map((option, index) => (
-              <li key={index}>
-                <button
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+
+      {isOpen && (
+        <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg Dropdown z-2">
+          <div className="DropdownPanel NoClose">
+            <div className="PresetGroup">
+              {options.map((option, index) => (
+                <div
+                  key={index}
+                  className="PresetOption px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
                     onSelect(option);
                     setIsOpen(false);
                   }}
                 >
                   {option.label}
-                </button>
-              </li>
-            ))}
-          </ul>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

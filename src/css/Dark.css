@@ -1,0 +1,114 @@
+/* DARK MODE //////////////////////////////////////////////////// */
+
+:root {
+  body.ThemeDark {
+    /* ////////////////////////////////////////////////////////////////// */
+
+    --Body: var(--Gray70);
+
+    --Track: var(--Trans2);
+    --TrackHover: var(--Gray60);
+    --Thumb: var(--Gray50);
+
+    --UIBG: var(--Purple);
+    --UIBGHover: var(--PurpleAlt);
+    --UIBGDark: var(--PurpleDark);
+    --UIText: var(--White);
+
+    --Highlight: var(--Red);
+
+    --TabBG: var(--Trans1);
+    --TabBGHover: var(--Trans1);
+    --TabText: var(--Gray40);
+    --TabHover: var(--Gray40);
+    --TabActive: var(--UIBG);
+
+    --ButtonBG: var(--UIBG);
+    --ButtonBGHover: var(--UIBGHover);
+    --ButtonText: var(--UIText);
+    --ButtonBorder: var(--Gray40);
+    --ButtonDisabled: var(--Gray90);
+    --ButtonDisabledText: var(--Gray40);
+
+    --ButtonGrayBG: var(--Gray50);
+    --ButtonGrayBGHover: #47474b;
+    --ButtonGrayText: var(--White);
+
+    --Headline: var(--White);
+    --Subhead: var(--Gray10);
+    --Text: var(--Gray20);
+    --Info: var(--Gray30);
+    --LinkColor: var(--UIBG);
+    --LinkHoverColor: var(--UIBGHover);
+
+    --InputBG: var(--Gray50);
+    --InputText: var(--UIBG);
+    --InputPlaceholder: var(--Gray20);
+    --InputBorder: var(--Gray40);
+
+    --IconBG: var(--Gray10);
+    --IconBGHover: var(--Gray50);
+    --IconBorder: var(--Gray50);
+
+    --MaskBG: var(--Gray20);
+    --MaskBGHover: var(--White);
+
+    --CardBG: var(--Gray80);
+    --CardBGHover: var(--Gray60);
+    --CardBorder: var(--Gray50);
+    --CardSubhead: var(--White);
+    --CardText: var(--Gray10);
+    --CardLink: var(--Gray10);
+    --CardHover: var(--UIBG);
+
+    --AlertBarBG: var(--UIBG);
+    --AlertBarText: var(--Gray10);
+    --AlertBarLink: var(--Gray10);
+    --AlertBarHover: var(--White);
+
+    --TagBG: var(--Gray70);
+    --TagBGHover: var(--UIBG);
+    --TagBorder: var(--Gray50);
+    --TagText: var(--Gray10);
+    --TagTextHover: var(--White);
+
+    --Theme: var(--Gray80);
+    --ThemeHover: var(--Gray90);
+    --ThemeActive: var(--UIBG);
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+body.ThemeDark {
+  #SectionMasthead {
+    background: linear-gradient(
+      to bottom,
+      rgba(37, 37, 38, 1) 0%,
+      rgba(37, 37, 38, 1) 80%,
+      rgba(37, 37, 38, 0) 100%
+    );
+  }
+  #MenuLogo {
+    background: linear-gradient(
+      to bottom,
+      rgba(30, 30, 30, 1) 0%,
+      rgba(30, 30, 30, 1) 80%,
+      rgba(30, 30, 30, 0) 100%
+    );
+  }
+  #SectionHistoryChat .Content:before {
+    background: linear-gradient(to bottom, rgba(37, 37, 38, 0) 0%, rgba(37, 37, 38, 1) 75%);
+  }
+
+  .Post .PostAction .ButtonBlack {
+    background-color: var(--UIBG);
+  }
+
+  .Post .PostFade {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 75%);
+    background: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 75%);
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */

@@ -44,8 +44,8 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
       <div
         className={`p-3 ${
           sender === 'user'
-            ? 'bg-[#7765FD] text-white rounded-l-lg rounded-br-lg'
-            : 'dark:text-text-dark text-black rounded-r-lg rounded-bl-lg'
+            ? 'dark:bg-[#7765FD] bg-ui-bg !text-white rounded-l-lg rounded-br-lg'
+            : 'text-white rounded-r-lg rounded-bl-lg'
         }`}
         style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
       >

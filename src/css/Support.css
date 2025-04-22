@@ -1,0 +1,209 @@
+/* ////////////////////////////////////////////////////////////////// */
+
+:root { 
+
+--Body: var(--White);
+
+--Track: var(--Trans2);
+--TrackHover: var(--Gray60);
+--Thumb: var(--Gray50);
+
+--UIBG: var(--Olive);
+--UIBGHover: var(--OliveAlt);
+--UIBGDark: var(--OliveDark);
+--UIText: var(--White);
+
+--Highlight: var(--Red);
+
+--ButtonBG: var(--UIBG);
+--ButtonBGHover: var(--UIBGHover);
+--ButtonText: var(--UIText);
+--ButtonBorder: var(--Gray40);
+--ButtonDisabled: var(--Gray90);
+--ButtonDisabledText: var(--Gray40);
+
+--Headline: var(--Black);
+--Subhead: var(--Black);
+--Text: var(--Gray60);
+--Info: var(--Gray20);
+--LinkColor: var(--UIBG);
+--LinkHoverColor: var(--UIBGHover);
+
+--InputLabel: var(--UIBG);
+--InputBG: var(--White);
+--InputText: var(--Gray80);
+--InputPlaceholder: var(--Gray40);
+--InputBorder: var(--Gray40);
+
+--IconBG: var(--Gray60);
+--IconBGHover: var(--Gray80);
+--IconBorder: var(--Gray60);
+
+--MaskBG: var(--Gray60);
+--MaskBGHover: var(--Gray80);
+
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+html { -webkit-text-size-adjust: 100%; overflow: -moz-scrollbars-vertical; }
+body {	margin: 0px; background-color: var(--Body); }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+/* MISC */
+
+* { scrollbar-width: thin; scrollbar-color: var(--Thumb) var(--Track); }
+*, *::before, *::after { box-sizing: border-box; }
+*::-webkit-scrollbar { width: 11px; }
+*::-webkit-scrollbar-track { background: var(--Track); }
+*::-webkit-scrollbar-thumb { background-color: var(--Thumb); border-radius: 6px; }
+
+div, td, button { font-family: var(--FontText); font-size: var(--FSMedium); line-height: 130%; font-weight: 400; color: var(--Text); box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+a { color: var(--LinkColor); text-decoration: none; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; transition: all 0.2s ease; }
+a:hover { color: var(--LinkHoverColor); text-decoration: underline; }
+
+img { width: auto; max-width: 100%; max-height: 100%; border: none; }
+
+.StickyTop { position: -webkit-sticky; position: sticky; top: 0px; z-index: 2; }
+.StickyBottom { position: -webkit-sticky; position: sticky; bottom: 0px; z-index: 2; }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+/* FORMS */
+
+form { padding: 0px; margin: 0px; }
+input { background-color: var(--InputBG); color: var(--InputText); border-radius: 0px; outline: none 0px; border: none 0px; -webkit-appearance: none; }
+
+input::placeholder,
+input:-ms-input-placeholder,
+input::-ms-input-placeholder { 
+color: var(--InputPlaceholder); 
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+-webkit-box-shadow: 0 0 0 30px var(--InputBG) inset !important;
+-webkit-text-fill-color: var(--InputText) !important; 
+}
+
+textarea { width: 100%; color: var(--InputText); border-radius: 0px; font-family: var(--FontText); }
+
+textarea::placeholder,
+textarea:-ms-input-placeholder,
+textarea::-ms-input-placeholder { 
+color: var(--InputPlaceholder); 
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#Page { display: block; padding: 30px; }
+.Content { display: block; margin: 0px auto; position: relative; min-width: 300px; }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+/* MASTHEAD */
+
+.Masthead { display: block; margin: 0px auto 30px auto; padding: 10px; text-align: center; background-color: var(--Body); }
+.Masthead .Logo { display: block; max-width: 150px; }
+
+
+
+
+@media (min-width: 700px) {
+.Masthead .Logo { margin: 0px auto; }
+
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.Block { display: block; margin-bottom: 15px; }
+.Block:after { content: ""; display: table; clear: both; }
+
+.Headline { font-size: var(--FSHuge); font-weight: 700; color: var(--Headline); font-family: var(--FontHead); letter-spacing: -1px; }
+.Headline a { color: var(--HeadlineLink); text-decoration: none; }
+
+.Subhead { font-size: var(--FSXL); font-weight: 700; color: var(--Subhead); font-family: var(--FontHead); }
+.Subhead a { color: var(--HeadlineLink); text-decoration: none; }
+
+.Text { color: var(--Text); font-size: var(--FSMedium); }
+.Disclaimer { font-size: var(--FSSmall); }
+.Centered { text-align: center; }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.AuthLogin { display: block; max-width: 400px; margin: 100px auto 20px auto; }
+.AuthInfo { display: block; max-width: 400px; margin: 0px auto 40px auto; }
+.AuthLinks { display: block; max-width: 400px; margin: 0px auto 40px auto; }
+
+.AuthLabel { font-size: var(--FSSmall); font-weight: 600; margin-bottom: 3px; color: var(--InputLabel); }
+.AuthInput { display: block; margin-bottom: 8px; }
+.AuthInput input { width: 100%; padding: 15px; border: solid 1px var(--InputBorder); font-size: var(--FSLarge); border-radius: 5px; }
+
+.AuthSubmit { display: block; }
+.AuthSubmit button { 
+-webkit-appearance: none; -moz-appearance: none; appearance: none;
+-webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; transition: all 0.2s ease;
+width: 100%;
+border: none 0px; 
+outline: none 0px; 
+padding: 15px;
+cursor: pointer; 
+font-size: var(--FSLarge);
+font-weight: 600;
+border-radius: 5px;
+background-color: var(--UIBG);
+color: var(--UIText);
+}
+
+.AuthSubmit button:hover { background-color: var(--UIBGHover); }
+
+.AuthResend { display: block; margin-top: 15px; }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.Support { display: block; max-width: 800px; margin: 100px auto; }
+
+.Support a { text-decoration: underline; }
+
+.Support .Text { margin-bottom: 60px; }
+.Support .Article { font-size: var(--FSLarge); }
+
+.Support .Tabs { margin-bottom: 15px; }
+.Support .Tabs .Tab { font-size: var(--FSXXL); font-weight: 500; color: var(--Gray40); letter-spacing: -1px; }
+.Support .Tabs .TabActive { font-weight: 700; color: var(--UIBG); }
+
+
+
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.FAQ { display: block; border-bottom: solid 1px var(--Gray30); }
+
+.Question { 
+display: block; padding: 20px 40px 20px 0px; cursor: pointer; 
+background-image: url("../../Images/Masks/Mask-Closed.svg"); 
+background-size: 30px; 
+background-position: center right 5px;
+background-repeat: no-repeat;
+}
+
+.QuestionOpen { background-image: url("../../Images/Masks/Mask-Opened.svg"); color: var(--UIBG); }
+.Answer { display: none; margin-bottom: 20px!important; }
+
+.FAQBox { display: block; }
+.FAQBox .FAQ:first-child { border-top: solid 1px var(--Gray30); }
+.FAQBox .Subhead { font-weight: 500; }
+
+/* ////////////////////////////////////////////////////////////////// */
+
+
+
+
+
+
+
+
