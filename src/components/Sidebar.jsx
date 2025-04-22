@@ -1,24 +1,29 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Menu, X, Trash, PlusIcon, Sparkle, TrashIcon, Clock } from 'lucide-react'; // Icons
-import logo from '../assets/logo.svg'; // Adjust path as needed
+import logoColor from '../assets/Images/Logo-Color.svg'; // Adjust path as needed
+import logoWhite from '../assets/Images/Logo-white.svg'; // Adjust path as needed
+
 import { useDispatch, useSelector } from 'react-redux';
 import { removeChatSession, setActiveSession, startNewSession } from '../redux/chatSlice';
 import { useToast } from '../contexts/ToastContext';
 import Modal from './Modal';
 import ProfileDetail from './ProfileDetail';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext';
 
 export default function Sidebar({ children }) {
   const { addToast } = useToast();
   const { user } = useSelector((state) => state.user);
-  console.log('🚀 ~ Sidebar ~ user:', user);
+
+  const { theme } = useTheme();
+  console.log('🚀 ~ Sidebar ~ theme:', theme);
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const isBronze = user?.tier === 'Bronze';
-
+  const logoSrc = theme === 'dark' ? logoWhite : logoColor;
   const navigate = useNavigate();
   const { sessions, activeSession } = useSelector((state) => state.chat);
   console.log('🚀 ~ Sidebar ~ sessions:', sessions);
@@ -80,7 +85,7 @@ export default function Sidebar({ children }) {
 
               <div className="MastheadCol MastheadColLogo">
                 <a href="Home">
-                  <img alt="Enoch AI" className="Logo" src="Assets/Images/Logo-White.svg" />
+                  <img alt="Enoch AI" className="Logo" src={logoSrc} />
                 </a>
               </div>
 
@@ -107,7 +112,7 @@ export default function Sidebar({ children }) {
           <div className="Card">
             <div className="MenuGroup StickyTop" id="MenuLogo">
               <a href="Home">
-                <img alt="Enoch AI" className="Logo" src="Assets/Images/Logo-White.svg" />
+                <img alt="Enoch AI" className="Logo" src={logoSrc} />
 
                 {/* <img alt="Enoch AI" className="Logo" src={logo} /> */}
               </a>

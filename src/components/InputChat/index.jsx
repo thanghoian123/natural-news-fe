@@ -93,7 +93,7 @@ function InputChat(props) {
           <div className="ChatTable">
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
-                Each prompt uses 1 question. You have 42 questions remaining.{' '}
+                Each prompt uses 1 question. You have {tokenRemaining} questions remaining.{' '}
                 <span className="Link ButtonProfile NoClose">Learn More</span>
               </div>
             </div>

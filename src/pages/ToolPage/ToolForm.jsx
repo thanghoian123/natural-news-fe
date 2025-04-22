@@ -54,64 +54,149 @@ function ToolForm({ category }) {
   };
 
   return (
-    <div className="p-[40px]">
-      <h1 className="text-2xl font-bold text-primary text-center text-[38px] font-[700] mb-[20px]">
-        {findStructure.title}
-      </h1>
-      <p className="text-gray-600 dark:text-[#E5E5EC] text-center text-[14px]">
-        {findStructure.subTitle}
-      </p>
-      <form className="mt-[20px] space-y-4" onSubmit={handleSubmit}>
-        {findStructure.fields.map(
-          ({ label, key, helperText, questionLabel, type, listCheckBoxes = [] }, index) => (
-            <div key={key}>
-              {type === TYPE.checkbox ? (
-                <CheckboxGroup
-                  key={key}
-                  options={listCheckBoxes.map((i) => ({ value: i, label: i }))}
-                  selectedValues={selectedValues}
-                  onChange={(value) => handleCheckboxChange(key, value)}
-                  label={`${index + 1}. ${label}`}
-                  helperText={helperText}
-                  questionLabel={questionLabel}
-                />
-              ) : type === TYPE.input ? (
-                <CustomInput
-                  label={`${index + 1}. ${label}`}
-                  helperText={helperText}
-                  questionLabel={questionLabel}
-                  value={formData[key]}
-                  onChange={(e) => handleChange(key, e.target.value)}
-                />
-              ) : type === TYPE.dropdown ? (
-                <Dropdown
-                  label={formData[key] || 'Select an option'}
-                  options={[
-                    '1 sentence',
-                    '1 paragraph',
-                    '2-3 paragraphs',
-                    '3-5 paragraphs',
-                    '5-10 paragraphs',
-                  ]}
-                  onSelect={(value) => handleChange(key, value)}
-                />
-              ) : (
-                <CustomTextarea
-                  label={`${index + 1}. ${label}`}
-                  helperText={helperText}
-                  questionLabel={questionLabel}
-                  value={formData[key]}
-                  onChange={(e) => handleChange(key, e.target.value)}
-                />
-              )}
+    // <div className="p-[40px]">
+    //   <h1 className="text-2xl font-bold text-primary text-center text-[38px] font-[700] mb-[20px]">
+    //     {findStructure.title}
+    //   </h1>
+    //   <p className="text-gray-600 dark:text-[#E5E5EC] text-center text-[14px]">
+    //     {findStructure.subTitle}
+    //   </p>
+    //   <form className="mt-[20px] space-y-4" onSubmit={handleSubmit}>
+    //     {findStructure.fields.map(
+    //       ({ label, key, helperText, questionLabel, type, listCheckBoxes = [] }, index) => (
+    //         <div key={key}>
+    //           {type === TYPE.checkbox ? (
+    //             <CheckboxGroup
+    //               key={key}
+    //               options={listCheckBoxes.map((i) => ({ value: i, label: i }))}
+    //               selectedValues={selectedValues}
+    //               onChange={(value) => handleCheckboxChange(key, value)}
+    //               label={`${index + 1}. ${label}`}
+    //               helperText={helperText}
+    //               questionLabel={questionLabel}
+    //             />
+    //           ) : type === TYPE.input ? (
+    //             <CustomInput
+    //               label={`${index + 1}. ${label}`}
+    //               helperText={helperText}
+    //               questionLabel={questionLabel}
+    //               value={formData[key]}
+    //               onChange={(e) => handleChange(key, e.target.value)}
+    //             />
+    //           ) : type === TYPE.dropdown ? (
+    //             <Dropdown
+    //               label={formData[key] || 'Select an option'}
+    //               options={[
+    //                 '1 sentence',
+    //                 '1 paragraph',
+    //                 '2-3 paragraphs',
+    //                 '3-5 paragraphs',
+    //                 '5-10 paragraphs',
+    //               ]}
+    //               onSelect={(value) => handleChange(key, value)}
+    //             />
+    //           ) : (
+    //             <CustomTextarea
+    //               label={`${index + 1}. ${label}`}
+    //               helperText={helperText}
+    //               questionLabel={questionLabel}
+    //               value={formData[key]}
+    //               onChange={(e) => handleChange(key, e.target.value)}
+    //             />
+    //           )}
+    //         </div>
+    //       )
+    //     )}
+    //     <button type="submit" className="bg-primary text-white px-8 py-3 mt-4 rounded flex m-auto">
+    //       <Sparkles className="mr-4" />
+    //       <span className="text-[14px] font-[600]">Generate (1 question)</span>
+    //     </button>
+    //   </form>
+    // </div>
+
+    <div class="UITable">
+      <div class="UICol">
+        <div class="Questionnaire">
+          <div class="Block Headline Centered">{findStructure.title}</div>
+          <div class="Text Centered">{findStructure.subTitle}</div>
+          <form class="Form" id="11" onSubmit={handleSubmit}>
+            {findStructure.fields.map(
+              ({ label, key, helperText, questionLabel, type, listCheckBoxes = [] }, index) => (
+                <div key={key}>
+                  {type === TYPE.checkbox ? (
+                    <CheckboxGroup
+                      key={key}
+                      options={listCheckBoxes.map((i) => ({ value: i, label: i }))}
+                      selectedValues={selectedValues}
+                      onChange={(value) => handleCheckboxChange(key, value)}
+                      label={`${index + 1}. ${label}`}
+                      helperText={helperText}
+                      questionLabel={questionLabel}
+                    />
+                  ) : type === TYPE.input ? (
+                    <CustomInput
+                      label={`${index + 1}. ${label}`}
+                      helperText={helperText}
+                      questionLabel={questionLabel}
+                      value={formData[key]}
+                      onChange={(e) => handleChange(key, e.target.value)}
+                    />
+                  ) : type === TYPE.dropdown ? (
+                    <Dropdown
+                      label={formData[key] || 'Select an option'}
+                      options={[
+                        '1 sentence',
+                        '1 paragraph',
+                        '2-3 paragraphs',
+                        '3-5 paragraphs',
+                        '5-10 paragraphs',
+                      ]}
+                      onSelect={(value) => handleChange(key, value)}
+                    />
+                  ) : (
+                    <CustomTextarea
+                      label={`${index + 1}. ${label}`}
+                      helperText={helperText}
+                      questionLabel={questionLabel}
+                      value={formData[key]}
+                      onChange={(e) => handleChange(key, e.target.value)}
+                    />
+                  )}
+                </div>
+              )
+            )}
+
+            <div class="Block ButtonBox ButtonBoxCenter">
+              <button
+                class="Button ButtonAuto ButtonAutoLeft ButtonPrimary ButtonLarge"
+                id="Generate"
+                type="submit"
+              >
+                <div class="Auto">
+                  <div class="AutoCol AutoIcon">
+                    <div class="Icon">
+                      <span class="Mask MaskAI"></span>
+                    </div>
+                  </div>
+                  <div class="AutoCol AutoLabel">Generate Results</div>
+                </div>
+              </button>
             </div>
-          )
-        )}
-        <button type="submit" className="bg-primary text-white px-8 py-3 mt-4 rounded flex m-auto">
-          <Sparkles className="mr-4" />
-          <span className="text-[14px] font-[600]">Generate (1 question)</span>
-        </button>
-      </form>
+            <div class="ChatNotice Centered">
+              <p>
+                <b>Note:</b>
+                Generating results will use 1 question from your account.
+              </p>
+              <p>
+                Enoch AI is experimental. These statements are not intended to diagnose, treat, or
+                cure any medical condition. Please verify all important information and always seek
+                advice from your doctor, healthcare professional, or naturopath before making any
+                changes to your existing medication or health routine.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -6,10 +6,8 @@ import { logout } from '../redux/userSlice';
 import { deleteMyChatHistory } from '../redux/chatSlice';
 
 function ProfileDetail({ user }) {
-  console.log('🚀 ~ user:', user);
   const dispatch = useDispatch();
   const { theme, changeTheme } = useTheme();
-  console.log('🚀 ~ ProfileDetail ~ theme:', theme === 'light');
 
   const engineList = [
     {
@@ -34,6 +32,10 @@ function ProfileDetail({ user }) {
       ),
     },
   ];
+  const onLogout = async () => {
+    await changeTheme('light');
+    dispatch(logout());
+  };
   return (
     // <div>
     //   <div className="flex flex-col gap-4">
@@ -99,14 +101,7 @@ function ProfileDetail({ user }) {
             </div>
           </div>
           <div class="AutoCol AutoLabel">
-            <b>{user?.email}</b> •{' '}
-            <a
-              onClick={() => {
-                dispatch(logout());
-              }}
-            >
-              Log out
-            </a>
+            <b>{user?.email}</b> • <a onClick={onLogout}>Log out</a>
           </div>
         </div>
 
