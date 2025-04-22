@@ -144,6 +144,11 @@ const chatSlice = createSlice({
         session.history = [];
       }
     },
+    clearAllChatHistory: (state) => {
+      state.sessions.forEach((session) => {
+        session.history = [];
+      });
+    },
     startLoading: (state) => {
       state.isLoading = true; // ✅ Start loading
     },
@@ -211,6 +216,7 @@ export const {
   setActiveSession,
   deleteSession,
   clearChatHistory,
+  clearAllChatHistory,
   appendMessage,
   regenerateMessage,
   startLoading,

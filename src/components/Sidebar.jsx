@@ -71,12 +71,16 @@ export default function Sidebar({ children }) {
 
   return (
     <>
-      <div id="Top">
+      <div id="Top" style={{ zIndex: isOpen ? -1 : 0 }}>
         <div className="Section USN" id="SectionMasthead">
           <div className="Content">
             <div className="MastheadTable">
               <div className="MastheadCol MastheadColMenu">
-                <div className="ButtonIcon NoClose ButtonMenu" title="Menu">
+                <div
+                  className="ButtonIcon NoClose ButtonMenu"
+                  title="Menu"
+                  onClick={() => setIsOpen(true)}
+                >
                   <div className="Icon">
                     <span className="Mask MaskMenu"></span>
                   </div>
@@ -102,9 +106,20 @@ export default function Sidebar({ children }) {
           </div>
         </div>
       </div>
-      <div className="Menu MenuLeft NoClose USN" id="Menu">
+      {isOpen && (
+        <div className="fixed inset-0 z-10">
+          <div
+            className="absolute inset-0 BlurBox backdrop"
+            onClick={() => setIsOpen(false)} // Optional: close modal on backdrop click
+          />
+        </div>
+      )}
+      <div
+        className={`Menu MenuLeft NoClose z-20 USN ${isOpen ? 'MenuLeftOpen ActiveElement' : ''}`}
+        id="Menu"
+      >
         <div className="Content">
-          <div className="ButtonIcon Close" title="Close">
+          <div className="ButtonIcon Close" title="Close" onClick={() => setIsOpen(false)}>
             <div className="Icon">
               <span className="Mask MaskClose"></span>
             </div>
@@ -226,7 +241,6 @@ export default function Sidebar({ children }) {
             </div>
           </div>
         </div>
-
         <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
           <ProfileDetail user={user} />
         </Modal>
