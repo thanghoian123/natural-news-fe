@@ -4,7 +4,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 // Create Axios instance
 const axiosInstance = axios.create({
-  baseURL: apiUrl,
+  baseURL: 'https://api-vip.naturalnews.com',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

@@ -1,0 +1,79 @@
+/* DROPDOWNS */
+
+.Dropdown {
+  /* display: none;
+  min-width: 120px;
+  border: solid 1px var(--CardBorder);
+  border-radius: 5px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 0px;
+  z-index: 30; */
+  background-color: red;
+}
+.DropdownContent {
+  display: block;
+}
+
+.DropdownTable {
+  display: block;
+}
+.DropdownCol {
+  display: block;
+}
+.DropdownBox {
+  display: block;
+}
+.DropdownPanel {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 5px 0px;
+}
+
+.Dropdown .ButtonIcon.Close {
+  display: none;
+}
+.Dropdown .AutoGroup {
+  padding: 0px 5px 5px 5px;
+  margin-bottom: 5px;
+  border-bottom: solid 1px var(--CardBorder);
+}
+.Dropdown .AutoGroup:last-child {
+  border: none 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.Dropdown .Auto {
+  width: 100%;
+  border-radius: 0px !important;
+  position: relative;
+}
+.Dropdown .Auto .AutoIcon {
+  padding: 0px 8px;
+}
+.Dropdown .Auto .AutoBadge {
+  padding: 4px 8px;
+}
+.Dropdown .Auto .AutoLabel {
+  padding: 4px 8px;
+}
+.Dropdown .Auto .AutoText {
+  padding-right: 8px;
+  font-size: var(--FS14);
+  white-space: nowrap;
+}
+.Dropdown .Link:hover {
+  background-color: var(--CardHover);
+  text-decoration: none;
+}
+
+///////////////////////////////////////////////////////////////
+
+#DropdownChatSettings {
+  max-width: 260px;
+}
+
+/* /////////////////////////////////////////////////////////////// */

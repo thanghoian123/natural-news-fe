@@ -4,6 +4,7 @@ import ChatBox from '../../components/Chatbox';
 import { sendMessage, setActiveSession, startNewSession } from '../../redux/chatSlice';
 import useWebSocket from '../../hooks/useWebSocket';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import InputChat from '../../components/InputChat';
 function ChatPage() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);

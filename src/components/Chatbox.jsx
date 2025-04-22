@@ -48,44 +48,81 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
 
   const isNewChat = !activeChat?.history.length;
   return (
-    <div className="flex flex-col w-full md:w-[100%] lg:w-[90%] h-screen px-[24px] py-4 items-center justify-center">
-      {/* Chat messages */}
-      {!isNewChat && (
-        <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full">
-          {activeChat?.history.map((msg, index) => (
-            <Bubble
-              key={index}
-              sender={msg.sender}
-              text={msg.text}
-              isLoading={index === lastBotMessageIndex && isLoading && msg.sender === 'assistant'}
-              isStreaming={
-                index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming
-              }
-              onRegenerateMessage={onRegenerateMessage}
+    <>
+      {isNewChat ? (
+        <div className="UITable">
+          <div className="UICol UIMiddle">
+            <div id="Canvas">
+              <div className="Section Narrow" id="SectionHomeChat">
+                <div className="Content">
+                  {isNewChat && (
+                    <>
+                      <div className="Headline Centered">
+                        <span className="UIColor">Hi, I'm Enoch.</span>{' '}
+                        <span className="NoWrap">How can I help you?</span>
+                      </div>
+                      <div className="Block Text Centered">
+                        Type in your health-related question and prompts or use one of the presets
+                        below
+                      </div>
+                    </>
+                  )}
+
+                  <InputChat
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    sendMessage={handleSendMessage}
+                    tokenRemaining={user?.reward || 0}
+                    isNewChat={isNewChat}
+                    handleSelectPrompt={handleSelect}
+                    handlePressPropmt={handlePress}
+                    handleChangeModel={handleChangeModel}
+                    modelType={modelType}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col w-full md:w-[100%]  h-screen px-[24px] py-4 items-center justify-center">
+          {/* Chat messages */}
+          {!isNewChat && (
+            <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full">
+              {activeChat?.history.map((msg, index) => (
+                <Bubble
+                  key={index}
+                  sender={msg.sender}
+                  text={msg.text}
+                  isLoading={
+                    index === lastBotMessageIndex && isLoading && msg.sender === 'assistant'
+                  }
+                  isStreaming={
+                    index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming
+                  }
+                  onRegenerateMessage={onRegenerateMessage}
+                />
+              ))}
+              <div ref={chatEndRef} /> {/* Scroll anchor */}
+            </div>
+          )}
+
+          {/* Chat input */}
+          <div className="w-full">
+            <InputChat
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              sendMessage={handleSendMessage}
+              tokenRemaining={user?.reward || 0}
+              isNewChat={isNewChat}
+              handleSelectPrompt={handleSelect}
+              handlePressPropmt={handlePress}
+              handleChangeModel={handleChangeModel}
+              modelType={modelType}
             />
-          ))}
-          <div ref={chatEndRef} /> {/* Scroll anchor */}
+          </div>
         </div>
       )}
-
-      {/* Chat input */}
-      <InputChat
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        sendMessage={handleSendMessage}
-        tokenRemaining={user?.reward || 0}
-        isNewChat={isNewChat}
-        handleSelectPrompt={handleSelect}
-        handlePressPropmt={handlePress}
-        handleChangeModel={handleChangeModel}
-        modelType={modelType}
-      />
-
-      <p className="text-center text-[10px] text-[#73737E] mt-2">
-        Enoch AI is experimental. Please verify all important information and always consult with
-        your doctor before taking medication or making any changes to your existing medication or
-        health routine.
-      </p>
-    </div>
+    </>
   );
 }

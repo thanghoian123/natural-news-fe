@@ -75,8 +75,47 @@ function InputChat(props) {
   ];
 
   return (
-    <div className="w-full md:w-[80%] lg:w-[60%] m-auto">
-      <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col  rounded-2xl border-primary border-1 border-primary ">
+    <div className="">
+      <div className="ChatBox USN">
+        <div className="ChatPrompt">
+          <textarea
+            rows="1"
+            name="Prompt"
+            id="Prompt"
+            value={value}
+            onChange={onChange}
+            placeholder="Type something here"
+            className="Focus"
+          ></textarea>
+        </div>
+
+        <div className="ChatButtons">
+          <div className="ChatTable">
+            <div className="ChatCol ChatColLeft">
+              <div className="Disclaimer">
+                Each prompt uses 1 question. You have 42 questions remaining.{' '}
+                <span className="Link ButtonProfile NoClose">Learn More</span>
+              </div>
+            </div>
+            <div className="ChatCol ChatColRight">
+              <div className="ButtonBox ButtonBoxRight">
+                <div
+                  className={`ButtonPrimary ButtonIcon  NoClose ${!value && 'ButtonDisabled'}`}
+                  id="ButtonGo"
+                  title=""
+                  ref={sendButtonRef}
+                  onClick={sendMessage}
+                >
+                  <div className="Icon">
+                    <span className="Mask MaskGo"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="p-3 bg-[#F4F4FA] dark:bg-[#252526] flex items-center flex-col  rounded-2xl border-primary border-1 border-primary ">
         <input
           type="text"
           className="flex-11 p-2 text-sm border-b border-gray-200 outline-none pb-[24px] w-full text-[#73737E]"
@@ -109,21 +148,64 @@ function InputChat(props) {
             </button>
           </div>
         </div>
-      </div>
-      {isNewChat && (
-        <div className="flex justify-around gap-2 mt-4 flex-wrap">
-          {prompts.map((p) => (
-            <div className="flex-1">
-              <Dropdown
-                label={p.label}
-                options={p.options}
-                onSelect={handleSelectPrompt}
-                onPress={() => handlePressPropmt(p)}
-              />
+      </div> */}
+      <div className="Section Narrow" id="SectionHomePresets">
+        {isNewChat && (
+          <div className="Content">
+            <div className="Block ScrollContainer">
+              <div className="">
+                <div className="flex flex-row pt-[20px] gap-[1px]" id="HomePresets">
+                  {prompts.map((p) => (
+                    <div key={p.label} className="relative">
+                      <Dropdown
+                        label={p.label}
+                        options={p.options}
+                        onSelect={handleSelectPrompt}
+                        onPress={() => handlePressPropmt(p)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          ))}
+
+            <div className="Block Disclaimer Centered PresetLink NoClose">
+              Why it is so important to lab-test your food and supplements for heavy metals,
+              microbiology, glyphosate and other contaminants?
+            </div>
+          </div>
+        )}
+
+        <div className="Section Narrow" id="SectionHomeDetails">
+          <div className="Content">
+            <div className="ChatNotice Centered z-1">
+              <p>
+                Enoch AI is experimental. These statements are not intended to diagnose, treat, or
+                cure any medical condition. Please verify all important information and always seek
+                advice from your doctor, healthcare professional, or naturopath before making any
+                changes to your existing medication or health routine.
+              </p>
+            </div>
+            {isNewChat && (
+              <div className="Disclaimer Centered">
+                <a href="Support" target="_blank">
+                  Visit our support area
+                </a>{' '}
+                for a detailed guide on using Enoch AI.
+                <p>
+                  <a href="Support/Terms" target="_blank">
+                    Terms of Service
+                  </a>{' '}
+                  •{' '}
+                  <a href="Support/Privacy" target="_blank">
+                    Privacy Policy
+                  </a>
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ const Dropdown = ({ options, onSelect, label }) => {
       <div>
         <button
           type="button"
-          className="inline-flex justify-between w-full rounded-md border dark:border-[#73737E] dark:text-[#F4F4FA] px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-2  focus:ring-blue-400"
+          className="inline-flex justify-between w-full rounded-md border dark:border-[#73737E] dark:text-[#F4F4FA] px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-2  focus:ring-[#577836]"
           onClick={toggleDropdown}
         >
           {label}

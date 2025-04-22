@@ -1,0 +1,356 @@
+/* BUTTONS */
+
+.ButtonHistory {
+  cursor: pointer;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.Button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  display: inline-block;
+  border: none 0px;
+  outline: none 0px;
+  padding: 0px 16px;
+  min-height: 36px;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  text-decoration: none !important;
+  white-space: nowrap;
+  font-size: var(--FSSmall);
+  line-height: 100%;
+  font-weight: 600;
+  border-radius: 3px;
+}
+
+.Button:hover {
+  text-decoration: none !important;
+}
+
+.ButtonSmall {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  display: inline-block;
+  border: none 0px;
+  outline: none 0px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  text-decoration: none !important;
+  white-space: nowrap;
+  font-size: var(--FSSmall);
+  line-height: 100%;
+  font-weight: 500;
+}
+
+.ButtonSmall:hover {
+  text-decoration: none !important;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.ButtonIcon:hover {
+  text-decoration: none !important;
+  background-color: var(--IconBGHover);
+}
+.ButtonIcon .Icon {
+  width: 100%;
+  height: 100%;
+}
+.ButtonIcon:hover .Mask {
+  background-color: var(--MaskBGHover);
+}
+
+.ButtonIcon .Notification {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--Alert);
+  position: absolute;
+  z-index: 1;
+  right: 3px;
+  top: 3px;
+}
+
+.ButtonDisabled {
+  background-color: var(--ButtonDisabled) !important;
+  cursor: no-drop;
+}
+.ButtonDisabled .Mask {
+  background-color: var(--ButtonDisabledText);
+}
+.ButtonDisabled:hover .Mask {
+  background-color: var(--ButtonDisabledText);
+}
+
+.ButtonIconSmall {
+  width: 24px;
+  height: 24px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonAuto {
+}
+.ButtonAuto .Auto {
+  margin: 0px auto;
+}
+.ButtonAuto .Icon {
+}
+.ButtonAuto .AutoCol {
+  font-size: var(--FSSmall);
+  font-weight: 600;
+}
+
+.ButtonAutoLeft .AutoIcon {
+  padding-right: 5px;
+}
+.ButtonAutoRight .AutoIcon {
+  padding-left: 5px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonLarge {
+  font-size: var(--FSMedium);
+  padding: 8px 32px;
+  border-radius: 6px;
+}
+.ButtonLarge .AutoCol {
+  font-size: var(--FSMedium);
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonCover {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 2000;
+  background-color: var(--Trans2);
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonBox {
+  display: block;
+}
+.ButtonBox:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonBox .ButtonIcon {
+  float: left;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonBoxLeft {
+  text-align: left;
+}
+.ButtonBoxLeft .Button,
+.ButtonBoxLeft .ButtonIcon {
+  float: left;
+  margin-right: 2px;
+}
+
+.ButtonBoxRight {
+  text-align: right;
+}
+.ButtonBoxRight .Button,
+.ButtonBoxRight .ButtonIcon {
+  float: right;
+  margin-left: 2px;
+}
+
+.ButtonBoxCenter {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* .ButtonBoxCenter .Button, .ButtonBoxCenter .ButtonIcon { float: left; margin-right: 2px; } */
+
+.ButtonBoxFull {
+  text-align: center;
+}
+.ButtonBoxFull .Button {
+  width: 100%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonTransparent {
+  background-color: var(--Trans1);
+  color: var(--ButtonText);
+}
+.ButtonTransBorder {
+  background-color: var(--Trans1);
+  color: var(--ButtonText);
+  border: solid 1px var(--ButtonBorder);
+}
+
+.ButtonActive {
+  color: var(--UIBG);
+  border-color: var(--UIBG);
+  background-color: var(--CardBG);
+}
+
+.ButtonB2T {
+  background-color: var(--UIBG);
+  color: var(--UIText);
+}
+.ButtonB2T:hover {
+  background-color: var(--UIBG);
+  color: var(--UIText);
+}
+.ButtonB2T:hover .Icon .Mask {
+  background-color: var(--UIText);
+}
+.ButtonB2T .Icon .Mask {
+  background-color: var(--UIText);
+}
+
+.ButtonPrimary {
+  background-color: var(--UIBG);
+  color: var(--UIText);
+}
+.ButtonPrimary .AutoCol {
+  color: var(--UIText);
+}
+.ButtonPrimary .Icon .Mask {
+  background-color: var(--UIText);
+}
+.ButtonPrimary:hover {
+  background-color: var(--UIBGHover);
+}
+.ButtonPrimary:hover .Icon .Mask {
+  background-color: var(--UIText);
+}
+
+.ButtonBlack {
+  background-color: var(--Black);
+  color: var(--White);
+}
+.ButtonBlack:hover {
+  background-color: var(--Gray90);
+}
+.ButtonBlack .Auto .AutoCol {
+  color: var(--ButtonGrayText);
+}
+.ButtonBlack .Auto .AutoCol .Icon .Mask {
+  background-color: var(--ButtonGrayText);
+}
+
+.ButtonWhite {
+  background-color: var(--Gray10);
+  color: var(--Black);
+}
+.ButtonWhite:hover {
+  background-color: var(--White);
+}
+.ButtonWhite .Auto .AutoCol {
+  color: var(--Gray90);
+}
+.ButtonWhite .Auto .AutoCol .Icon .Mask {
+  background-color: var(--Gray90);
+}
+
+.ButtonGray {
+  background-color: var(--ButtonGrayBG);
+  color: var(--ButtonGrayText);
+}
+.ButtonGray:hover {
+  background-color: var(--ButtonGrayBGHover);
+}
+.ButtonGray .Auto .AutoCol {
+  color: var(--ButtonGrayText);
+}
+.ButtonGray .Auto .AutoCol .Icon .Mask {
+  background-color: var(--ButtonGrayText);
+}
+
+.ButtonOrange {
+  background-color: var(--Orange);
+  color: var(--White);
+}
+.ButtonOrange:hover {
+  background-color: var(--OrangeAlt);
+}
+.ButtonOrange .Auto .AutoCol {
+  color: var(--White);
+}
+.ButtonOrange .Auto .AutoCol .Icon .Mask {
+  background-color: var(--White);
+}
+
+.ButtonYellow {
+  background-color: var(--Yellow);
+  color: var(--Gray90);
+}
+.ButtonYellow:hover {
+  background-color: var(--YellowAlt);
+}
+.ButtonYellow .Auto .AutoCol {
+  color: var(--Gray90);
+}
+.ButtonYellow .Auto .AutoCol .Icon .Mask {
+  background-color: var(--Gray90);
+}
+
+.ButtonRed {
+  background-color: var(--Red);
+  color: var(--White);
+}
+.ButtonRed:hover {
+  background-color: var(--RedAlt);
+}
+.ButtonRed .Auto .AutoCol {
+  color: var(--White);
+}
+.ButtonRed .Auto .AutoCol .Icon .Mask {
+  background-color: var(--White);
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+/* BACK TO TOP */
+
+.BacktoTop {
+  display: none;
+  position: fixed;
+  z-index: 40;
+  right: 30px;
+  bottom: 30px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */

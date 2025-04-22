@@ -1,0 +1,764 @@
+/* CHAT */
+
+.ChatBox {
+  display: block;
+  min-width: 300px;
+  margin: 0px auto;
+  background-color: var(--CardBG);
+  padding: 15px;
+  border-radius: 15px;
+  border: solid 1px var(--Trans1);
+}
+
+.ChatBoxActive {
+  border-color: var(--UIBG) !important;
+}
+
+.ChatPrompt {
+  display: block;
+  border-bottom: solid 1px var(--CardBorder);
+  margin-bottom: 15px;
+}
+.ChatPrompt input {
+  height: 42px;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--Trans1);
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ChatPrompt textarea {
+  background-color: var(--Trans1);
+  border-radius: 0px;
+  outline: none 0px;
+  border: none 0px;
+  resize: none;
+  overflow-y: auto;
+  min-height: 45px;
+  max-height: 240px;
+  padding-right: 8px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+@media (min-width: 700px) {
+  .ChatPrompt textarea {
+    font-size: var(--FSLarge);
+  }
+}
+
+.ChatPrompt textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--Track);
+}
+.ChatPrompt textarea::-webkit-scrollbar {
+  width: 11px;
+}
+.ChatPrompt textarea::-webkit-scrollbar-track {
+  background: var(--Track);
+}
+.ChatPrompt textarea::-webkit-scrollbar-thumb {
+  background-color: var(--Thumb);
+  border-radius: 6px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ChatButtons {
+  display: block;
+}
+
+.ChatTable {
+  display: table;
+  width: 100%;
+}
+.ChatCol {
+  display: table-cell;
+  vertical-align: middle;
+}
+.ChatColLeft {
+  width: auto;
+  padding-right: 10px;
+}
+.ChatColRight {
+  width: 100px;
+}
+
+@media (max-width: 699.9px) {
+  .ChatColLeft .Disclaimer {
+    font-size: var(--FSTiny);
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#ButtonGo {
+  width: 50px;
+  height: 32px;
+  animation: pulse 3s infinite;
+}
+#ButtonGo .Mask {
+  background-color: var(--UIText);
+}
+#ButtonGo:hover {
+  background-color: var(--UIBG);
+}
+#ButtonGo:hover .Mask {
+  background-color: var(--UIText);
+}
+#ButtonGo:hover {
+  animation: 0;
+}
+#ButtonGo.ButtonDisabled .Mask {
+  background-color: var(--Gray50);
+}
+#ButtonGo:hover.ButtonDisabled .Mask {
+  background-color: var(--Gray50);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    background-color: var(--UIBG);
+  }
+  50% {
+    background-color: var(--UIBGDark);
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#SectionHomeChat {
+  padding-top: 0px;
+}
+#SectionHomeChat .Headline {
+  font-size: var(--FSBig);
+  font-weight: 300;
+}
+@media (min-width: 1000px) {
+  #SectionHomeChat .Headline {
+    font-size: var(--FSHuge);
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#SectionHomePresets {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+#SectionHomePresets .ButtonBox .Button {
+  margin: 2px 1px;
+}
+
+.PresetGroup .PresetOption {
+  padding: 4px 8px;
+  font-size: var(--FSMedium);
+  color: var(--CardText);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.PresetGroup .PresetOption:hover {
+  background-color: var(--CardHover);
+  color: var(--UIText);
+}
+
+.PresetLink {
+  color: var(--UIBG);
+  cursor: pointer;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#SectionHomeDetails {
+  padding-top: 0px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.ButtonChatDelete .Icon .Mask {
+  background-color: var(--Gray40);
+}
+.ButtonChatDelete:hover .Icon .Mask {
+  background-color: var(--Red);
+}
+
+.ChatTitle {
+  display: block;
+  margin-bottom: 0px;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 1px var(--Trans1);
+  cursor: pointer;
+}
+.ChatTitle a {
+  color: var(--Subhead);
+  text-decoration: none !important;
+}
+
+.ChatTitle .Auto {
+  width: 100%;
+}
+.ChatText {
+  font-size: var(--FSMedium);
+  color: var(--Subhead);
+  width: auto;
+}
+.ChatOptions {
+  width: 30px;
+  padding-left: 6px;
+  text-align: right;
+}
+
+.ChatOptions .ButtonChatDelete {
+}
+
+@media (min-width: 1000px) {
+  #GroupRecent .History .ChatTitle .ChatOptions {
+    opacity: 0;
+  }
+  #GroupRecent .History .ChatTitle:hover {
+    background-color: var(--CardBGHover);
+  }
+  #GroupRecent .History .ChatTitle:hover .ChatOptions {
+    opacity: 1;
+  }
+  #GroupRecent .History .ChatTitleActive {
+    border-color: var(--UIBG);
+    background-color: var(--CardBGHover);
+  }
+  #GroupRecent .History .ChatTitleActive:hover {
+    border-color: var(--UIBG);
+  }
+  #GroupRecent .History .ChatTitleActive:hover .ChatOptions {
+    opacity: 1;
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#PopupHistory .Subhead {
+  border-bottom: solid 1px var(--CardBorder);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+#PopupHistory .History {
+  display: block;
+  padding-right: 20px;
+  overflow-y: auto;
+  max-height: 360px;
+}
+#PopupHistory .ChatTitle:hover {
+  background-color: var(--CardBGHover);
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.Message {
+  display: block;
+  margin-bottom: 40px;
+  clear: both;
+}
+.MessageUser {
+  float: right;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--UIBG);
+  font-size: var(--FSLarge);
+  line-height: 170%;
+  color: var(--UIText);
+}
+.MessageAI {
+  float: left;
+}
+.MessageReply {
+  display: block;
+  font-size: var(--FSLarge);
+  line-height: 170%;
+  color: var(--Headline);
+}
+.MessageReason {
+  display: block;
+  font-size: var(--FSMedium);
+  color: var(--Info);
+  padding-left: 30px;
+  border-left: solid 2px var(--Info);
+}
+
+.MessageActions {
+  display: block;
+  margin-top: 10px;
+}
+.MessageActions .ButtonIcon {
+  margin-right: 5px;
+}
+.MessageActions .ButtonIcon .Icon {
+}
+.MessageActions .ButtonIcon .Icon .Mask {
+}
+.MessageActions .ButtonIcon:hover .Icon .Mask {
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+#SectionChatCanvas {
+  padding-bottom: 60px;
+}
+#SectionChatCanvas .Message:last-child {
+  margin-bottom: 0px;
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+#SectionHistoryChat {
+  display: block;
+  z-index: 4;
+  width: 100%;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  padding-top: 0px;
+  background-color: var(--Body);
+}
+#SectionHistoryChat .Content {
+  position: relative;
+}
+#SectionHistoryChat .Content:before {
+  content: '';
+  display: table;
+  width: 100%;
+  height: 50px;
+  clear: both;
+  pointer-events: none;
+  position: absolute;
+  top: -50px;
+  left: 0px;
+}
+
+#SectionHistoryChat .ChatBox {
+  margin: 0px auto;
+}
+
+@media (min-width: 1050px) {
+  #SectionHistoryChat {
+    display: block;
+    z-index: 4;
+    width: calc(100% - 300px);
+    position: fixed;
+    right: 20px;
+    bottom: 0px;
+  }
+}
+
+.ChatNotice {
+  display: block;
+  max-width: 600px;
+  margin: 0px auto;
+  font-size: var(--FSTiny);
+  padding: 10px;
+  color: var(--Info);
+}
+
+.HistoryBox {
+  display: block;
+  margin-top: 40px;
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Post {
+  display: block;
+  margin: 0px auto 30px auto;
+  position: relative;
+  border: none 0px;
+  outline: none 0px;
+}
+.PostInfo {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.PostBox {
+  display: table-cell;
+  width: auto;
+  position: relative;
+}
+
+.PostBox .Icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 10;
+  background-color: var(--Black);
+  border-radius: 2px;
+}
+.PostBox .Icon .Mask {
+  background-color: var(--White) !important;
+}
+
+.PostThumb {
+  display: block;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  border-radius: 10px;
+  background-color: var(--CardBG);
+}
+.PostThumb img {
+  border-radius: 10px;
+}
+.PostFade {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 3;
+  border-radius: 10px;
+}
+.PostAction {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+.PostAction span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.PostTitle {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  z-index: 4;
+  text-align: center;
+  color: var(--White);
+}
+
+@media (min-width: 1000px) {
+  .Post:hover .PostTitle {
+    bottom: 25px;
+  }
+  .Post:hover .PostFade {
+    border-radius: 10px;
+  }
+  .Post:hover .PostAction {
+    opacity: 1;
+  }
+  .Post:hover .PostThumb {
+    background-size: 102%;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Questionnaire {
+  display: block;
+  padding: 0px 20px 20px 20px;
+  margin: 0px auto;
+  max-width: 700px;
+}
+.Questionnaire .Form {
+  margin-top: 40px;
+}
+
+.Questionnaire .Headline {
+  color: var(--UIBG);
+}
+
+@media (min-width: 640px) {
+  .Questionnaire {
+    padding: 40px;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.VIPTools {
+  display: block;
+  padding: 0px 20px 20px 20px;
+  margin: 0px auto;
+  max-width: 1960px;
+}
+@media (max-width: 1049.9px) {
+  .VIPTools {
+    padding-top: 102px !important;
+  }
+
+  .PageOpen {
+    padding-top: 102px;
+  }
+}
+.VIPTools:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.VIPTools .Headline {
+  font-size: var(--FSXXL);
+  font-weight: 500;
+}
+.VIPTools .Text {
+  font-size: var(--FSLarge);
+  font-weight: 300;
+  color: var(--UIBG);
+}
+.VIPTools .Collection {
+  display: block;
+}
+.VIPTools .Collection * {
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.VIPTools .Collection .Post .PostTitle {
+  padding: 0px 15px;
+}
+
+@media (min-width: 640px) {
+  .VIPTools {
+    padding: 40px;
+  }
+  .VIPTools .Headline {
+    font-size: var(--FSGiant);
+  }
+  .VIPTools .Text {
+    font-size: var(--FSXXL);
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+@media (min-width: 640px) and (max-width: 1239.9px) {
+  .VIPTools .Collection .Post {
+    display: inline;
+    float: left;
+    margin-bottom: 24px;
+  }
+  .VIPTools .Collection .Post:nth-child(odd) {
+    width: 50%;
+    padding: 0px 12px 0px 0px;
+  }
+  .VIPTools .Collection .Post:nth-child(even) {
+    width: 50%;
+    padding: 0px 0px 0px 12px;
+  }
+}
+
+@media (min-width: 1240px) {
+  .VIPTools .Collection .Post {
+    display: inline;
+    float: left;
+    margin-bottom: 24px;
+  }
+  .VIPTools .Collection .Post:nth-child(1) {
+    width: 33.33%;
+    padding: 0px 16px 0px 0px;
+  }
+  .VIPTools .Collection .Post:nth-child(2) {
+    width: 33.33%;
+    padding: 0px 8px 0px 8px;
+  }
+  .VIPTools .Collection .Post:nth-child(3) {
+    width: 33.33%;
+    padding: 0px 0px 0px 16px;
+  }
+  .VIPTools .Collection .Post:nth-child(4) {
+    width: 25%;
+    padding: 0px 16px 0px 0px;
+    clear: both;
+  }
+  .VIPTools .Collection .Post:nth-child(5) {
+    width: 25%;
+    padding: 0px 10px 0px 6px;
+  }
+  .VIPTools .Collection .Post:nth-child(6) {
+    width: 25%;
+    padding: 0px 6px 0px 10px;
+  }
+  .VIPTools .Collection .Post:nth-child(7) {
+    width: 25%;
+    padding: 0px 0px 0px 16px;
+  }
+  .VIPTools .Collection .Post:nth-child(8) {
+    width: 33.33%;
+    padding: 0px 16px 0px 0px;
+    clear: both;
+  }
+  .VIPTools .Collection .Post:nth-child(9) {
+    width: 33.33%;
+    padding: 0px 8px 0px 8px;
+  }
+  .VIPTools .Collection .Post:nth-child(10) {
+    width: 33.33%;
+    padding: 0px 0px 0px 16px;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.VIPTools .Collection .Post .PostTitle {
+  font-size: var(--FSLarge);
+}
+
+@media (min-width: 460px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSXXL);
+  }
+}
+
+@media (min-width: 580px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSBig);
+  }
+}
+
+@media (min-width: 640px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSLarge);
+  }
+}
+
+@media (min-width: 760px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSXL);
+  }
+}
+
+@media (min-width: 1000px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSBig);
+  }
+}
+
+@media (min-width: 1050px) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSXL);
+  }
+}
+
+@media (min-width: 1240px) and (max-width: 1379.9) {
+  .VIPTools .Collection .Post .PostTitle {
+    font-size: var(--FSLarge);
+  }
+}
+
+@media (min-width: 1380px) {
+  .VIPTools .Collection .Post:nth-child(1) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+  .VIPTools .Collection .Post:nth-child(2) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+  .VIPTools .Collection .Post:nth-child(3) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+
+  .VIPTools .Collection .Post:nth-child(4) .PostTitle {
+    font-size: var(--FSXL);
+  }
+  .VIPTools .Collection .Post:nth-child(5) .PostTitle {
+    font-size: var(--FSXL);
+  }
+  .VIPTools .Collection .Post:nth-child(6) .PostTitle {
+    font-size: var(--FSXL);
+  }
+  .VIPTools .Collection .Post:nth-child(7) .PostTitle {
+    font-size: var(--FSXL);
+  }
+
+  .VIPTools .Collection .Post:nth-child(8) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+  .VIPTools .Collection .Post:nth-child(9) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+  .VIPTools .Collection .Post:nth-child(10) .PostTitle {
+    font-size: var(--FSXXL);
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.PostLocked {
+  cursor: pointer;
+}
+
+.PostLocked .PostTitle {
+  opacity: 0.5;
+}
+
+.PostLocked .PostThumb {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+#ToolPlanner .PostThumb {
+  background-image: url('../assets/Images/Tool-Daily-Meal-Planner.jpg');
+}
+#ToolGrocery .PostThumb {
+  background-image: url('../assets/Images/Tool-Grocery-Shopping-Coach.jpg');
+}
+#ToolFinder .PostThumb {
+  background-image: url('../assets/Images/Tool-Supplements-and-Ingredients.jpg');
+}
+#ToolWellness .PostThumb {
+  background-image: url('../assets/Images/Tool-Personalized-Wellness-Plan.jpg');
+}
+#ToolGardener .PostThumb {
+  background-image: url('../assets/Images/Tool-Master-Gardener.jpg');
+}
+#ToolLongevity .PostThumb {
+  background-image: url('../assets/Images/Tool-Longevity-Roadmap.jpg');
+}
+#ToolJournals .PostThumb {
+  background-image: url('../assets/Images/Tool-Simplify-Scientific-Journals.jpg');
+}
+#ToolIngredient .PostThumb {
+  background-image: url('../assets/Images/Tool-Ingredient-Checker.jpg');
+}
+#ToolChat .PostThumb {
+  background-image: url('../assets/Images/Tool-Chat.jpg');
+}
+#ToolSummary .PostThumb {
+  background-image: url('../assets/Images/Tool-Summary.jpg');
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.SelectModel {
+  padding: 8px;
+}
+
+.SelectModel .Headline {
+  font-size: var(--FSMedium);
+  color: var(--Headline);
+  letter-spacing: initial;
+}
+.SelectModel .Text {
+  font-size: var(--FSSmall);
+  color: var(--Info);
+}
+
+.SelectModel .ModelSelected .Headline {
+  color: var(--UIBG);
+}
+
+.SelectModel .FormRadio:last-child {
+  margin-bottom: 0px;
+}
+
+/* //////////////////////////////////////////////////////////////////// */

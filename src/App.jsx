@@ -5,6 +5,7 @@ import ChatPage from './pages/ChatPage';
 import HomePage from './pages/HomePage';
 import withAuth from './HOCs/withAuth';
 import './index.css';
+import './global.css';
 import ProtectedLayout from './components/Layout/ProtectLayout';
 import ToolPage from './pages/ToolPage';
 import HistoryPage from './pages/HistoryPage';
