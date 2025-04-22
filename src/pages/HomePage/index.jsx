@@ -121,7 +121,7 @@ function HomePage() {
     <div className="flex-1 flex flex-col w-full">
       <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42] flex flex-col items-center ">
         <h1 className="text-primary text-center text-[38px] font-[300]">Ask Enoch Anything</h1>
-        <div className="w-[60%]">
+        <div className="md:w-[60%] sm:w-[80%]">
           <InputChat
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -141,7 +141,7 @@ function HomePage() {
       </div>
 
       <div className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center ">
-        <div className="w-[60%]">
+        <div className="md:w-[60%] sm:w-[80%]">
           <h1 className="text-primary text-center text-[38px] font-[300]">What is Enoch?</h1>
 
           <p className="dark:text-white text-[12px] text-left">
@@ -173,7 +173,7 @@ function HomePage() {
         className="py-[70px] px-[20px] border-b-1 border-[#e5e5ec] dark:border-[#3E3E42]  flex flex-col items-center "
         id="SectionHomeTools"
       >
-        <div className="w-[60%]">
+        <div className="md:w-[60%] sm:w-[80%]">
           <h1 className="text-primary text-center text-[38px] font-[300]">Prompt Tools</h1>
           <p className="dark:text-white text-center text-[24px] font-[300] mb-4">
             Use these exclusive tools to help construct a detailed prompt:
