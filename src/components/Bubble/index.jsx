@@ -58,23 +58,26 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
       {sender !== 'user' && (
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2 dark:text-text-dark text-black">
           <button
-            onClick={onRegenerateMessage}
-            className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
-          >
-            <RefreshCw size={14} />
-          </button>
-          <button
-            onClick={handleCopy}
-            className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
-          >
-            <Copy size={14} />
-            {copied && (
-              <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
-                Copied!
-              </span>
-            )}
-          </button>
-        </div>
+          onClick={handleCopy}
+          title="Copy Text to Clipboard"
+          className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
+        >
+          <Copy size={14} />
+          {copied && (
+            <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
+              Copied!
+            </span>
+          )}
+        </button>
+        <button
+          onClick={onRegenerateMessage}
+          title="Regenerate"
+          className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
+        >
+          <RefreshCw size={14} />
+        </button>
+      </div>
+      
       )}
     </div>
   );
