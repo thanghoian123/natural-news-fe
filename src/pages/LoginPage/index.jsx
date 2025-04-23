@@ -1,21 +1,23 @@
 import React from 'react';
 import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import LoginHandler from './handler';
+import useLoginHandler from './LoginHandler';
+
 import { Link } from 'react-router-dom';
 
 function LoginPage() {
   const {
-    error,
     email,
     code,
+    error,
     validateEmail,
     validateCode,
     handleContinue,
-    handleVerifyOtp,
     isVerifyOTP,
     userError,
+    handleVerifyOtp,
     loading,
-  } = LoginHandler();
+  } = useLoginHandler();
+
 
   return (
     <div id="Page">
