@@ -58,6 +58,16 @@ export default function Sidebar({ children }) {
     setIsOpenConfirmDelete(false);
   };
 
+  const handleDeleteAllChat = async () => {
+    const result = await dispatch(deleteMyChatHistory());
+    if (deleteMyChatHistory.fulfilled.match(result)) {
+      addToast('Chat deleted successfully!', 'success');
+    } else {
+      addToast('Failed to delete chat.', 'error');
+    }
+    setIsOpenConfirmDeleteAll(false);
+  };
+
   const handleChatClick = (chat) => {
     if (chat?.id) {
       dispatch(setActiveSession(chat.id));
@@ -308,7 +318,7 @@ export default function Sidebar({ children }) {
                       <span class="Mask MaskDelete"></span>
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel" onClick={() => dispatch(deleteMyChatHistory())}>
+                  <div class="AutoCol AutoLabel" onClick={handleDeleteAllChat}>
                     Delete
                   </div>
                 </div>
