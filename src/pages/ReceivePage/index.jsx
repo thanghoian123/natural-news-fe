@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function ReceivePage() {
+  const env = import.meta.env;
+  const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [training, setTraining] = useState(true);
   const [newsletter, setNewsletter] = useState(true);
   const navigate = useNavigate();
+  const question = useLocation();
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -19,12 +23,29 @@ function ReceivePage() {
     }
   };
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log('Email:', email);
-    console.log('Training:', training);
-    console.log('Newsletter:', newsletter);
-
+  const handleSubmit = async () => {
+    if (!env.VITE_API_URL) {
+      // Handle error properly here
+      setError('VITE_API_URL is not defined in .env file');
+      return;
+    }
+    const response = await axios.post(
+      `${env.VITE_API_URL}/prompt/submit`,
+      {
+        email: email,
+        consent: training,
+        prompt: question.state.initialMessage,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (response.data.status_code !== 200) {
+      setError(response.data.detail[0]);
+      return;
+    }
     navigate('/Queue');
   };
 
@@ -105,6 +126,11 @@ function ReceivePage() {
                   </a>
                 </div>
               </div>
+              {error && (
+                <div className="Block Text Centered">
+                  <b className="Alert">{error}</b>
+                </div>
+              )}
             </div>
 
             <div className="Disclaimer Centered !text-[10px]">

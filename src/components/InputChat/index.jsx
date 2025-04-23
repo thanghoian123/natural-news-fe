@@ -98,13 +98,13 @@ function InputChat(props) {
           <div className="ChatTable">
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
-                {helperText} <span className="Link ButtonProfile NoClose">Learn More</span>
+                {value.length > 100000 ? 'NOTE: The prompt input above has a 100K character limit' : helperText} <span className="Link ButtonProfile NoClose">Learn More</span>
               </div>
             </div>
             <div className="ChatCol ChatColRight">
               <div className="ButtonBox ButtonBoxRight">
                 <div
-                  className={`ButtonPrimary ButtonIcon  NoClose ${!value && 'ButtonDisabled'}`}
+                  className={`ButtonPrimary ButtonIcon  NoClose ${(!value || value.length > 100000 ) && 'ButtonDisabled'}`}
                   id="ButtonGo"
                   title=""
                   ref={sendButtonRef}
