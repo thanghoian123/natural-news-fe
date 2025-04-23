@@ -1,0 +1,21 @@
+/* TABS */
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Tabs { display: block; }
+.Tab { display: inline-block; padding-bottom: 5px; margin-right: 15px; font-size: var(--FSMedium); cursor: pointer; color: var(--TabText); border-bottom: solid 2px var(--Trans1); }
+.Tab:hover { border-bottom-color: var(--TabHover); }
+.TabActive { color: var(--TabActive); border-bottom-color: var(--TabActive); }
+.TabActive:hover { color: var(--TabActive); border-bottom-color: var(--TabActive); }
+
+.TabBox { display: block; height: auto; margin: 0px; padding: 0px; max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
+.TabBox::-webkit-scrollbar { display: none; }
+.TabBox:last-child { margin-right: 0px; }
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Panels { display: block; }
+.Panel { display: none; }
+.PanelActive { display: block; }
+
+/* //////////////////////////////////////////////////////////////////// */

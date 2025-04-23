@@ -1,0 +1,225 @@
+/* MENUS */
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Menu {
+  display: block;
+  width: 300px;
+  margin: 0px;
+  position: fixed;
+  top: 0px;
+  z-index: 3000;
+  background-color: var(--CardBG);
+}
+
+@media (max-width: 1049.9px) {
+  .Menu {
+    width: 85%;
+    max-width: 500px;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Menu .Close {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  z-index: 3000;
+  top: 10px;
+}
+.Menu .Close .Mask {
+  background-color: var(--White);
+}
+.Menu .Close:hover {
+  background-color: var(--Trans1);
+}
+.Menu .Close:hover .Mask {
+  background-color: var(--White);
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.MenuLeft {
+  left: 0%;
+  height: 100%;
+}
+.MenuLeftOpen {
+  left: 0px !important;
+}
+.MenuLeftOpen .Close {
+  display: block !important;
+  right: -35px;
+}
+
+.MenuRight {
+  right: -85%;
+  height: 100%;
+}
+.MenuRightOpen {
+  right: 0px !important;
+}
+.MenuRightOpen .Close {
+  display: block !important;
+  left: -35px;
+}
+
+@media (max-width: 1049.9px) {
+  .MenuLeft {
+    left: -85%;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.Menu .Content {
+  padding: 15px 8px 15px 15px;
+  height: 100%;
+  position: relative;
+}
+.Menu .Card {
+  margin: 0px auto;
+  padding-right: 10px;
+  height: calc(100% - 65px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.MenuGroup {
+  margin-bottom: 40px;
+}
+.MenuGroup .Subhead {
+  font-size: var(--FSSmall);
+  color: var(--CardSubhead);
+}
+.MenuGroup .Text p {
+  padding: 0px;
+  margin-bottom: 10px;
+}
+.MenuGroup .Text a {
+  color: var(--CardText);
+  text-decoration: none;
+}
+.MenuGroup .Text a:hover {
+  color: var(--CardHover);
+}
+.MenuGroup .Block:last-child {
+  margin-bottom: 0px;
+}
+.MenuGroup .Text p:last-child {
+  margin-bottom: 0px;
+}
+.Menu .MenuGroup:last-child {
+  margin-bottom: 0px;
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.MenuText {
+  font-size: var(--FSSmall);
+}
+.MenuText a {
+  text-decoration: underline !important;
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+#Menu .Subhead {
+  color: var(--Text);
+}
+
+#MenuLogo {
+  display: block;
+  padding-bottom: 15px;
+}
+#MenuLogo .Logo {
+  max-width: 150px;
+}
+
+@media (max-width: 1049.9px) {
+  #Menu {
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  #MenuLogo {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1050px) {
+  #Menu {
+    z-index: 3;
+  }
+  #Menu .Close {
+    display: none !important;
+  }
+}
+
+/* //////////////////////////////////////////////////////////////////// */
+
+@media (max-width: 1049.9px) {
+  #GroupProfile {
+    display: block;
+  }
+}
+@media (min-width: 1050px) {
+  #GroupProfile {
+    display: block;
+    width: 270px;
+    position: fixed;
+    bottom: 20px;
+    left: 15px;
+    z-index: 2;
+  }
+}
+
+.Profile {
+  display: block;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Profile:hover {
+  background-color: var(--CardBGHover);
+}
+.ProfileTable {
+  display: table;
+  width: 100%;
+  cursor: pointer;
+}
+.ProfileCol {
+  display: table-cell;
+  vertical-align: middle;
+}
+.ProfilePhoto {
+  width: 32px;
+}
+.ProfileText {
+  width: auto;
+  padding-left: 10px;
+}
+.ProfileText .Text {
+  color: var(--Headline);
+}
+.ProfileText .Disclaimer {
+}
+
+.ProfileAvatar {
+  border-radius: 50%;
+  background-color: var(--UIBG);
+}
+.ProfileAvatar .Mask {
+  background-color: var(--UIText);
+}
+
+.ProfileAvatar:hover {
+  background-color: var(--UIBG);
+}
+.ProfileAvatar:hover .Mask {
+  background-color: var(--UIText);
+}
+
+/* //////////////////////////////////////////////////////////////////// */

@@ -1,0 +1,167 @@
+/* ICONS */
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.Icon {
+  display: table;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+}
+.Icon span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  pointer-events: none;
+}
+
+.IconSmall {
+  width: 24px;
+  height: 24px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+/* MASKS */
+
+.Mask {
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+  background-color: var(--MaskBG);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.MaskMenu {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Menu.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Menu.svg) no-repeat 50% 50%;
+}
+.MaskClose {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Close.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Close.svg) no-repeat 50% 50%;
+}
+.MaskUp {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Up.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Up.svg) no-repeat 50% 50%;
+}
+.MaskDown {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Down.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Down.svg) no-repeat 50% 50%;
+}
+.MaskLeft {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Left.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Left.svg) no-repeat 50% 50%;
+}
+.MaskRight {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Right.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Right.svg) no-repeat 50% 50%;
+}
+.MaskExternal {
+  -webkit-mask: url(../assets/Images/Masks/Mask-External.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-External.svg) no-repeat 50% 50%;
+}
+
+.MaskProfile {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Profile.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Profile.svg) no-repeat 50% 50%;
+}
+.MaskEmail {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Email.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Email.svg) no-repeat 50% 50%;
+}
+.MaskCheck {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Check.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Check.svg) no-repeat 50% 50%;
+}
+.MaskDisabled {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Disabled.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Disabled.svg) no-repeat 50% 50%;
+}
+
+.MaskLocked {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Locked.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Locked.svg) no-repeat 50% 50%;
+}
+.MaskReasoning {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Reasoning.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Reasoning.svg) no-repeat 50% 50%;
+}
+
+.MaskSettings {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Settings.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Settings.svg) no-repeat 50% 50%;
+}
+
+.MaskLight {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Light.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Light.svg) no-repeat 50% 50%;
+}
+.MaskDark {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Dark.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Dark.svg) no-repeat 50% 50%;
+}
+.MaskSystem {
+  -webkit-mask: url(../assets/Images/Masks/Mask-System.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-System.svg) no-repeat 50% 50%;
+}
+
+.MaskB2T {
+  -webkit-mask: url(../assets/Images/Masks/Mask-B2T.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-B2T.svg) no-repeat 50% 50%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.MaskAI {
+  -webkit-mask: url(../assets/Images/Masks/Mask-AI.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-AI.svg) no-repeat 50% 50%;
+}
+
+.MaskNew {
+  -webkit-mask: url(../assets/Images/Masks/Mask-New.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-New.svg) no-repeat 50% 50%;
+}
+.MaskHistory {
+  -webkit-mask: url(../assets/Images/Masks/Mask-History.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-History.svg) no-repeat 50% 50%;
+}
+.MaskOptions {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Options.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Options.svg) no-repeat 50% 50%;
+}
+.MaskDelete {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Delete.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Delete.svg) no-repeat 50% 50%;
+}
+.MaskEdit {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Edit.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Edit.svg) no-repeat 50% 50%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.MaskGo {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Go.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Go.svg) no-repeat 50% 50%;
+}
+.MaskAttach {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Attach.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Attach.svg) no-repeat 50% 50%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.MaskCopy {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Copy.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Copy.svg) no-repeat 50% 50%;
+}
+.MaskRegenerate {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Regenerate.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Regenerate.svg) no-repeat 50% 50%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */

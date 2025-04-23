@@ -1,0 +1,86 @@
+:root {
+  --FontHead: 'Poppins', arial, helvetica, sans-serif;
+  --FontText: 'Poppins', arial, helvetica, sans-serif;
+  --FontArticle: 'Poppins', arial, helvetica, sans-serif;
+
+  --FSTiny: 10px;
+  --FSSmall: 12px;
+  --FSMedium: 14px;
+  --FSLarge: 16px;
+  --FSXL: 19px;
+  --FSXXL: 23px;
+  --FSBig: 28px;
+  --FSHuge: 38px;
+  --FSGiant: 46px;
+
+  /* ////////////////////////////////////////////////////////////////// */
+
+  --White: #ffffff;
+  --Gray10: #f4f4fa;
+  --Gray20: #e5e5ec;
+  --Gray30: #9d9dab;
+  --Gray40: #73737e;
+  --Gray50: #3e3e42;
+  --Gray60: #2d2d30;
+  --Gray70: #252526;
+  --Gray80: #1e1e1e;
+  --Gray90: #0f0f0f;
+  --Black: #0a0604;
+
+  --Navy70: #012f46;
+  --Navy80: #012638;
+  --Navy90: #001b28;
+
+  --Pale: #faf8e5;
+
+  --Red: #e0203c;
+  --RedAlt: #f02744;
+
+  --Blue: #0a84ff;
+  --BlueAlt: #248ffc;
+
+  --Green: #39b54a;
+  --GreenAlt: #33d64a;
+
+  --Orange: #ee6628;
+  --OrangeAlt: #f66c2c;
+
+  --Yellow: #ffcc00;
+  --YellowAlt: #ffd735;
+
+  --Purple: #7765fd;
+  --PurpleAlt: #7f6ffc;
+  --PurpleDark: #503ddc;
+
+  --Royal: #290c56;
+  --RoyalAlt: #2d0f5c;
+
+  --Aqua: #1cbbb4;
+  --AquaAlt: #33cccc;
+
+  --Olive: #577836;
+  --OliveAlt: #6a983c;
+  --OliveDark: #2e3428;
+
+  --Grass: #aed867;
+  --GrassAlt: #cef58c;
+  --GrassDark: #96bd55;
+
+  --Sand: #eeebe5;
+  --SandAlt: #f6f5f1;
+  --SandDark: #c3bcad;
+
+  --Alert: var(--Red);
+
+  --Trans1: rgba(0, 0, 0, 0);
+  --Trans2: rgba(0, 0, 0, 0.8);
+  --Trans3: rgba(255, 255, 255, 0.8);
+  --Trans4: rgba(47, 47, 47, 0.95);
+  --Trans5: rgba(0, 0, 0, 0.2);
+  --Trans6: rgba(255, 255, 255, 0.2);
+  --Trans7: rgba(0, 0, 0, 0.5);
+
+  --Shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* ////////////////////////////////////////////////////////////////// */

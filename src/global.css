@@ -1,0 +1,28 @@
+/* /////////////////////////////////////////////////////////////////// */
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
+@import './css/Appearance.css';
+@import './css/Light.css';
+@import './css/Dark.css';
+
+/* /////////////////////////////////////////////////////////////////// */
+
+@import './css/UI-Misc.css';
+@import './css/Support.css';
+
+@import './css/UI-Forms.css';
+@import './css/UI-Icons.css';
+@import './css/UI-Buttons.css';
+@import './css/UI-Tabs.css';
+@import './css/UI-Notices.css';
+@import './css/UI-Menus.css';
+@import './css/UI-Dropdowns.css';
+@import './css/UI-Popups.css';
+
+@import './css/UI-Masthead.css';
+
+@import './css/UI-Chat.css';
+
+/* /////////////////////////////////////////////////////////////////// */
