@@ -1,8 +1,8 @@
 import React from 'react';
 import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import useLoginHandler from './LoginHandler';
-
 import { Link } from 'react-router-dom';
+
+import useLoginHandler from './handler';
 
 function LoginPage() {
   const {
@@ -17,7 +17,6 @@ function LoginPage() {
     handleVerifyOtp,
     loading,
   } = useLoginHandler();
-
 
   return (
     <div id="Page">
