@@ -10,7 +10,7 @@ function NormalLayout({ children }) {
 
   return (
     <div id="Page">
-      <div class="Masthead StickyTop p-[40px]">
+      <div class="Masthead StickyTop !p-[40px]">
         <Link to="/Home">
           <img alt="Enoch AI" class="Logo" src={logoSrc} />
         </Link>
