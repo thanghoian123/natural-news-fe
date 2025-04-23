@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Trash, PlusIcon, Sparkle, TrashIcon, Clock } from 'lucide-react'; // Icons
 import logoColor from '../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import logoWhite from '../assets/Images/Logo-white.svg'; // Adjust path as needed
+import logoWhite from '../assets/Images/Logo-White.svg'; // Adjust path as needed
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
