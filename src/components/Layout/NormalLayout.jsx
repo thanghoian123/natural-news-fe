@@ -1,6 +1,6 @@
 import React from 'react';
 import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import logoWhite from '../../assets/Images/Logo-white.svg'; // Adjust path as needed
+import logoWhite from '../../assets/Images/Logo-White.svg'; // Adjust path as needed
 import { useTheme } from '../../contexts/ThemeContext';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar';
