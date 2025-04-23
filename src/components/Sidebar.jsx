@@ -5,7 +5,13 @@ import logoColor from '../assets/Images/Logo-Color.svg'; // Adjust path as neede
 import logoWhite from '../assets/Images/Logo-white.svg'; // Adjust path as needed
 
 import { useDispatch, useSelector } from 'react-redux';
-import { removeChatSession, setActiveSession, startNewSession } from '../redux/chatSlice';
+import {
+  clearAllChatHistory,
+  deleteMyChatHistory,
+  removeChatSession,
+  setActiveSession,
+  startNewSession,
+} from '../redux/chatSlice';
 import { useToast } from '../contexts/ToastContext';
 import Modal from './Modal';
 import ProfileDetail from './ProfileDetail';
@@ -19,8 +25,9 @@ export default function Sidebar({ children }) {
   const { theme } = useTheme();
   console.log('🚀 ~ Sidebar ~ theme:', theme);
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
+  const [isOpenConfirmDeleteAll, setIsOpenConfirmDeleteAll] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const isBronze = user?.tier === 'Bronze';
   const logoSrc = theme === 'dark' ? logoWhite : logoColor;
@@ -69,6 +76,11 @@ export default function Sidebar({ children }) {
     navigate(`/history`);
   };
 
+  const handleClearChat = () => {
+    setIsOpenConfirmDelete(true);
+    setIsOpenProfile(false);
+  };
+
   return (
     <>
       <div id="Top" style={{ zIndex: isOpen ? -1 : 0 }}>
@@ -95,7 +107,11 @@ export default function Sidebar({ children }) {
 
               <div className="MastheadCol MastheadColNav">
                 <div className="ButtonBox ButtonBoxRight">
-                  <div className="ButtonIcon ButtonPrimary ButtonNew NoClose" title="New Chat">
+                  <div
+                    className="ButtonIcon ButtonPrimary ButtonNew NoClose"
+                    title="New Chat"
+                    onClick={handleNewSession}
+                  >
                     <div className="Icon">
                       <span className="Mask MaskNew"></span>
                     </div>
@@ -226,7 +242,7 @@ export default function Sidebar({ children }) {
               </div>
             </div>
 
-            <div className="MenuGroup" id="GroupProfile" onClick={() => setIsOpenModal(true)}>
+            <div className="MenuGroup" id="GroupProfile" onClick={() => setIsOpenProfile(true)}>
               <div className="Profile ButtonProfile NoClose">
                 <div className="ProfileTable" id="ProfilePreview">
                   <div className="ProfileCol ProfilePhoto">
@@ -249,8 +265,8 @@ export default function Sidebar({ children }) {
             </div>
           </div>
         </div>
-        <Modal isOpen={isOpenModal} title="Profile" onClose={() => setIsOpenModal(false)}>
-          <ProfileDetail user={user} />
+        <Modal isOpen={isOpenProfile} title="Profile" onClose={() => setIsOpenProfile(false)}>
+          <ProfileDetail user={user} onClearChat={handleClearChat} />
         </Modal>
 
         <Modal isOpen={isOpenConfirmDelete} onClose={() => setIsOpenConfirmDelete(false)}>
@@ -274,6 +290,33 @@ export default function Sidebar({ children }) {
               <button
                 class="Button ButtonGray ButtonClose"
                 onClick={() => setIsOpenConfirmDelete(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+        <Modal isOpen={isOpenConfirmDeleteAll} onClose={() => setIsOpenConfirmDeleteAll(false)}>
+          <div class="Card">
+            <div class="Subhead">Delete Chat?</div>
+            <div class="Block Text">Are you sure you want to delete this chat?</div>
+
+            <div class="ButtonBox ButtonBox ButtonBoxLeft">
+              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
+                <div class="Auto">
+                  <div class="AutoCol AutoIcon">
+                    <div class="Icon IconSmall">
+                      <span class="Mask MaskDelete"></span>
+                    </div>
+                  </div>
+                  <div class="AutoCol AutoLabel" onClick={() => dispatch(deleteMyChatHistory())}>
+                    Delete
+                  </div>
+                </div>
+              </button>
+              <button
+                class="Button ButtonGray ButtonClose"
+                onClick={() => setIsOpenConfirmDeleteAll(false)}
               >
                 Cancel
               </button>

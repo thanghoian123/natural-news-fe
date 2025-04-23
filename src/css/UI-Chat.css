@@ -493,6 +493,10 @@
   max-width: 1960px;
 }
 
+.PageOpen {
+  z-index: auto !important;
+}
+
 @media (max-width: 1049.9px) {
   .VIPTools {
     padding-top: 102px !important;

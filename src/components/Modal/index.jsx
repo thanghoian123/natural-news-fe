@@ -8,7 +8,7 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter, c
     <div className="fixed inset-0 z-50">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 BlurBox backdrop"
+        className="absolute inset-0 BlurBox backdrop "
         onClick={onClose} // Optional: close modal on backdrop click
       />
 

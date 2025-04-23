@@ -73,6 +73,11 @@ function InputChat(props) {
       ],
     },
   ];
+  const helperText =
+    tokenRemaining > 2499
+      ? 'As a Platinum member, you have access to unlimited questions.'
+      : `                Each prompt uses 1 question. You have ${tokenRemaining} questions remaining.
+`;
 
   return (
     <div className="">
@@ -93,8 +98,7 @@ function InputChat(props) {
           <div className="ChatTable">
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
-                Each prompt uses 1 question. You have {tokenRemaining} questions remaining.{' '}
-                <span className="Link ButtonProfile NoClose">Learn More</span>
+                {helperText} <span className="Link ButtonProfile NoClose">Learn More</span>
               </div>
             </div>
             <div className="ChatCol ChatColRight">
@@ -169,7 +173,14 @@ function InputChat(props) {
               </div>
             </div>
 
-            <div className="Block Disclaimer Centered PresetLink NoClose">
+            <div
+              className="Block Disclaimer Centered PresetLink NoClose"
+              onClick={() => {
+                handlePressPropmt({
+                  messages: `Why it is so important to lab-test your food and supplements for heavy metals,microbiology, glyphosate and other contaminants?`,
+                });
+              }}
+            >
               Why it is so important to lab-test your food and supplements for heavy metals,
               microbiology, glyphosate and other contaminants?
             </div>

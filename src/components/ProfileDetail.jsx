@@ -3,16 +3,15 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
-import { deleteMyChatHistory } from '../redux/chatSlice';
 
-function ProfileDetail({ user }) {
+function ProfileDetail({ user, onClearChat }) {
   const dispatch = useDispatch();
   const { theme, changeTheme } = useTheme();
 
   const engineList = [
     {
       id: 1,
-      name: 'Natural News Subscriber',
+      name: 'Health Ranger Store Subscriber',
       allows: ['Gold', 'Platinum', 'Silver', 'Bronze'],
       rightAction: (
         <a href="#" className="text-primary-700">
@@ -36,6 +35,8 @@ function ProfileDetail({ user }) {
     await changeTheme('light');
     dispatch(logout());
   };
+  const reward =
+    user?.tier === 'Platinum' ? 'Unlimited Question Remain' : `${user?.reward} Questions Remaining`;
   return (
     // <div>
     //   <div className="flex flex-col gap-4">
@@ -127,7 +128,7 @@ function ProfileDetail({ user }) {
           </div>
 
           <div class="AutoCol AutoLabel">
-            <b>{user?.reward} Questions Remaining</b> •{' '}
+            <b>{reward}</b> •{' '}
             <a href="Support" target="_blank">
               How to Get More
             </a>
@@ -164,7 +165,7 @@ function ProfileDetail({ user }) {
             </div>
           </div>
           <div class="ProfileAction">
-            <div class="ButtonBox">
+            <div class="ButtonBox" onClick={onClearChat}>
               <button class="Button ButtonRed ButtonClearConfirm">Clear History</button>
             </div>
           </div>
