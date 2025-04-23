@@ -6,7 +6,6 @@ import logoWhite from '../assets/Images/Logo-white.svg'; // Adjust path as neede
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  clearAllChatHistory,
   deleteMyChatHistory,
   removeChatSession,
   setActiveSession,
@@ -77,7 +76,7 @@ export default function Sidebar({ children }) {
   };
 
   const handleClearChat = () => {
-    setIsOpenConfirmDelete(true);
+    setIsOpenConfirmDeleteAll(true);
     setIsOpenProfile(false);
   };
 
