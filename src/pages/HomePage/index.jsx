@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import InputChat from '../../components/InputChat';
-import ToolItem from '../../components/Toolitem';
+import ToolItem from '../../components/ToolItem';
 import Modal from '../../components/Modal';
 import { useNavigate } from 'react-router-dom';
 

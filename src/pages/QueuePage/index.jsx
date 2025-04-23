@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ToolItem from '../../components/Toolitem';
+import ToolItem from '../../components/ToolItem';
 import Modal from '../../components/Modal';
 const mockList = [
   {
