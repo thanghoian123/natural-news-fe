@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
 
+
 // rename it to follow the React hook naming convention
 function useLoginHandler() {
+  console.log('useLoginHandler called');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
