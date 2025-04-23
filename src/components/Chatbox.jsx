@@ -85,10 +85,10 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full  h-screen px-[24px] py-4 items-center justify-center">
+        <div className="flex flex-col w-full  h-screen px-[24px] py-4 items-center justify-center ">
           {/* Chat messages */}
           {!isNewChat && (
-            <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full max-w-[720px] min-w-[300px] ">
+            <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full max-w-[720px] min-w-[300px] hide-scrollbar">
               {activeChat?.history.map((msg, index) => (
                 <Bubble
                   key={index}

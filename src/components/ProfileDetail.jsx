@@ -92,7 +92,7 @@ function ProfileDetail({ user, onClearChat }) {
     //   <div className="h-[0.5px] w-full bg-[#3e3e42] my-2" />
     // </div>
     <div class="Card">
-      {/* <div class="Block Subhead">Profile</div> */}
+      <div class="Block Subhead">Profile</div>
 
       <div class="ProfileGroup">
         <div class="Auto ProfileItem">
@@ -137,24 +137,22 @@ function ProfileDetail({ user, onClearChat }) {
       </div>
       <div class="ProfileGroup">
         <div class="Text">Your email address is connected to the following:</div>
-        <div className="flex flex-col gap-4">
-          {engineList.map((i, index) => {
-            const isCheck = i.allows.includes(user.tier);
+        {engineList.map((i, index) => {
+          const isCheck = i.allows.includes(user.tier);
 
-            return (
-              <div class="Auto ProfileItem" id="SubscribeEnabled" key={index}>
-                <div class="AutoCol AutoIcon">
-                  <div class="Icon">
-                    <span class={`Mask ${isCheck ? 'MaskCheck' : 'MaskLocked'}`}></span>
-                  </div>
-                </div>
-                <div class="AutoCol AutoLabel">
-                  <b>{i?.name}</b>
+          return (
+            <div class="Auto ProfileItem" id="SubscribeEnabled" key={index}>
+              <div class="AutoCol AutoIcon">
+                <div class="Icon">
+                  <span class={`Mask ${isCheck ? 'MaskCheck' : 'MaskLocked'}`}></span>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <div class="AutoCol AutoLabel">
+                <b>{i?.name}</b>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div class="ProfileGroup">
         <div class="ProfileBox">

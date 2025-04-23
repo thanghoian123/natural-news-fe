@@ -27,7 +27,7 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter, c
           </div>
 
           {/* Modal Body */}
-          <div className="px-6">
+          <div className="">
             <p className="text-[19px] font-semibold text-gray-900 dark:text-white font-700">
               {title}
             </p>

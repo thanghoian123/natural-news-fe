@@ -265,7 +265,7 @@ export default function Sidebar({ children }) {
             </div>
           </div>
         </div>
-        <Modal isOpen={isOpenProfile} title="Profile" onClose={() => setIsOpenProfile(false)}>
+        <Modal isOpen={isOpenProfile} onClose={() => setIsOpenProfile(false)}>
           <ProfileDetail user={user} onClearChat={handleClearChat} />
         </Modal>
 
