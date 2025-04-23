@@ -3,16 +3,15 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
-import { deleteMyChatHistory } from '../redux/chatSlice';
 
-function ProfileDetail({ user }) {
+function ProfileDetail({ user, onClearChat }) {
   const dispatch = useDispatch();
   const { theme, changeTheme } = useTheme();
 
   const engineList = [
     {
       id: 1,
-      name: 'Natural News Subscriber',
+      name: 'Health Ranger Store Subscriber',
       allows: ['Gold', 'Platinum', 'Silver', 'Bronze'],
       rightAction: (
         <a href="#" className="text-primary-700">
@@ -36,6 +35,8 @@ function ProfileDetail({ user }) {
     await changeTheme('light');
     dispatch(logout());
   };
+  const reward =
+    user?.tier === 'Platinum' ? 'Unlimited Question Remain' : `${user?.reward} Questions Remaining`;
   return (
     // <div>
     //   <div className="flex flex-col gap-4">
@@ -91,7 +92,7 @@ function ProfileDetail({ user }) {
     //   <div className="h-[0.5px] w-full bg-[#3e3e42] my-2" />
     // </div>
     <div class="Card">
-      {/* <div class="Block Subhead">Profile</div> */}
+      <div class="Block Subhead">Profile</div>
 
       <div class="ProfileGroup">
         <div class="Auto ProfileItem">
@@ -127,7 +128,7 @@ function ProfileDetail({ user }) {
           </div>
 
           <div class="AutoCol AutoLabel">
-            <b>{user?.reward} Questions Remaining</b> •{' '}
+            <b>{reward}</b> •{' '}
             <a href="Support" target="_blank">
               How to Get More
             </a>
@@ -136,24 +137,22 @@ function ProfileDetail({ user }) {
       </div>
       <div class="ProfileGroup">
         <div class="Text">Your email address is connected to the following:</div>
-        <div className="flex flex-col gap-4">
-          {engineList.map((i, index) => {
-            const isCheck = i.allows.includes(user.tier);
+        {engineList.map((i, index) => {
+          const isCheck = i.allows.includes(user.tier);
 
-            return (
-              <div class="Auto ProfileItem" id="SubscribeEnabled" key={index}>
-                <div class="AutoCol AutoIcon">
-                  <div class="Icon">
-                    <span class={`Mask ${isCheck ? 'MaskCheck' : 'MaskLocked'}`}></span>
-                  </div>
-                </div>
-                <div class="AutoCol AutoLabel">
-                  <b>{i?.name}</b>
+          return (
+            <div class="Auto ProfileItem" id="SubscribeEnabled" key={index}>
+              <div class="AutoCol AutoIcon">
+                <div class="Icon">
+                  <span class={`Mask ${isCheck ? 'MaskCheck' : 'MaskLocked'}`}></span>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <div class="AutoCol AutoLabel">
+                <b>{i?.name}</b>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div class="ProfileGroup">
         <div class="ProfileBox">
@@ -164,7 +163,7 @@ function ProfileDetail({ user }) {
             </div>
           </div>
           <div class="ProfileAction">
-            <div class="ButtonBox">
+            <div class="ButtonBox" onClick={onClearChat}>
               <button class="Button ButtonRed ButtonClearConfirm">Clear History</button>
             </div>
           </div>

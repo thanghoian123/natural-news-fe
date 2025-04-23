@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 const Dropdown = ({ options = [], onSelect, label, onPress }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  console.log('🚀 ~ Dropdown ~ onPress:', onPress);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,7 +26,7 @@ const Dropdown = ({ options = [], onSelect, label, onPress }) => {
       <button
         onClick={onPressBtn}
         className={`Button ButtonTransBorder Preset NoClose px-4 py-2 rounded focus:outline-none ${
-          isOpen ? 'ring-2 ring-ui-bg !text-ui-bg' : ''
+          isOpen ? 'ring-2 ring-ui-bg  dark:ring-primary !text-ui-bg dark:!text-primary' : ''
         } `}
         id={`Button${label.replace(/\s+/g, '')}`}
       >
@@ -35,7 +34,7 @@ const Dropdown = ({ options = [], onSelect, label, onPress }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg Dropdown z-2">
+        <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 dark:border-[#3E3E42] rounded shadow-lg Dropdown z-2 dark:bg-[#1e1e1e]">
           <div className="DropdownPanel NoClose">
             <div className="PresetGroup">
               {options.map((option, index) => (
