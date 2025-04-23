@@ -10,6 +10,10 @@ RUN pwd
 # Optional: list files to confirm structure
 RUN ls -al
 
+RUN ls -al /app/src/assets/Images/ && \
+    test -f /app/src/assets/Images/Logo-white.svg || (echo "❌ Logo-white.svg NOT FOUND!" && exit 1)
+
+
 RUN npm --prefix /app/ install
 
 EXPOSE 8000
