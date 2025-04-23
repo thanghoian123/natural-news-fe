@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Modal from '../../components/Modal';
 import { useSelector } from 'react-redux';
-import ToolItem from '../../components/Toolitem';
+import ToolItem from '../../components/ToolItem';
 import { Link } from 'react-router-dom';
 
 const mockList = [
