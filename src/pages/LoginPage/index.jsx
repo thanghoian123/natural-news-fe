@@ -95,7 +95,9 @@ function LoginPage() {
           <a href="Support/Terms">
             Terms of Service
           </a>
+          {' '}
           •
+          {' '}
           <a href="Support/Privacy">
             Privacy Policy
           </a>
