@@ -141,7 +141,7 @@ export default function Sidebar({ children }) {
         </div>
       )}
       <div
-        className={`Menu MenuLeft NoClose z-20 USN ${isOpen ? 'MenuLeftOpen ActiveElement' : ''}`}
+        className={`Menu MenuLeft NoClose !z-100 USN ${isOpen ? 'MenuLeftOpen ActiveElement' : ''}`}
         id="Menu"
       >
         <div className="Content">

@@ -3,6 +3,7 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
+import { Link } from 'react-router-dom';
 
 function ProfileDetail({ user, onClearChat }) {
   const dispatch = useDispatch();
@@ -129,9 +130,9 @@ function ProfileDetail({ user, onClearChat }) {
 
           <div class="AutoCol AutoLabel">
             <b>{reward}</b> •{' '}
-            <a href="Support" target="_blank">
+            <Link to="/Support/home" target="_blank">
               How to Get More
-            </a>
+            </Link>
           </div>
         </div>
       </div>

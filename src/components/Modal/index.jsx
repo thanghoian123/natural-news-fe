@@ -5,7 +5,7 @@ export default function Modal({ isOpen, onClose, title, children, extraFooter, c
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[9999]">
       {/* Backdrop */}
       <div
         className="absolute inset-0 BlurBox backdrop "

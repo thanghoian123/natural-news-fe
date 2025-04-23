@@ -494,7 +494,7 @@
 }
 
 .PageOpen {
-  z-index: auto !important;
+  /* z-index: 100 !important; */
 }
 
 @media (max-width: 1049.9px) {
