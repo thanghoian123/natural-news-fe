@@ -2,30 +2,117 @@
 
 /* ////////////////////////////////////////////////////////////////// */
 
-@media (max-width: 1049.9px) {
-#Top { display: block; z-index: 1000; width: 100%; position: fixed; left: 0px; top: 0px; margin-bottom: 40px; }
+.MastheadTable {
+  display: table;
+  width: 100%;
 }
-
-@media (min-width: 1050px) {
-#Top { display: none; }
+.MastheadCol {
+  display: table-cell;
+  vertical-align: middle;
 }
-
-/* ////////////////////////////////////////////////////////////////// */
-
-.MastheadTable { display: table; width: 100%; }
-.MastheadCol { display: table-cell; vertical-align: middle; }
-.MastheadColMenu { width: 30px; padding-left: 10px; padding-right: 15px; }
-.MastheadColLogo { width: 150px; padding-right: 15px; padding-top: 4px; }
-.MastheadColNav { width: auto; text-align: right; padding-right: 15px; }
-.MastheadColMenu .ButtonBox .ButtonIcon { margin-right: 2px; }
+.MastheadColMenu {
+  width: 30px;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+.MastheadColLogo {
+  width: 220px;
+  padding-right: 15px;
+  padding-top: 4px;
+}
+.MastheadColNav {
+  width: auto;
+  text-align: right;
+  padding-right: 15px;
+}
+.MastheadColMenu .ButtonBox .ButtonIcon {
+  margin-right: 2px;
+}
 
 @media (max-width: 429.9px) {
-.MastheadColLogo { width: 120px; }
+  .MastheadColLogo {
+    width: 140px;
+  }
+}
+
+.MastheadScroll {
+  border-bottom: solid 1px var(--CardBorder) !important;
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-#SectionMasthead { padding: 0px; }
-#SectionMasthead .Content { display: table; width: 100%; padding: 10px 0px 20px 0px; }
+.NavTable {
+  display: table;
+  float: right;
+}
+.NavCol {
+  display: table-cell;
+  vertical-align: middle;
+  width: auto;
+}
+.NavColLeft {
+  padding-left: 8px;
+  font-size: var(--FSSmall);
+}
+.NavColRight {
+  padding-left: 20px;
+}
+
+.NavColLeft a {
+  padding: 0px 8px;
+  color: var(--Gray20);
+}
+.NavColLeft a:hover {
+  text-decoration: none;
+  color: var(--White);
+}
+
+@media (max-width: 429.9px) {
+  .NavColRight {
+    display: none;
+  }
+}
+
+@media (max-width: 799.9px) {
+  .NavColLeft {
+    display: none;
+  }
+}
+
+@media (max-width: 849.9px) {
+  #MastheadGuide {
+    display: none;
+  }
+}
+
+@media (max-width: 899.9px) {
+  #MastheadTools {
+    display: none;
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#SectionMasthead {
+  padding: 8px 20px;
+  margin-bottom: 15px;
+  border-bottom: solid 1px var(--Trans1);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+#SectionMasthead .Content {
+}
+
+#SectionMasthead .Mask {
+  background-color: var(--Gray20);
+}
+
+#SectionMasthead .ButtonIcon:hover {
+  background-color: var(--Gray80);
+}
+#SectionMasthead .ButtonIcon:hover .Icon .Mask {
+  background-color: var(--White);
+}
 
 /* ////////////////////////////////////////////////////////////////// */

@@ -1,15 +1,11 @@
-import React, { useLayoutEffect, useState } from 'react';
-import Modal from '../../components/Modal';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import InputChat from '../../components/InputChat';
 import ToolItem from '../../components/Toolitem';
+import Modal from '../../components/Modal';
+import { useNavigate } from 'react-router-dom';
+
 const mockList = [
-  {
-    title: 'Chat with Enoch AI',
-    imageSrc: 'src\\assets\\Tool-Chat.jpg',
-    link: `/chat?_=${Date.now()}`,
-    tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
-    toolName: 'chat-with-enoch',
-  },
   {
     title: 'Enoch Text Summarizer',
     imageSrc: 'src\\assets\\Tool-Summary.jpg',
@@ -74,108 +70,93 @@ const mockList = [
     toolName: 'ingredients-checker',
   },
 ];
+
 function HomePage() {
   const { user } = useSelector((state) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenUpgrade, setIsOpenUpgrade] = useState(false);
-  useLayoutEffect(() => {
-    const hasSeenModal = localStorage.getItem('hasSeenModal');
-    if (!hasSeenModal) {
-      setIsOpen(true);
-      localStorage.setItem('hasSeenModal', 'true');
-    }
-  }, []);
-
-  const handleUpgrade = () => {
-    setIsOpenUpgrade(true);
+  const { modelType } = useSelector((state) => state.chat);
+  const [input, setInput] = useState('');
+  const [isOpenUpgrade, setIsOpenUpgrade] = useState(false); // Toggle menu
+  const navigate = useNavigate();
+  const handleSendMessage = () => {
+    if (!input.trim()) return;
+    navigate(`/received`, { state: { initialMessage: input } });
+    setInput('');
   };
 
   return (
     <div>
-      <div class="VIPTools">
-        <div class="Headline USN">Enoch AI VIP Tools</div>
-        <div class="Block Text USN">
-          Use the power of Enoch AI to enhance your health and wellness
+      <section className="Section Narrow" id="SectionHomeChat">
+        <div className="Content">
+          <div className="Block BigHeadline UIColor Centered">Ask Enoch Anything</div>
+          <InputChat
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            sendMessage={handleSendMessage}
+            tokenRemaining={user?.reward || 0}
+            isNewChat
+            handleSelectPrompt={(option) => setInput((pre) => `${pre} ${option.label}`)}
+            handlePressPropmt={(prompt) => setInput(prompt.messages)}
+            handleChangeModel={(option) => console.log('Model change:', option)}
+            modelType={modelType}
+          />
         </div>
-        <div class="Collection USN">
-          {mockList.map((post, index) => (
-            <ToolItem
-              key={index}
-              post={post}
-              index={index}
-              userTier={user?.tier}
-              onUpgrade={handleUpgrade}
-            />
-          ))}
+      </section>
+
+      <section className="Section Narrow" id="SectionHomeDetails">
+        <div className="Content">
+          <div className="Block BigHeadline UIColor Centered">What is Enoch?</div>
+          <div className="Block Text">
+            <p>
+              Enoch is the world's #1 AI language model on reality benchmarks. Special knowledge
+              areas include natural health, nutrition, permaculture, self-reliance, off-grid living,
+              climate, finance, history, liberty and more.
+            </p>
+            <p>
+              Enoch is capable of deep research, generating content, summarizing content, answering
+              questions, basic reasoning and more.
+            </p>
+          </div>
+          <div className="Text Centered">
+            <a href="Guide">Prompting Guide</a> • <a href="About">About Enoch</a> •{' '}
+            <a href="Downloads">Downloadable Versions</a>
+          </div>
         </div>
-      </div>
-      <Modal isOpen={isOpenUpgrade} onClose={() => setIsOpenUpgrade(false)}>
-        <div className="Content NoClose">
-          <div className="Card">
-            <div className="Block Headline Centered">Upgrade to Unlock Access</div>
-            <div className="Block Text Centered">
-              This exclusive tool is available to Gold and Platinum members.
-              <a href="Support" target="_blank">
-                Please visit our support area
-              </a>
-              for more information.
-            </div>
-            <div className="Block">
-              <div className="ButtonBox ButtonBoxCenter">
-                <button
-                  className="Button ButtonPrimary ButtonClose"
-                  onClick={() => setIsOpenUpgrade(false)}
-                >
-                  Close
-                </button>
-              </div>
+      </section>
+
+      <section className="Section Narrow" id="SectionHomeTools">
+        <div className="Content">
+          <div className="Block BigHeadline UIColor Centered">Prompt Tools</div>
+          <div className="Block Text Centered">
+            Use these exclusive tools to help construct a detailed prompt:
+          </div>
+          <div className="VIPTools USN">
+            <div className="Collection">
+              {mockList.map((post, index) => (
+                <ToolItem
+                  key={index}
+                  post={post}
+                  index={index}
+                  userTier={user?.tier}
+                  onUpgrade={() => setIsOpenUpgrade(true)}
+                />
+              ))}
             </div>
           </div>
         </div>
-      </Modal>
+      </section>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="Content NoClose">
-          <div className="Card">
-            {user?.tier === 'Platinum' ? (
-              <>
-                <div className="Block Headline Centered">
-                  You have unlimited questions remaining
-                </div>
-                <div className="Block Text Centered">
-                  As a Platinum member, you have unlimited questions to use with Enoch AI tools and
-                  chat. <a href="Support">Learn More</a>
-                </div>
-                <div className="Block">
-                  <div className="ButtonBox ButtonBoxCenter">
-                    <button
-                      className="Button ButtonPrimary ButtonClose"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="Block Headline Centered">You have 42 questions remaining</div>
-                <div className="Block Text Centered">
-                  More questions are added to your account each day.{' '}
-                  <a href="Support">Learn More</a>
-                </div>
-                <div className="Block">
-                  <div className="ButtonBox ButtonBoxCenter">
-                    <button
-                      className="Button ButtonPrimary ButtonClose"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
+      <Modal isOpen={isOpenUpgrade} onClose={() => setIsOpenUpgrade(false)}>
+        <div class="Content NoClose">
+          <div class="Card">
+            <div class="Headline Centered">Upgrade to Unlock Access</div>
+            <div class="Block Text Centered">These tools are available for our VIP members.</div>
+            <div class="Block">
+              <div class="ButtonBox ButtonBoxCenter">
+                <a href="https://www.healthrangerstore.com/enoch" target="_blank">
+                  <button class="Button ButtonPrimary ButtonClose">Upgrade Today</button>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </Modal>

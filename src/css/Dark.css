@@ -15,7 +15,7 @@
     --UIBGDark: var(--PurpleDark);
     --UIText: var(--White);
 
-    --Highlight: var(--Red);
+    --Highlight: var(--Orange);
 
     --TabBG: var(--Trans1);
     --TabBGHover: var(--Trans1);
@@ -71,10 +71,6 @@
     --TagBorder: var(--Gray50);
     --TagText: var(--Gray10);
     --TagTextHover: var(--White);
-
-    --Theme: var(--Gray80);
-    --ThemeHover: var(--Gray90);
-    --ThemeActive: var(--UIBG);
   }
 }
 
@@ -82,23 +78,7 @@
 
 body.ThemeDark {
   #SectionMasthead {
-    background: linear-gradient(
-      to bottom,
-      rgba(37, 37, 38, 1) 0%,
-      rgba(37, 37, 38, 1) 80%,
-      rgba(37, 37, 38, 0) 100%
-    );
-  }
-  #MenuLogo {
-    background: linear-gradient(
-      to bottom,
-      rgba(30, 30, 30, 1) 0%,
-      rgba(30, 30, 30, 1) 80%,
-      rgba(30, 30, 30, 0) 100%
-    );
-  }
-  #SectionHistoryChat .Content:before {
-    background: linear-gradient(to bottom, rgba(37, 37, 38, 0) 0%, rgba(37, 37, 38, 1) 75%);
+    background-color: rgba(37, 37, 38, 0.9);
   }
 
   .Post .PostAction .ButtonBlack {

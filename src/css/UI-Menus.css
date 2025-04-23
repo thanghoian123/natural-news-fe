@@ -10,6 +10,9 @@
   top: 0px;
   z-index: 3000;
   background-color: var(--CardBG);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 @media (max-width: 1049.9px) {
@@ -41,7 +44,7 @@
 /* //////////////////////////////////////////////////////////////////// */
 
 .MenuLeft {
-  left: 0%;
+  left: -85%;
   height: 100%;
 }
 .MenuLeftOpen {
@@ -62,12 +65,6 @@
 .MenuRightOpen .Close {
   display: block !important;
   left: -35px;
-}
-
-@media (max-width: 1049.9px) {
-  .MenuLeft {
-    left: -85%;
-  }
 }
 
 /* //////////////////////////////////////////////////////////////////// */
@@ -97,6 +94,7 @@
 .MenuGroup .Text p {
   padding: 0px;
   margin-bottom: 10px;
+  margin-top: 14px;
 }
 .MenuGroup .Text a {
   color: var(--CardText);
@@ -126,100 +124,16 @@
 
 /* //////////////////////////////////////////////////////////////////// */
 
-#Menu .Subhead {
-  color: var(--Text);
+#ThemeMenu {
 }
-
-#MenuLogo {
-  display: block;
-  padding-bottom: 15px;
-}
-#MenuLogo .Logo {
-  max-width: 150px;
-}
-
-@media (max-width: 1049.9px) {
-  #Menu {
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-  #MenuLogo {
-    display: none !important;
-  }
-}
-
-@media (min-width: 1050px) {
-  #Menu {
-    z-index: 3;
-  }
-  #Menu .Close {
-    display: none !important;
-  }
-}
-
-/* //////////////////////////////////////////////////////////////////// */
-
-@media (max-width: 1049.9px) {
-  #GroupProfile {
-    display: block;
-  }
-}
-@media (min-width: 1050px) {
-  #GroupProfile {
-    display: block;
-    width: 270px;
-    position: fixed;
-    bottom: 20px;
-    left: 15px;
-    z-index: 2;
-  }
-}
-
-.Profile {
-  display: block;
-  padding: 5px;
-  border-radius: 5px;
+#ThemeMenu .Auto {
   cursor: pointer;
 }
-.Profile:hover {
-  background-color: var(--CardBGHover);
+#ThemeMenu .Active .AutoText {
+  color: var(--UIBG);
 }
-.ProfileTable {
-  display: table;
-  width: 100%;
-  cursor: pointer;
-}
-.ProfileCol {
-  display: table-cell;
-  vertical-align: middle;
-}
-.ProfilePhoto {
-  width: 32px;
-}
-.ProfileText {
-  width: auto;
-  padding-left: 10px;
-}
-.ProfileText .Text {
-  color: var(--Headline);
-}
-.ProfileText .Disclaimer {
-}
-
-.ProfileAvatar {
-  border-radius: 50%;
+#ThemeMenu .Active .Mask {
   background-color: var(--UIBG);
-}
-.ProfileAvatar .Mask {
-  background-color: var(--UIText);
-}
-
-.ProfileAvatar:hover {
-  background-color: var(--UIBG);
-}
-.ProfileAvatar:hover .Mask {
-  background-color: var(--UIText);
 }
 
 /* //////////////////////////////////////////////////////////////////// */

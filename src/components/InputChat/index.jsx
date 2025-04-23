@@ -153,12 +153,12 @@ function InputChat(props) {
           </div>
         </div>
       </div> */}
-      <div className="Section Narrow" id="SectionHomePresets">
+      <div className=" Narrow border-b-0" id="SectionHomePresets">
         {isNewChat && (
           <div className="Content">
             <div className="Block ScrollContainer">
               <div className="">
-                <div className="flex flex-row pt-[20px] gap-[1px]" id="HomePresets">
+                <div className="flex flex-row pt-[20px] gap-[1px] justify-center" id="HomePresets">
                   {prompts.map((p) => (
                     <div key={p.label} className="relative">
                       <Dropdown
@@ -174,7 +174,7 @@ function InputChat(props) {
             </div>
 
             <div
-              className="Block Disclaimer Centered PresetLink NoClose"
+              className="Block Text Centered PresetLink NoClose"
               onClick={() => {
                 handlePressPropmt({
                   messages: `Why it is so important to lab-test your food and supplements for heavy metals,microbiology, glyphosate and other contaminants?`,
@@ -187,7 +187,7 @@ function InputChat(props) {
           </div>
         )}
 
-        <div className="Section Narrow" id="SectionHomeDetails">
+        <div className=" Narrow border-b-0" id="SectionHomeDetails">
           <div className="Content">
             <div className="ChatNotice Centered z-1">
               <p>
@@ -197,23 +197,6 @@ function InputChat(props) {
                 changes to your existing medication or health routine.
               </p>
             </div>
-            {isNewChat && (
-              <div className="Disclaimer Centered">
-                <a href="Support" target="_blank">
-                  Visit our support area
-                </a>{' '}
-                for a detailed guide on using Enoch AI.
-                <p>
-                  <a href="Support/Terms" target="_blank">
-                    Terms of Service
-                  </a>{' '}
-                  •{' '}
-                  <a href="Support/Privacy" target="_blank">
-                    Privacy Policy
-                  </a>
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>

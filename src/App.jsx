@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ChatPage from './pages/ChatPage';
 import HomePage from './pages/HomePage';
+import ReceivePage from './pages/ReceivePage';
+
 import withAuth from './HOCs/withAuth';
 import './index.css';
 import './global.css';
@@ -13,6 +15,7 @@ import HistoryPage from './pages/HistoryPage';
 import UnProtectLayout from './components/Layout/UnProtectLayout';
 import TermPage from './pages/TermPage';
 import PrivacyPage from './pages/PrivacyPage';
+import QueuePage from './pages/QueuePage';
 
 const ProtectedChat = withAuth(ChatPage);
 const ProtectedHome = withAuth(HomePage);
@@ -24,19 +27,12 @@ function App() {
     <Router>
       <Routes>
         <Route element={<UnProtectLayout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/support/home" element={<SupportPage />} />
-          <Route path="/support/terms" element={<TermPage />} />
-          <Route path="/support/Privacy" element={<PrivacyPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/received" element={<ReceivePage />} />
+          <Route path="/queue" element={<QueuePage />} />
         </Route>
 
         {/* Protected Routes Inside Layout */}
-        <Route element={<ProtectedLayout />}>
-          <Route path="/chat" element={<ProtectedChat />} />
-          <Route path="/home/*" element={<ProtectedHome />} />
-          <Route path="/tools/:category" element={<ProtectedTool />} />
-          <Route path="/history" element={<ProtectedHistory />} />
-        </Route>
       </Routes>
     </Router>
   );

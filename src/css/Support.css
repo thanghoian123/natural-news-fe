@@ -31,8 +31,6 @@
   --InputLabel: var(--UIBG);
   --InputBG: var(--White);
   --InputText: var(--Gray80);
-  --InputPlaceholder: var(--Gray40);
-  --InputBorder: var(--Gray40);
 
   --IconBG: var(--Gray60);
   --IconBGHover: var(--Gray80);
@@ -199,12 +197,6 @@ textarea::-ms-input-placeholder {
   }
 }
 
-/* ////////////////////////////////////////////////////////////////// */
-
-.Block {
-  display: block;
-  margin-bottom: 15px;
-}
 .Block:after {
   content: '';
   display: table;

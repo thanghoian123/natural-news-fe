@@ -4,9 +4,9 @@ import { Lock } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { setToolName } from '../../redux/chatSlice';
 
-const ToolItem = ({ post, index, userTier, onUpgrade }) => {
-  const { tierAllow } = post;
-  const isDisabled = !tierAllow.includes(userTier);
+const ToolItem = ({ post, index, userTier, onUpgrade, isDisabled = true }) => {
+  // const { tierAllow } = post;
+  // const isDisabled = !tierAllow.includes(userTier);
   const dispatch = useDispatch();
   const handleUpgradeClick = () => {
     console.log('Upgrade button clicked');
@@ -18,7 +18,7 @@ const ToolItem = ({ post, index, userTier, onUpgrade }) => {
   return (
     <Link
       to={isDisabled ? '#' : post.link}
-      className={`Post` + (isDisabled ? ' PostLocked ButtonUpgrade NoClose' : '')}
+      className={`Post` + (isDisabled ? '  ButtonUpgrade NoClose' : '')}
       key={index}
       onClick={(e) => {
         isDisabled ? handleUpgradeClick() : dispatch(setToolName(post.toolName));

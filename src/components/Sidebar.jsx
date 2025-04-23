@@ -1,339 +1,174 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Menu, X, Trash, PlusIcon, Sparkle, TrashIcon, Clock } from 'lucide-react'; // Icons
-import logoColor from '../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import logoWhite from '../assets/Images/Logo-white.svg'; // Adjust path as needed
 
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteMyChatHistory,
-  removeChatSession,
-  setActiveSession,
-  startNewSession,
-} from '../redux/chatSlice';
-import { useToast } from '../contexts/ToastContext';
-import Modal from './Modal';
-import ProfileDetail from './ProfileDetail';
-import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 
-export default function Sidebar({ children }) {
-  const { addToast } = useToast();
-  const { user } = useSelector((state) => state.user);
-  const { theme } = useTheme();
+export default function Sidebar() {
+  const { theme, changeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
-  const [isOpenProfile, setIsOpenProfile] = useState(false);
-  const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
-  const [isOpenConfirmDeleteAll, setIsOpenConfirmDeleteAll] = useState(false);
-  const [deleteId, setDeleteId] = useState('');
-  const isBronze = user?.tier === 'Bronze';
-  const logoSrc = theme === 'dark' ? logoWhite : logoColor;
-  const navigate = useNavigate();
-  const { sessions, activeSession } = useSelector((state) => state.chat);
-  console.log('🚀 ~ Sidebar ~ sessions:', sessions);
-  const dispatch = useDispatch();
-
-  const handleNewSession = () => {
-    dispatch(startNewSession(user?.id)).then(({ payload }) => {
-      const chatID = payload?.id;
-      if (chatID) {
-        navigate(`/chat?id=${chatID}`);
-      }
-    });
-  };
-
-  const handleDeleteChat = async () => {
-    if (deleteId) {
-      const result = await dispatch(removeChatSession(deleteId));
-      if (removeChatSession.fulfilled.match(result)) {
-        addToast('Chat deleted successfully!', 'success');
-      } else {
-        addToast('Failed to delete chat.', 'error');
-      }
-    } else {
-      addToast('Chat is not exist', 'error');
-    }
-    setIsOpenConfirmDelete(false);
-  };
-
-  const handleDeleteAllChat = async () => {
-    const result = await dispatch(deleteMyChatHistory());
-    if (deleteMyChatHistory.fulfilled.match(result)) {
-      addToast('Chat deleted successfully!', 'success');
-    } else {
-      addToast('Failed to delete chat.', 'error');
-    }
-    setIsOpenConfirmDeleteAll(false);
-  };
-
-  const handleChatClick = (chat) => {
-    if (chat?.id) {
-      dispatch(setActiveSession(chat.id));
-      navigate(`/chat?id=${chat.id}`);
-      setIsOpen(false); // Close dropdown on mobile
-    }
-  };
-
-  const handleNavigateToHome = () => {
-    navigate(`/home`);
-    setIsOpen(false);
-  };
-
-  const handleNavigateHistory = () => {
-    navigate(`/history`);
-  };
-
-  const handleClearChat = () => {
-    setIsOpenConfirmDeleteAll(true);
-    setIsOpenProfile(false);
-  };
-
-  const reward =
-    user?.tier === 'Platinum' ? 'Unlimited Question Remain' : `${user?.reward} Questions Remaining`;
 
   return (
     <>
-      <div id="Top" style={{ zIndex: isOpen ? -1 : 0 }}>
-        <div className="Section USN" id="SectionMasthead">
-          <div className="Content">
-            <div className="MastheadTable">
-              <div className="MastheadCol MastheadColMenu">
-                <div
-                  className="ButtonIcon NoClose ButtonMenu"
-                  title="Menu"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <div className="Icon">
-                    <span className="Mask MaskMenu"></span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="MastheadCol MastheadColLogo">
-                <a href="Home">
-                  <img alt="Enoch AI" className="Logo" src={logoSrc} />
-                </a>
-              </div>
-
-              <div className="MastheadCol MastheadColNav">
-                <div className="ButtonBox ButtonBoxRight">
-                  <div
-                    className="ButtonIcon ButtonPrimary ButtonNew NoClose"
-                    title="New Chat"
-                    onClick={handleNewSession}
-                  >
-                    <div className="Icon">
-                      <span className="Mask MaskNew"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       {isOpen && (
-        <div className="fixed inset-0 z-10">
+        <div className="fixed inset-0 z-[101]">
           <div
             className="absolute inset-0 BlurBox backdrop"
             onClick={() => setIsOpen(false)} // Optional: close modal on backdrop click
           />
         </div>
       )}
-      <div
-        className={`Menu MenuLeft NoClose !z-100 USN ${isOpen ? 'MenuLeftOpen ActiveElement' : ''}`}
-        id="Menu"
-      >
-        <div className="Content">
-          <div className="ButtonIcon Close" title="Close" onClick={() => setIsOpen(false)}>
-            <div className="Icon">
-              <span className="Mask MaskClose"></span>
-            </div>
-          </div>
-          <div className="Card">
-            <div className="MenuGroup StickyTop" id="MenuLogo">
-              <a href="Home">
-                <img alt="Enoch AI" className="Logo" src={logoSrc} />
-
-                {/* <img alt="Enoch AI" className="Logo" src={logo} /> */}
-              </a>
-            </div>
-
-            <div className="MenuGroup">
-              <div className="ButtonBox ButtonBoxLeft">
-                <a href="Chat">
-                  <button
-                    className="Button ButtonAuto ButtonAutoLeft ButtonPrimary"
-                    title="Start a New Chat"
-                    onClick={handleNewSession}
-                  >
-                    <div className="Auto">
-                      <div className="AutoCol AutoIcon">
-                        <div className="Icon IconSmall">
-                          <span className="Mask MaskNew"></span>
-                        </div>
-                      </div>
-                      <div className="AutoCol AutoLabel">New Chat</div>
-                    </div>
-                  </button>
-                </a>
-                <a>
-                  <button
-                    className="Button ButtonAuto ButtonAutoLeft ButtonBlack NoClose"
-                    title="VIP Tools"
-                    onClick={handleNavigateToHome}
-                  >
-                    <div className="Auto">
-                      <div className="AutoCol AutoIcon">
-                        <div className="Icon IconSmall">
-                          <span className="Mask MaskAI"></span>
-                        </div>
-                      </div>
-                      <div className="AutoCol AutoLabel">Tools</div>
-                    </div>
-                  </button>
-                </a>
-              </div>
-            </div>
-
-            <div className="MenuGroup" id="GroupRecent">
-              <div className="Block Subhead">Recent Questions</div>
-              <div className="History">
-                {sessions.map((chat) => (
-                  <div
-                    className="ChatTitle TitleUpdate NoClose"
-                    onClick={() => handleChatClick(chat)}
-                  >
-                    <div className="Auto">
-                      <div className="AutoCol ChatText">
-                        <p>
-                          <span className="Clamp1">{chat.title}</span>
-                        </p>
-                      </div>
-                      <div className="AutoCol ChatOptions">
-                        <div
-                          className="ButtonIcon ButtonIconSmall ButtonChatDelete"
-                          title="Delete"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeleteId(chat.id);
-                            setIsOpenConfirmDelete(true);
-                          }}
-                        >
-                          <div className="Icon">
-                            <span className="Mask MaskDelete"></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+      <div class="StickyTop" id="top">
+        <div class="Section BlurBox USN" id="SectionMasthead">
+          <div class="Content">
+            <div class="MastheadTable">
+              <div class="MastheadCol MastheadColMenu">
+                <div
+                  class="ButtonIcon NoClose ButtonMenu"
+                  title="Menu"
+                  onClick={() => setIsOpen(true)}
+                >
+                  <div class="Icon">
+                    <span class="Mask MaskMenu"></span>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
 
-            <div className="MenuGroup" id="GroupHistory">
-              <div className="ButtonBox ButtonBoxLeft">
-                <a>
-                  <button
-                    onClick={handleNavigateHistory}
-                    className="Button ButtonAuto ButtonAutoLeft ButtonGray NoClose"
-                    title="View Your Chat History"
-                  >
-                    <div className="Auto">
-                      <div className="AutoCol AutoIcon">
-                        <div className="Icon IconSmall">
-                          <span className="Mask MaskHistory"></span>
-                        </div>
-                      </div>
-                      <div className="AutoCol AutoLabel">Chat History</div>
-                    </div>
-                  </button>
+              <div class="MastheadCol MastheadColLogo">
+                <a href="Home">
+                  <img src="Assets/Images/Logo-White.svg" alt="Brighteon.AI" class="Logo" />
                 </a>
               </div>
-            </div>
 
-            <div className="MenuGroup" id="GroupProfile" onClick={() => setIsOpenProfile(true)}>
-              <div className="Profile ButtonProfile NoClose">
-                <div className="ProfileTable" id="ProfilePreview">
-                  <div className="ProfileCol ProfilePhoto">
-                    <div className="ButtonIcon ProfileAvatar">
-                      <div className="Icon">
-                        <span className="Mask MaskProfile"></span>
-                      </div>
-                    </div>
+              <div class="MastheadCol MastheadColNav">
+                <div class="NavTable">
+                  <div class="NavCol NavColLeft">
+                    <a href="Home" id="MastheadHome">
+                      Home
+                    </a>
+                    <a href="About" id="MastheadAbout">
+                      About
+                    </a>
+                    <a href="Home/#SectionHomeTools" id="MastheadTools">
+                      Prompt Tools
+                    </a>
+                    <a href="Guide" id="MastheadGuide">
+                      Prompting Guide
+                    </a>
+                    <a href="Download" id="MastheadDownload">
+                      Downloads
+                    </a>
                   </div>
-                  <div className="ProfileCol ProfileText">
-                    <div className="Text">
-                      <span className="Clamp1">
-                        <a>{user?.email}</a>
-                      </span>
-                    </div>
-                    <div className="Disclaimer">{reward}</div>
+                  <div class="NavCol NavColRight">
+                    <a href="Subscribe">
+                      <button class="Button ButtonPrimary">Newsletter</button>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <Modal isOpen={isOpenProfile} onClose={() => setIsOpenProfile(false)}>
-          <ProfileDetail user={user} onClearChat={handleClearChat} />
-        </Modal>
-
-        <Modal isOpen={isOpenConfirmDelete} onClose={() => setIsOpenConfirmDelete(false)}>
-          <div class="Card">
-            <div class="Subhead">Delete Chat?</div>
-            <div class="Block Text">Are you sure you want to delete this chat?</div>
-
-            <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
-                <div class="Auto">
-                  <div class="AutoCol AutoIcon">
-                    <div class="Icon IconSmall">
-                      <span class="Mask MaskDelete"></span>
-                    </div>
-                  </div>
-                  <div class="AutoCol AutoLabel" onClick={handleDeleteChat}>
-                    Delete
-                  </div>
-                </div>
-              </button>
-              <button
-                class="Button ButtonGray ButtonClose"
-                onClick={() => setIsOpenConfirmDelete(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </Modal>
-        <Modal isOpen={isOpenConfirmDeleteAll} onClose={() => setIsOpenConfirmDeleteAll(false)}>
-          <div class="Card">
-            <div class="Subhead">Delete Chat?</div>
-            <div class="Block Text">Are you sure you want to delete this chat?</div>
-
-            <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
-                <div class="Auto">
-                  <div class="AutoCol AutoIcon">
-                    <div class="Icon IconSmall">
-                      <span class="Mask MaskDelete"></span>
-                    </div>
-                  </div>
-                  <div class="AutoCol AutoLabel" onClick={handleDeleteAllChat}>
-                    Delete
-                  </div>
-                </div>
-              </button>
-              <button
-                class="Button ButtonGray ButtonClose"
-                onClick={() => setIsOpenConfirmDeleteAll(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </Modal>
       </div>
+
+      {isOpen && (
+        <div class={` z-100 Menu MenuLeft  USN ${isOpen && 'MenuLeftOpen '} `} id="Menu">
+          <div class="Content">
+            <div class="ButtonIcon Close" title="Close" onClick={() => setIsOpen(false)}>
+              <div class="Icon">
+                <span class="Mask MaskClose"></span>
+              </div>
+            </div>
+            <div class="Card">
+              <div class="MenuGroup">
+                <div class="Block MenuGroup">
+                  <div class="Block Subhead">Discover</div>
+                  <div class="Block Text">
+                    <p>
+                      <a href="Home">Home</a>
+                    </p>
+                    <p>
+                      <a href="About">About</a>
+                    </p>
+                    <p>
+                      <a href="Home/#SectionHomeTools" id="MastheadTools">
+                        Prompt Tools
+                      </a>
+                    </p>
+
+                    <p>
+                      <a href="Guide">Prompting Guide</a>
+                    </p>
+                    <p>
+                      <a href="Download">Downloads</a>
+                    </p>
+                    <p>
+                      <a href="Newsletter">Newsletter</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="Block MenuGroup">
+                  <div class="Block Subhead">Information</div>
+                  <div class="Block Text">
+                    <p>
+                      <a href="About">About Enoch</a>
+                    </p>
+                    <p>
+                      <a href="Contact">Contact Us</a>
+                    </p>
+                    <p>
+                      <a href="Notice">Notice</a>
+                    </p>
+                    <p>
+                      <a href="License">License Information</a>
+                    </p>
+                    <p>
+                      <a href="Credits">Credits</a>
+                    </p>
+                    <p>
+                      <a href="Copyrights">Copyrights</a>
+                    </p>
+                    <p>
+                      <a href="Privacy">Privacy Policy</a>
+                    </p>
+                    <p>
+                      <a href="Terms">Terms of Service</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="Block MenuGroup">
+                  <div class="Block Subhead">Display Mode</div>
+                  <div class="AutoGroup" id="ThemeMenu">
+                    {['light', 'dark', 'system'].map((mode) => (
+                      <div
+                        key={mode}
+                        className={`Auto ${theme === mode ? 'Active' : ''}`}
+                        id={`Theme${mode.charAt(0).toUpperCase() + mode.slice(1)}`}
+                        onClick={() => changeTheme(mode)}
+                        role="button"
+                      >
+                        <div className="AutoCol AutoIcon">
+                          <div className="Icon">
+                            <span
+                              className={`Mask ${theme === mode ? 'MaskSelected' : 'MaskSelect'}`}
+                            />
+                          </div>
+                        </div>
+                        <div className="AutoCol AutoLabel">
+                          <div className="AutoText">
+                            {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -1,0 +1,83 @@
+/* FOOTER */
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.FooterTable {
+  display: table;
+  width: 100%;
+}
+.FooterCol {
+  display: table-cell;
+  vertical-align: top;
+  text-align: center;
+  font-size: var(--FSMedium);
+}
+.FooterCol a {
+  color: var(--Info);
+}
+.FooterCol a:hover {
+  color: var(--Headline);
+  text-decoration: none;
+}
+
+.FooterColLeft {
+  width: 50%;
+}
+.FooterColRight {
+  width: 50%;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+@media (min-width: 500px) {
+  .FooterCol {
+    font-size: var(--FSLarge);
+  }
+}
+
+@media (max-width: 939.9px) {
+  .FooterCol a {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    clear: both;
+  }
+}
+
+@media (min-width: 940px) {
+  .FooterCol {
+    font-size: var(--FSSmall);
+  }
+  .FooterColLeft a {
+    display: inline;
+    float: left;
+    margin-right: 15px;
+  }
+  .FooterColRight a {
+    display: inline;
+    float: right;
+    margin-left: 15px;
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+#SectionFooter {
+  border-bottom: none 0px;
+}
+
+@media (min-width: 940px) {
+  #SectionFooter {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+    background-color: var(--CardBG);
+    padding: 20px;
+  }
+  #SectionFooter .Content {
+  }
+}
+
+/* ////////////////////////////////////////////////////////////////// */

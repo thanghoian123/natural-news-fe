@@ -10,9 +10,9 @@
     --TrackHover: var(--Gray10);
     --Thumb: var(--Gray20);
 
-    --UIBG: var(--Olive);
-    --UIBGHover: var(--OliveAlt);
-    --UIBGDark: var(--OliveDark);
+    --UIBG: var(--Purple);
+    --UIBGHover: var(--PurpleAlt);
+    --UIBGDark: var(--PurpleDark);
     --UIText: var(--White);
 
     --Highlight: var(--Red);
@@ -71,40 +71,12 @@
     --TagBorder: var(--Gray20);
     --TagText: var(--Gray40);
     --TagTextHover: var(--White);
-
-    --Theme: var(--Gray10);
-    --ThemeHover: var(--Gray20);
-    --ThemeActive: var(--UIBG);
   }
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
 body.ThemeLight {
-  #SectionMasthead {
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 1) 80%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  }
-  #MenuLogo {
-    background: linear-gradient(
-      to bottom,
-      rgba(244, 244, 250, 1) 0%,
-      rgba(244, 244, 250, 1) 80%,
-      rgba(244, 244, 250, 0) 100%
-    );
-  }
-  #SectionHistoryChat .Content:before {
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
-  }
-
-  .Dropdown {
-    background-color: var(--White);
-  }
-
   .Post .PostFade {
     background: linear-gradient(to bottom, rgba(92, 107, 78, 0) 25%, rgba(92, 107, 78, 0.8) 75%);
     background: -webkit-linear-gradient(
@@ -112,6 +84,14 @@ body.ThemeLight {
       rgba(92, 107, 78, 0) 25%,
       rgba(92, 107, 78, 0.8) 75%
     );
+  }
+
+  #SectionMasthead {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+  }
+
+  .PageBox .FormGroup .FormInput input {
+    background-color: var(--White);
   }
 }
 

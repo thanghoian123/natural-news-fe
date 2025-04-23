@@ -164,4 +164,14 @@
   mask: url(../assets/Images/Masks/Mask-Regenerate.svg) no-repeat 50% 50%;
 }
 
+.MaskSelect {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Select.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Select.svg) no-repeat 50% 50%;
+}
+
+.MaskSelected {
+  -webkit-mask: url(../assets/Images/Masks/Mask-Selected.svg) no-repeat 50% 50%;
+  mask: url(../assets/Images/Masks/Mask-Selected.svg) no-repeat 50% 50%;
+}
+
 /* ////////////////////////////////////////////////////////////////// */
