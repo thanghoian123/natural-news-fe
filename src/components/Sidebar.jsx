@@ -20,9 +20,7 @@ import { useTheme } from '../contexts/ThemeContext';
 export default function Sidebar({ children }) {
   const { addToast } = useToast();
   const { user } = useSelector((state) => state.user);
-
   const { theme } = useTheme();
-  console.log('🚀 ~ Sidebar ~ theme:', theme);
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
@@ -89,6 +87,9 @@ export default function Sidebar({ children }) {
     setIsOpenConfirmDeleteAll(true);
     setIsOpenProfile(false);
   };
+
+  const reward =
+    user?.tier === 'Platinum' ? 'Unlimited Question Remain' : `${user?.reward} Questions Remaining`;
 
   return (
     <>
@@ -267,7 +268,7 @@ export default function Sidebar({ children }) {
                         <a>{user?.email}</a>
                       </span>
                     </div>
-                    <div className="Disclaimer">{`${user?.reward} questions remaining`}</div>
+                    <div className="Disclaimer">{reward}</div>
                   </div>
                 </div>
               </div>

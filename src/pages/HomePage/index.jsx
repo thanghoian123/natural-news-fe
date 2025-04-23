@@ -78,9 +78,12 @@ function HomePage() {
   const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUpgrade, setIsOpenUpgrade] = useState(false);
-
   useLayoutEffect(() => {
-    setIsOpen(true);
+    const hasSeenModal = localStorage.getItem('hasSeenModal');
+    if (!hasSeenModal) {
+      setIsOpen(true);
+      localStorage.setItem('hasSeenModal', 'true');
+    }
   }, []);
 
   const handleUpgrade = () => {
@@ -127,6 +130,52 @@ function HomePage() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div className="Content NoClose">
+          <div className="Card">
+            {user?.tier === 'Platinum' ? (
+              <>
+                <div className="Block Headline Centered">
+                  You have unlimited questions remaining
+                </div>
+                <div className="Block Text Centered">
+                  As a Platinum member, you have unlimited questions to use with Enoch AI tools and
+                  chat. <a href="Support">Learn More</a>
+                </div>
+                <div className="Block">
+                  <div className="ButtonBox ButtonBoxCenter">
+                    <button
+                      className="Button ButtonPrimary ButtonClose"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="Block Headline Centered">You have 42 questions remaining</div>
+                <div className="Block Text Centered">
+                  More questions are added to your account each day.{' '}
+                  <a href="Support">Learn More</a>
+                </div>
+                <div className="Block">
+                  <div className="ButtonBox ButtonBoxCenter">
+                    <button
+                      className="Button ButtonPrimary ButtonClose"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </Modal>

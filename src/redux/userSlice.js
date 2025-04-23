@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginAPI, verifyOtpAPI, getUserAPI } from '../apis/userApi';
-import { get } from 'lodash';
 
 const initialState = {
   token: localStorage.getItem('token') || null,
@@ -77,6 +76,8 @@ const userSlice = createSlice({
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('hasSeenModal');
+
       window.location.href = '/login';
     },
     clearError: (state) => {
