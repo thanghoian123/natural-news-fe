@@ -16,8 +16,13 @@ function SupportPage(props) {
   const faqs = [
     {
       question: 'How do I create an account?',
-      answer:
-        "If you're a Health Ranger Store newsletter subscriber, then you already have an account. Just use the email address you subscribe with to log in. If you're not a subscriber, you can subscribe for free at the Health Ranger Store.",
+      answer: (
+        <>
+          If you're a Health Ranger Store newsletter subscriber, then you already have an account.
+          Just use the email address you subscribe with to log in. If you're not a subscriber,
+          you can <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">subscribe for free at the Health Ranger Store</a>.
+        </>
+      ),
     },
     {
       question: 'How do I get an Access Code?',
@@ -36,21 +41,35 @@ function SupportPage(props) {
     },
     {
       question: 'What are the membership tiers?',
-      answer:
-        'Bronze, Silver, Gold, and Platinum. Higher tiers unlock more VIP Tools. Click here for more info.',
+      answer: (
+        <>
+        Bronze, Silver, Gold, and Platinum. Higher tiers unlock more VIP Tools.{' '}<a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">Click here for more information.</a>.
+        </>
+      )
     },
     {
       question: 'How do I upgrade my membership tier?',
-      answer: 'The more you spend at the Health Ranger Store, the higher your membership tier.',
+      answer: (
+        <>
+        The more you spend at the Health Ranger Store on quality lab-tested health products, the higher you can upgrade. <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">Click here for more information.</a>
+        </>
+      )
     },
     {
       question: 'How do I change my email address?',
-      answer:
-        'You cannot change your email in Enoch AI, but you can subscribe again using a new email address.',
+      answer:(
+        <>
+        Unfortunately, you cannot change your email address with the Enoch AI system. You can however subscribe to the <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">Health Ranger Store newsletter</a> with a different email address and then log into Enoch AI using this new address. You can also log into your Health Ranger Store account (if you have one) and update your email address there. Just make sure it's the same email address you use to subscribe to the newsletter.
+        </>
+      )
     },
     {
       question: 'What if I unsubscribe from the newsletter?',
-      answer: "You won't have access to VIP Tools, but you can re-subscribe anytime.",
+      answer: (
+        <>
+        If you unsubscribe then you will no longer be able to access Enoch AI VIP Tools. But there's good news, <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">you can always re-subscribe at any time!</a>
+        </>
+      )
     },
   ];
 
@@ -63,12 +82,12 @@ function SupportPage(props) {
     {
       question: 'How can I ask Enoch to summarize something for me?',
       answer:
-        'The easiest way is to type something like: "Please summarize the following text:" and then copy/paste the text. You can also ask for summaries in one sentence or less than three paragraphs.',
+        'The easiest way is to type something like: " Please summarize the following text:" and the copy/paste the text of what you want summarized. You can also provide more detailed instructions like telling Enoch to summarize it in less than three paragraphs, or in one sentence if you want a shorter summary.',
     },
     {
       question: 'How do I ask Enoch to show a relation between multiple topics?',
       answer:
-        'Ask how the topics relate to each other. For example: "How are dehydration and potassium related to good health and wellness in the human body?"',
+        'The best way to connect multiple topics is to ask how the topics relate to each other in regards to something. For example, you could ask "How are dehydration and potassium related to good health and wellness in the human body."',
     },
   ];
 

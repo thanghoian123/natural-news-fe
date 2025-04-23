@@ -16,6 +16,8 @@ function useLoginHandler() {
   const { addToast } = useToast();
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
   const [error, setError] = useState('');
+  const [resendClicked, setResendClicked] = useState(false);
+
 
   const validateEmail = (value) => {
     setEmail(value);
@@ -62,6 +64,8 @@ function useLoginHandler() {
     userError,
     handleVerifyOtp,
     loading,
+    resendClicked,
+    setResendClicked,
   };
 }
 

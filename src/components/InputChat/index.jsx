@@ -97,7 +97,7 @@ function InputChat(props) {
           <div className="ChatTable">
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
-                {helperText}
+                {helperText}{' '}
                 <Link to="/Support/home" className="Link ButtonProfile NoClose">
                   Learn More
                 </Link>

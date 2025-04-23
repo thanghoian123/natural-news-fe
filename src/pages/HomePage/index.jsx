@@ -117,9 +117,7 @@ function HomePage() {
             <div className="Block Headline Centered">Upgrade to Unlock Access</div>
             <div className="Block Text Centered">
               This exclusive tool is available to Gold and Platinum members.
-              <Link to="/Support/home">
-              Please visit our support area
-      </Link>
+              <Link to="/Support/home">Please visit our support area</Link>
               for more information.
             </div>
             <div className="Block">
@@ -146,9 +144,7 @@ function HomePage() {
                 </div>
                 <div className="Block Text Centered">
                   As a Platinum member, you have unlimited questions to use with Enoch AI tools and
-                  chat. <Link to="/Support/home">
-        Learn More
-      </Link>
+                  chat.{' '}<Link to="/Support/home">Learn More</Link>
                 </div>
                 <div className="Block">
                   <div className="ButtonBox ButtonBoxCenter">
@@ -166,9 +162,7 @@ function HomePage() {
                 <div className="Block Headline Centered">You have 42 questions remaining</div>
                 <div className="Block Text Centered">
                   More questions are added to your account each day.{' '}
-                  <Link to="/Support/home">
-        Learn More
-      </Link>
+                  <Link to="/Support/home">Learn More</Link>
                 </div>
                 <div className="Block">
                   <div className="ButtonBox ButtonBoxCenter">

@@ -257,6 +257,7 @@ textarea::-ms-input-placeholder {
   max-width: 400px;
   margin: 0px auto 40px auto;
 }
+
 .AuthLinks {
   display: block;
   max-width: 400px;
@@ -310,6 +311,7 @@ textarea::-ms-input-placeholder {
 .AuthResend {
   display: block;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 /* ////////////////////////////////////////////////////////////////// */
