@@ -4,7 +4,7 @@ import InputChat from '../../components/InputChat';
 import ToolItem from '../../components/ToolItem';
 import Modal from '../../components/Modal';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const mockList = [
   {
     title: 'Enoch Text Summarizer',
@@ -117,7 +117,9 @@ function HomePage() {
             </p>
           </div>
           <div className="Text Centered">
-            <a href="Guide">Prompting Guide</a> • <a href="About">About Enoch</a> •{' '}
+            <Link to="/freeai/Guide" id="MastheadAbout">
+                                Prompting Guide
+                                </Link> • <Link to="/freeai/About">About Enoch</Link> •{' '}
             <a href="Downloads">Downloadable Versions</a>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 function ReceivePage() {
   const env = import.meta.env;
   const [error, setError] = useState('');
@@ -142,9 +142,9 @@ function ReceivePage() {
               </p>
               <p className="my-[10px]">
                 * You will be added to our{' '}
-                <a href="Subscribe" target="_blank">
+                <Link tp="/freeai/Subscribe" target="_blank">
                   free email newsletter
-                </a>
+                </Link>
                 . You may unsubscribe at any time.
               </p>
             </div>

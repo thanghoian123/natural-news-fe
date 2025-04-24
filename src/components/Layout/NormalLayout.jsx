@@ -32,16 +32,16 @@ function NormalLayout({ children }) {
         <div class="Content">
           <div class="FooterTable">
             <div class="FooterCol FooterColLeft">
-              <a href="About">About Enoch</a>
-              <a href="Contact">Contact Us</a>
-              <a href="Notice">Notice</a>
-              <a href="License">License Information</a>
+              <Link to="/freeai/About">About Enoch</Link>
+              <Link to="/freeai/Contact">Contact Us</Link>
+              <Link to="/freeai/Notice">Notice</Link>
+              <Link to="/freeai/License">License Information</Link>
             </div>
             <div class="FooterCol FooterColRight">
-              <a href="Terms">Terms of Service</a>
-              <a href="Privacy">Privacy Policy</a>
-              <a href="Credits">Credits</a>
-              <a href="Copyrights">Copyrights</a>
+            <Link to="/freeai/Terms">Terms of Service</Link>
+              <Link to="/freeai/Privacy">Privacy Policy</Link>
+              <Link to="/freeai/Credits">Credits</Link>
+              <Link to="/freeai/Copyrights">Copyrights</Link>
             </div>
           </div>
         </div>

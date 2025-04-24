@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 import { useTheme } from '../contexts/ThemeContext';
-
+import { Link } from 'react-router-dom';
 export default function Sidebar() {
   const { theme, changeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
@@ -34,34 +34,34 @@ export default function Sidebar() {
               </div>
 
               <div class="MastheadCol MastheadColLogo">
-                <a href="Home">
-                  <img src="Assets/Images/Logo-White.svg" alt="Brighteon.AI" class="Logo" />
-                </a>
+                <Link to="/home">
+                  <img src="assets/Images/Logo-White.svg" alt="Brighteon.AI" class="Logo" />
+                </Link>
               </div>
 
               <div class="MastheadCol MastheadColNav">
                 <div class="NavTable">
                   <div class="NavCol NavColLeft">
-                    <a href="Home" id="MastheadHome">
+                    <Link to="/home" id="MastheadHome">
                       Home
-                    </a>
-                    <a href="About" id="MastheadAbout">
+                    </Link>
+                    <Link to="/freeai/About" id="MastheadAbout">
                       About
-                    </a>
+                    </Link>
                     <a href="Home/#SectionHomeTools" id="MastheadTools">
                       Prompt Tools
                     </a>
-                    <a href="Guide" id="MastheadGuide">
-                      Prompting Guide
-                    </a>
-                    <a href="Download" id="MastheadDownload">
-                      Downloads
-                    </a>
+                    <Link to="/freeai/Guide" id="MastheadAbout">
+                    Prompting Guide
+                    </Link>
+                    <Link to="/freeai/Download" id="MastheadAbout">
+                    Downloads
+                    </Link>
                   </div>
                   <div class="NavCol NavColRight">
-                    <a href="Subscribe">
+                    <Link to="/freeai/Subscribe">
                       <button class="Button ButtonPrimary">Newsletter</button>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function Sidebar() {
                       <a href="Home">Home</a>
                     </p>
                     <p>
-                      <a href="About">About</a>
+                      <Link to="/freeai/About">About Enoch</Link>
                     </p>
                     <p>
                       <a href="Home/#SectionHomeTools" id="MastheadTools">
@@ -96,10 +96,14 @@ export default function Sidebar() {
                     </p>
 
                     <p>
-                      <a href="Guide">Prompting Guide</a>
+                    <Link to="/freeai/Guide" id="MastheadAbout">
+                    Prompting Guide
+                    </Link>
                     </p>
                     <p>
-                      <a href="Download">Downloads</a>
+                      <Link to="/freeai/Download">
+                    Downloads
+                    </Link>
                     </p>
                     <p>
                       <a href="Newsletter">Newsletter</a>
@@ -111,10 +115,10 @@ export default function Sidebar() {
                   <div class="Block Subhead">Information</div>
                   <div class="Block Text">
                     <p>
-                      <a href="About">About Enoch</a>
+                    <Link to="/freeai/About">About Enoch</Link>
                     </p>
                     <p>
-                      <a href="Contact">Contact Us</a>
+                      <Link to="/freeai/Contact">Contact Us</Link>
                     </p>
                     <p>
                       <a href="Notice">Notice</a>
