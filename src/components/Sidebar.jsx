@@ -126,22 +126,22 @@ export default function Sidebar() {
                       <Link to="/freeai/Contact">Contact Us</Link>
                     </p>
                     <p>
-                      <a href="Notice">Notice</a>
+                      <Link to="/freeai/Notice">Notice</Link>
                     </p>
                     <p>
-                      <a href="License">License Information</a>
+                      <Link to="/freeai/License">License Information</Link>
                     </p>
                     <p>
-                      <a href="Credits">Credits</a>
+                      <Link to="/freeai/Credits">Credits</Link>
                     </p>
                     <p>
-                      <a href="Copyrights">Copyrights</a>
+                      <Link to="/freeai/Copyrights">Copyrights</Link>
                     </p>
                     <p>
-                      <a href="Privacy">Privacy Policy</a>
+                      <Link to="/freeai/Privacy">Privacy Policy</Link>
                     </p>
                     <p>
-                      <a href="Terms">Terms of Service</a>
+                      <Link to="/freeai/Terms">Terms of Service</Link>
                     </p>
                   </div>
                 </div>

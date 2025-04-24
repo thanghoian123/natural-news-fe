@@ -116,7 +116,7 @@ function HomePage() {
         <div className="Content">
           <div className="Block BigHeadline UIColor Centered">What is Enoch?</div>
           <div className="Block Text">
-            <p>
+            <p className="mb-3">
               Enoch is the world's #1 AI language model on reality benchmarks. Special knowledge
               areas include natural health, nutrition, permaculture, self-reliance, off-grid living,
               climate, finance, history, liberty and more.

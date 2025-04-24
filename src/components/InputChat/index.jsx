@@ -22,10 +22,10 @@ function InputChat(props) {
       messages: 'Tell me about',
       label: 'Tell me about',
       options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
+        { label: 'MAHA', value: 'MAHA' },
+        { label: 'Aloe Vera', value: 'Aloe Vera' },
+        { label: 'Turmeric', value: 'Turmeric' },
+        { label: 'Covid-19', value: 'Covid-19' },
       ],
     },
     {
@@ -33,10 +33,9 @@ function InputChat(props) {
       messages: 'What are the benefits of',
       label: 'What are the benefits',
       options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
+        { label: 'Weight Loss', value: 'Weight Loss' },
+        { label: 'Vitamin D', value: 'Vitamin D' },
+        { label: 'Eating Less Sugar', value: 'Eating Less Sugar' },
       ],
     },
     {
@@ -44,10 +43,10 @@ function InputChat(props) {
       messages: 'What are the dangers of',
       label: 'What are the dangers',
       options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
+        { label: 'Vegetable Oils', value: 'Vegetable Oils' },
+        { label: 'Food Dyes', value: 'Food Dyes' },
+        { label: 'Junk Food', value: 'Junk Food' },
+        { label: 'Blue Light', value: 'Blue Light' },
       ],
     },
     {
@@ -55,16 +54,15 @@ function InputChat(props) {
       messages: 'Give me advice',
       label: 'Give me advice about',
       options: [
-        { label: 'Dashboard', value: 'dashboard' },
-        { label: 'Settings', value: 'settings' },
-        { label: 'Earnings', value: 'earnings' },
-        { label: 'Sign out', value: 'signout' },
+        { label: 'Losing Weight', value: 'Losing Weight' },
+        { label: 'Walking 10k Steps', value: 'Walking 10k Steps' },
+        { label: 'Strength Training', value: 'Strength Training' },
       ],
     },
     {
       id: 5,
       label: 'Summarize',
-      messages: 'Summarize',
+      messages: 'Summarize this text: [Paste text here]',
       options: [
         // { label: 'Dashboard', value: 'dashboard' },
         // { label: 'Settings', value: 'settings' },
@@ -73,11 +71,11 @@ function InputChat(props) {
       ],
     },
   ];
-  const helperText =
-    tokenRemaining > 2499
-      ? 'As a Platinum member, you have access to unlimited questions.'
-      : `                Each prompt uses 1 question. You have ${tokenRemaining} questions remaining.
-`;
+  const helperText = (
+    <div className="Disclaimer">
+      <b>Note:</b> The prompt input above has a 100K character limit.
+    </div>
+  );
 
   return (
     <div className="">
@@ -98,7 +96,7 @@ function InputChat(props) {
           <div className="ChatTable">
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
-                {value.length > 100000 ? 'NOTE: The prompt input above has a 100K character limit' : helperText} <span className="Link ButtonProfile NoClose">Learn More</span>
+                {value.length > 100000 ? helperText : helperText}
               </div>
             </div>
             <div className="ChatCol ChatColRight">

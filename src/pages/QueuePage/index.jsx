@@ -78,7 +78,7 @@ function QueuePage() {
           <div class="PageBox">
             <div class="Block BigHeadline Centered">Your Question is in the Queue!</div>
             <div class="Block Text Centered">
-              <b class="Alert">Check your email in approximately [x] minutes for the response.</b>
+              <b class="Alert">Check your email in approximately few minutes for the response.</b>
             </div>
             <div class="Block Disclaimer Centered" id="HomeDisclaimer">
               <p>

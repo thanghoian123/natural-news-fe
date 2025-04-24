@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 function ReceivePage() {
-  const env = import.meta.env;
+  const VITE_API_URL = "https://api.brighteon.ai"
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [training, setTraining] = useState(true);
@@ -24,13 +24,13 @@ function ReceivePage() {
   };
 
   const handleSubmit = async () => {
-    if (!env.VITE_API_URL) {
+    if (!VITE_API_URL) {
       // Handle error properly here
       setError('VITE_API_URL is not defined in .env file');
       return;
     }
     const response = await axios.post(
-      `${env.VITE_API_URL}/prompt/submit`,
+      `${VITE_API_URL}/prompt/submit`,
       {
         email: email,
         consent: training,
@@ -42,8 +42,8 @@ function ReceivePage() {
         },
       }
     );
-    if (response.data.status_code !== 200) {
-      setError(response.data.detail[0]);
+    if (response.status !== 200) {
+      setError('Failed to submit your question. Please try again.');
       return;
     }
     navigate('/Queue');
