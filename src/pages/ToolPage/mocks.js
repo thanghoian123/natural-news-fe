@@ -1,5 +1,3 @@
-import * as Yup from 'yup';
-
 export const TYPE = {
   input: 'input',
   checkbox: 'checkbox',
