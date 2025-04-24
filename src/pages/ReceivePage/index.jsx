@@ -1,15 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { Link } from 'react-router-dom';
+
 function ReceivePage() {
-  const VITE_API_URL = "https://api.brighteon.ai"
+  const VITE_API_URL = "https://api.brighteon.ai";
+  const SITE_KEY = "6Ldh-NYqAAAAAOiHmQEzA9aKbOvPuLo-N6UahU0I"; // <-- Replace with your real site key
+
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [training, setTraining] = useState(true);
   const [newsletter, setNewsletter] = useState(true);
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+
   const navigate = useNavigate();
   const question = useLocation();
+
+  const handleEmailFocus = () => {
+    setShowRecaptcha(true);
+  };
+
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+  };
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -25,28 +41,37 @@ function ReceivePage() {
 
   const handleSubmit = async () => {
     if (!VITE_API_URL) {
-      // Handle error properly here
       setError('VITE_API_URL is not defined in .env file');
       return;
     }
-    const response = await axios.post(
-      `${VITE_API_URL}/prompt/submit`,
-      {
-        email: email,
-        consent: training,
-        prompt: question.state.initialMessage,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    if (response.status !== 200) {
-      setError('Failed to submit your question. Please try again.');
+
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA challenge.');
       return;
     }
-    navigate('/Queue');
+
+    try {
+      const response = await axios.post(
+        `${VITE_API_URL}/prompt/submit`,
+        {
+          email,
+          consent: training,
+          prompt: question.state.initialMessage,
+          recaptcha: recaptchaToken,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+
+      if (response.status === 200) {
+        navigate('/Queue');
+      } else {
+        setError('Failed to submit your question. Please try again.');
+      }
+    } catch (err) {
+      setError('Error submitting your question. Please try again.');
+    }
   };
 
   return (
@@ -56,13 +81,10 @@ function ReceivePage() {
           <div className="PageBox">
             <div className="Block BigHeadline Centered">Question Received!</div>
             <div className="Block Text Centered">
-              <b className="Alert">
-                The current estimated wait time for answer generation is [x] minutes.
-              </b>
+              <b className="Alert">The current estimated wait time for answer generation is [x] minutes.</b>
             </div>
             <div className="Block Text Centered">
-              Prompt answers are emailed to you. Enter the email address where the answer will be
-              sent.
+              Prompt answers are emailed to you. Enter the email address where the answer will be sent.
             </div>
 
             <div className="Block Form">
@@ -74,10 +96,17 @@ function ReceivePage() {
                     placeholder="Enter your email address"
                     value={email}
                     onChange={handleEmailChange}
+                    onFocus={handleEmailFocus}
                     className="Focus"
                   />
                 </div>
               </div>
+
+              {showRecaptcha && (
+                <div className="FormGroup">
+                  <ReCAPTCHA sitekey={SITE_KEY} onChange={handleRecaptchaChange} />
+                </div>
+              )}
 
               <div className="FormGroup">
                 <div className="Block FormOptions">
@@ -112,20 +141,19 @@ function ReceivePage() {
 
               <div className="FormGroup">
                 <div className="ButtonBox ButtonBoxCenter">
-                  <a onClick={handleSubmit}>
-                    <button className="Button ButtonPrimary ButtonLarge">
-                      <div className="Auto">
-                        <div className="AutoCol AutoIcon">
-                          <div className="Icon">
-                            <span className="Mask MaskAI"></span>
-                          </div>
+                  <button className="Button ButtonPrimary ButtonLarge" onClick={handleSubmit}>
+                    <div className="Auto">
+                      <div className="AutoCol AutoIcon">
+                        <div className="Icon">
+                          <span className="Mask MaskAI"></span>
                         </div>
-                        <div className="AutoCol AutoLabel">Send Answer</div>
                       </div>
-                    </button>
-                  </a>
+                      <div className="AutoCol AutoLabel">Send Answer</div>
+                    </div>
+                  </button>
                 </div>
               </div>
+
               {error && (
                 <div className="Block Text Centered">
                   <b className="Alert">{error}</b>
@@ -142,7 +170,7 @@ function ReceivePage() {
               </p>
               <p className="my-[10px]">
                 * You will be added to our{' '}
-                <Link tp="/freeai/Subscribe" target="_blank">
+                <Link to="/freeai/Subscribe" target="_blank">
                   free email newsletter
                 </Link>
                 . You may unsubscribe at any time.
