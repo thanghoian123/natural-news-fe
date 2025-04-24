@@ -1,28 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 function NormalLayout({ children }) {
-  const [visible, setVisible] = useState(false);
+  const pageRef = useRef(null);
+  const [showButton, setShowButton] = useState(false);
   const [fadeClass, setFadeClass] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const pageScrollTop = pageRef.current?.scrollTop || 0;
+      const windowScrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      const scrollTop = Math.max(pageScrollTop, windowScrollTop);
+      console.log('📱 Combined Scroll Top:', scrollTop);
 
       if (scrollTop > 200) {
         setFadeClass('fade-in');
-        setVisible(true);
+        setShowButton(true);
       } else {
         setFadeClass('fade-out');
+        setShowButton(false);
       }
     };
 
+    const pageElement = pageRef.current;
+    pageElement?.addEventListener('scroll', handleScroll);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      pageElement?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pageRef.current?.scrollTop > 0) {
+      pageRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const goTopButton = () => {
@@ -45,7 +61,7 @@ function NormalLayout({ children }) {
   return (
     <div>
       <Sidebar />
-      <div className="PageOpen" id="Page">
+      <div className="PageOpen" id="Page" ref={pageRef}>
         {children}
       </div>
 
@@ -68,7 +84,7 @@ function NormalLayout({ children }) {
         </div>
       </div>
 
-      {visible && goTopButton()}
+      {showButton && goTopButton()}
     </div>
   );
 }
