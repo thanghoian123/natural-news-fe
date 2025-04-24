@@ -1,16 +1,37 @@
-import React from 'react';
-import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
-import logoWhite from '../../assets/Images/Logo-White.svg'; // Adjust path as needed
-import { useTheme } from '../../contexts/ThemeContext';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 function NormalLayout({ children }) {
-  const { theme } = useTheme();
+  const [visible, setVisible] = useState(false);
+  const [fadeClass, setFadeClass] = useState('');
 
-  const logoSrc = theme === 'dark' ? logoWhite : logoColor;
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > 200) {
+        setFadeClass('fade-in');
+        setVisible(true);
+      } else {
+        setFadeClass('fade-out');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const goTopButton = () => {
     return (
-      <div class="BacktoTop" title="Back to Top">
+      <div
+        className={`BacktoTop fixed bottom-6 right-6 z-50 ${fadeClass}`}
+        title="Back to Top"
+        onClick={scrollToTop}
+      >
         <div class="ButtonBox ButtonBoxRight">
           <div class="ButtonIcon ButtonB2T NoClose" title="New Chat">
             <div class="Icon">
@@ -38,7 +59,7 @@ function NormalLayout({ children }) {
               <Link to="/freeai/License">License Information</Link>
             </div>
             <div class="FooterCol FooterColRight">
-            <Link to="/freeai/Terms">Terms of Service</Link>
+              <Link to="/freeai/Terms">Terms of Service</Link>
               <Link to="/freeai/Privacy">Privacy Policy</Link>
               <Link to="/freeai/Credits">Credits</Link>
               <Link to="/freeai/Copyrights">Copyrights</Link>
@@ -47,7 +68,7 @@ function NormalLayout({ children }) {
         </div>
       </div>
 
-      {goTopButton()}
+      {visible && goTopButton()}
     </div>
   );
 }
