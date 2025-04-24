@@ -71,7 +71,7 @@ const mockList = [
   {
     title: 'Ingredient Checker',
     imageSrc: 'src\\assets\\Tool-Ingredient-Checker.jpg',
-    link: '/chat?type=ingredient',
+    link: '/tools/Ingredient',
     tierAllow: ['Gold', 'Platinum'],
     toolName: 'ingredients-checker',
   },
@@ -135,49 +135,53 @@ function HomePage() {
       </Modal>
 
       <Modal isOpen={isOpen && user} onClose={() => setIsOpen(false)}>
-        {user && <div className="Content NoClose">
-          <div className="Card">
-            {user?.tier === 'Platinum' ? (
-              <>
-                <div className="Block Headline Centered">
-                  You have unlimited questions remaining
-                </div>
-                <div className="Block Text Centered">
-                  As a Platinum member, you have unlimited questions to use with Enoch AI tools and
-                  chat.{' '}<Link to="/Support/home">Learn More</Link>
-                </div>
-                <div className="Block">
-                  <div className="ButtonBox ButtonBoxCenter">
-                    <button
-                      className="Button ButtonPrimary ButtonClose"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Close
-                    </button>
+        {user && (
+          <div className="Content NoClose">
+            <div className="Card">
+              {user?.tier === 'Platinum' ? (
+                <>
+                  <div className="Block Headline Centered">
+                    You have unlimited questions remaining
                   </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="Block Headline Centered">You have {user?.reward} questions remaining</div>
-                <div className="Block Text Centered">
-                  More questions are added to your account each day.{' '}
-                  <Link to="/Support/home">Learn More</Link>
-                </div>
-                <div className="Block">
-                  <div className="ButtonBox ButtonBoxCenter">
-                    <button
-                      className="Button ButtonPrimary ButtonClose"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Close
-                    </button>
+                  <div className="Block Text Centered">
+                    As a Platinum member, you have unlimited questions to use with Enoch AI tools
+                    and chat. <Link to="/Support/home">Learn More</Link>
                   </div>
-                </div>
-              </>
-            )}
+                  <div className="Block">
+                    <div className="ButtonBox ButtonBoxCenter">
+                      <button
+                        className="Button ButtonPrimary ButtonClose"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="Block Headline Centered">
+                    You have {user?.reward} questions remaining
+                  </div>
+                  <div className="Block Text Centered">
+                    More questions are added to your account each day.{' '}
+                    <Link to="/Support/home">Learn More</Link>
+                  </div>
+                  <div className="Block">
+                    <div className="ButtonBox ButtonBoxCenter">
+                      <button
+                        className="Button ButtonPrimary ButtonClose"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>}
+        )}
       </Modal>
     </div>
   );

@@ -1,45 +1,57 @@
 import React from 'react';
 
-const CheckboxGroup = ({
-  options,
-  selectedValues,
-  onChange,
-  label = '',
-  questionLabel = '',
-  helperText = '',
-}) => {
-  const handleCheckboxChange = (value) => {
-    const updatedValues = selectedValues.includes(value)
-      ? selectedValues.filter((item) => item !== value) // Remove if checked
-      : [...selectedValues, value]; // Add if unchecked
+const CheckboxGroup = React.forwardRef(
+  (
+    {
+      options,
+      selectedValues,
+      onChange,
+      label = '',
+      questionLabel = '',
+      error,
+      isRequired,
+      ...props
+    },
+    ref
+  ) => {
+    console.log('🚀 ~CheckboxGroup error:', error);
+    const handleCheckboxChange = (value) => {
+      const updatedValues = selectedValues.includes(value)
+        ? selectedValues.filter((item) => item !== value)
+        : [...selectedValues, value];
 
-    onChange(updatedValues); // Call parent with updated values
-  };
+      onChange(updatedValues);
+    };
 
-  return (
-    <div class="FormGroup">
-      <div class="Subhead">{label}</div>
-      <div class="Text">{questionLabel}</div>
-      <div class="FormOptionsTable">
-        <div class=" grid grid-cols-2 gap-1">
-          {options.map((option) => (
-            <div class="FormCheckbox">
-              <label>
-                <input
-                  type="checkbox"
-                  value={option.value}
-                  checked={selectedValues.includes(option.value)}
-                  onChange={() => handleCheckboxChange(option.value)}
-                />
-                {option.label}
-                <span></span>
-              </label>
-            </div>
-          ))}
+    return (
+      <div className="FormGroup" ref={ref}>
+        <div className="Subhead">
+          {' '}
+          {label} {isRequired && '*'}
+        </div>
+        <div className={`Text ${error && 'RequiredText ChooseError'}`}>{questionLabel}</div>
+        <div className="FormOptionsTable">
+          <div className="grid grid-cols-2 gap-1">
+            {options.map((option) => (
+              <div className="FormCheckbox" key={option.value}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={option.value}
+                    checked={selectedValues.includes(option.value)}
+                    onChange={() => handleCheckboxChange(option.value)}
+                    {...props}
+                  />
+                  {option.label}
+                  <span></span>
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default CheckboxGroup;

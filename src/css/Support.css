@@ -140,8 +140,9 @@ input {
 
 input::placeholder,
 input:-ms-input-placeholder,
-input::-ms-input-placeholder {
-  color: var(--InputPlaceholder);
+input::-ms-input-placeholder,
+input::-webkit-input-placeholder {
+  color: var(--InputPlaceholder) !important;
 }
 
 input:-webkit-autofill,
@@ -158,8 +159,7 @@ textarea {
   border-radius: 0px;
   font-family: var(--FontText);
 }
-
-textarea::placeholder,
+::-webkit-input-placeholder textarea::placeholder,
 textarea:-ms-input-placeholder,
 textarea::-ms-input-placeholder {
   color: var(--InputPlaceholder);

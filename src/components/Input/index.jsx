@@ -1,18 +1,19 @@
 import React from 'react';
 
-function CustomInput({ label, helperText, questionLabel, error, ...props }) {
-  console.log('CustomInput', error);
+function CustomInput({ label, helperText, questionLabel, error, isRequired = false, ...props }) {
   return (
     <div class="FormGroup">
-      <div class="Subhead">{label}</div>
+      <div class="Subhead">
+        {label} {isRequired && '*'}
+      </div>
       <div class="Text">{questionLabel}</div>
       <div class="FormInput">
         <input
-          class={`Focus ${error && 'Required RequiredError'}`}
+          class={`Focus placeholder-[color:var(--InputPlaceholder)] ${error && 'Required RequiredError'}`}
           name="Preferences"
           type="text"
           {...props}
-          placeholder={error}
+          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter text here'}
         />
       </div>
       {helperText && <div class="Disclaimer">{helperText}</div>}

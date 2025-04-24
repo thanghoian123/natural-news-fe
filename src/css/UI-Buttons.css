@@ -346,7 +346,7 @@
 /* BACK TO TOP */
 
 .BacktoTop {
-  display: none;
+  /* display: none; */
   position: fixed;
   z-index: 40;
   right: 30px;

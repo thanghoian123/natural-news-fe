@@ -1,9 +1,11 @@
 import React from 'react';
 
-function CustomTextarea({ label, questionLabel, ...props }) {
+function CustomTextarea({ label, questionLabel, error, isRequired, helperText, ...props }) {
   return (
     <div class="FormGroup">
-      <div class="Subhead">{label}</div>
+      <div class="Subhead">
+        {label} {isRequired && '*'}
+      </div>
       <div class="Text">{questionLabel}</div>
       <div class="FormInput">
         <textarea
@@ -11,9 +13,11 @@ function CustomTextarea({ label, questionLabel, ...props }) {
           rows="16"
           wrap="virtual"
           name="Journal"
-          class="JournalText Focus"
+          class={`Focus JournalText ${error && 'Required RequiredError'}`}
+          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter text here'}
           {...props}
         ></textarea>
+        {helperText && <div class="Disclaimer">{helperText}</div>}
       </div>
     </div>
   );

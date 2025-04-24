@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-debugger */
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -14,6 +15,7 @@ function ToolForm({ category }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const fieldRefs = useRef({}); // Holds refs to inputs
 
   const findStructure = dataFormStructure.find((i) => i.key === category);
   const fields = findStructure.fields;
@@ -25,44 +27,70 @@ function ToolForm({ category }) {
 
   const validationSchema = Yup.object(
     fields.reduce((acc, field) => {
-      if (field?.required) {
+      // console.log('🚀 ~ fields.reduce ~ field:', field);
+      if (field?.isRequired) {
         if (field.type === TYPE.checkbox) {
           acc[field.key] = Yup.array()
-            .min(1, 'Please select at least one option.')
+            .min(
+              field?.min || 3,
+              `Select at least ${field?.min || 3} ${field.key} from the list below.`
+            )
             .required('This field is required.');
         } else if (field.type === TYPE.dropdown) {
           acc[field.key] = Yup.string().required('This field is required.');
         } else {
-          acc[field.key] = Yup.string()
-            .trim()
-            .required('This field is required.')
-            .min(2, 'Must be at least 2 characters.');
+          acc[field.key] = Yup.string().trim().required('This field is required.');
         }
       }
       return acc;
     }, {})
   );
-  console.log('🚀 ~ ToolForm ~ validationSchema:', validationSchema);
 
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnChange: true,
     onSubmit: async (values) => {
       const result = fields
-        .map(({ label, key }) => {
+        .map(({ key, promptText }) => {
           const value = values[key];
           return Array.isArray(value)
-            ? `${label}: ${value.length ? value.join(', ') : 'None'}`
-            : `${label}: ${value || 'N/A'}`;
+            ? `${promptText}: ${value.length ? value.join(', ') : 'None'}`
+            : `${promptText}: ${value || 'N/A'}`;
         })
         .join('\n\n');
-
       const { payload } = await dispatch(startNewSession(user?.id));
       if (payload?.id) {
         navigate(`/chat?id=${payload.id}`, { state: { initialMessage: result } });
       }
     },
   });
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = await formik.validateForm();
+    if (Object.keys(errors).length > 0) {
+      const firstErrorKey = Object.keys(errors)[0];
+      const firstRef = fieldRefs.current[firstErrorKey];
+
+      formik.setFieldTouched(firstErrorKey, true);
+
+      if (firstRef && typeof firstRef.scrollIntoView === 'function') {
+        // Scroll to the field with an error
+        firstRef.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        console.warn(`❗ The element does not have scrollIntoView:`, firstRef);
+      }
+
+      if (firstRef && typeof firstRef.focus === 'function') {
+        firstRef.focus();
+      }
+
+      return;
+    }
+
+    formik.handleSubmit();
+  };
 
   return (
     <div className="UITable">
@@ -70,12 +98,9 @@ function ToolForm({ category }) {
         <div className="Questionnaire">
           <div className="Block Headline Centered">{findStructure.title}</div>
           <div className="Text Centered">{findStructure.subTitle}</div>
-          <form className="Form" onSubmit={formik.handleSubmit}>
+          <form className="Form" onSubmit={handleFormSubmit}>
             {fields.map(
-              (
-                { label, key, helperText, questionLabel, type, listCheckBoxes = [], name },
-                index
-              ) => (
+              ({ label, key, type, listCheckBoxes = [], isRequired, ...fieldProps }, index) => (
                 <div key={key}>
                   {type === TYPE.checkbox ? (
                     <CheckboxGroup
@@ -84,44 +109,43 @@ function ToolForm({ category }) {
                       selectedValues={formik.values[key]}
                       onChange={(val) => formik.setFieldValue(key, val)}
                       error={formik.touched[key] && formik.errors[key]}
-                      helperText={helperText}
-                      name={key}
-                      questionLabel={questionLabel}
+                      isRequired={isRequired}
+                      {...fieldProps}
+                      ref={(el) => (fieldRefs.current[key] = el)}
                     />
                   ) : type === TYPE.input ? (
                     <CustomInput
                       label={`${index + 1}. ${label}`}
-                      helperText={helperText}
-                      questionLabel={questionLabel}
                       value={formik.values[key]}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       name={key}
                       error={formik.touched[key] && formik.errors[key]}
+                      ref={(el) => (fieldRefs.current[key] = el)}
+                      isRequired={isRequired}
+                      {...fieldProps}
                     />
                   ) : type === TYPE.dropdown ? (
                     <Dropdown
-                      label={formik.values[key] || 'Select an option'}
-                      options={[
-                        '1 sentence',
-                        '1 paragraph',
-                        '2-3 paragraphs',
-                        '3-5 paragraphs',
-                        '5-10 paragraphs',
-                      ]}
+                      label={`${index + 1}. ${label}`}
+                      options={fields.options}
                       onSelect={(val) => formik.setFieldValue(key, val)}
                       error={formik.touched[key] && formik.errors[key]}
+                      ref={(el) => (fieldRefs.current[key] = el)}
+                      isRequired={isRequired}
+                      {...fieldProps}
                     />
                   ) : (
                     <CustomTextarea
                       label={`${index + 1}. ${label}`}
-                      helperText={helperText}
-                      questionLabel={questionLabel}
                       value={formik.values[key]}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       name={key}
                       error={formik.touched[key] && formik.errors[key]}
+                      ref={(el) => (fieldRefs.current[key] = el)}
+                      isRequired={isRequired}
+                      {...fieldProps}
                     />
                   )}
                 </div>
