@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Dropdown = React.forwardRef(
-  ({ options, onSelect, label, questionLabel, error, isRequired, ...props }, ref) => {
+  ({ options, helperText,onSelect, label, questionLabel, error, isRequired, ...props }, ref) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleSelect = (event) => {
@@ -35,6 +35,7 @@ const Dropdown = React.forwardRef(
             <span className="Mask MaskDown" />
           </div>
         </div>
+        {helperText && <div class="Disclaimer">{helperText}</div>}
       </div>
     );
   }

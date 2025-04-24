@@ -170,6 +170,9 @@ function ToolForm({ category }) {
             </div>
 
             <div className="ChatNotice Centered">
+              * Required to continue
+              <br />
+              <br />
               <p className="mb-3">
                 <b>Note:</b> Generating results will use 1 question from your account.
               </p>

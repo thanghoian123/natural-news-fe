@@ -13,7 +13,7 @@ function CustomInput({ label, helperText, questionLabel, error, isRequired = fal
           name="Preferences"
           type="text"
           {...props}
-          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter text here'}
+          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter your answer here'}
         />
       </div>
       {helperText && <div class="Disclaimer">{helperText}</div>}

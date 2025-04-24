@@ -159,7 +159,7 @@ export const dataFormStructure = [
         key: 'Budget Range',
         default: '',
         questionLabel: 'List a budget you can apply towards groceries.',
-        helperText: 'Example: $50/week, mid-range, splurge on staples.',
+        helperText: 'This will help determine the types of products/services recommended',
         type: TYPE.dropdown,
         options: [
           'Select a budget...',
@@ -342,7 +342,7 @@ export const dataFormStructure = [
         key: 'Age Range',
         default: '',
         questionLabel: 'What age range do you currently fall into?',
-        helperText: 'Example: 20-30, 30-40, 40-50, 55+, 65+.',
+        helperText: 'This will better help determine a wellness strategy',
         type: TYPE.dropdown,
         options: [
           'Select a range...',
@@ -473,7 +473,7 @@ export const dataFormStructure = [
         default: '',
         questionLabel:
           'Enter a budget you can apply towards gym memberships, wellness products, and services.',
-        helperText: 'Example: $50/week, $200/month.',
+        helperText: 'This will help determine the types of products/services recommended',
         type: TYPE.dropdown,
         isRequired: true,
         options: [
@@ -651,12 +651,12 @@ export const dataFormStructure = [
         isRequired: true,
       },
       {
-        label: 'Budget',
-        promptText: 'Budget',
-        key: 'Budget',
+        label: 'Budget Range',
+        promptText: 'Budget Range',
+        key: 'Budget Range',
         default: '',
         questionLabel: "What's your startup budget? (We'll keep it thrifty if needed)",
-        helperText: 'Example: $50',
+        helperText: 'This will help determine the types products recommended',
         type: TYPE.input,
         isRequired: true,
       },
@@ -765,7 +765,7 @@ export const dataFormStructure = [
         key: 'Age Range',
         default: '',
         questionLabel: 'What age range do you currently fall into?',
-        helperText: 'Example: 20-30, 30-40, 40-50, 55+, 65+.',
+        helperText: 'This will better help determine a wellness strategy',
         type: TYPE.dropdown,
         isRequired: true,
         options: [
@@ -854,12 +854,12 @@ export const dataFormStructure = [
         type: TYPE.input,
       },
       {
-        label: 'Budget',
-        promptText: 'Budget',
-        key: 'Budget',
+        label: 'Budget Range',
+        promptText: 'Budget Range',
+        key: 'Budget Range',
         default: '',
         questionLabel: 'Enter a budget you can apply towards supplements and wellness products.',
-        helperText: 'Example: $50/week, mid-range, splurge on premium.',
+        helperText: 'This will help determine the types products recommended',
         type: TYPE.dropdown,
         isRequired: true,
         options: [

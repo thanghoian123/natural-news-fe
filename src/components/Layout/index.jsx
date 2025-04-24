@@ -7,6 +7,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log('Scroll event triggered');
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 200) {
         setFadeClass('fade-in');
