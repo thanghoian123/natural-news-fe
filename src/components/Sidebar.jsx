@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import logoWhite from '../assets/Images/Logo-White.svg'; // Adjust path as needed
 
 import { useTheme } from '../contexts/ThemeContext';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+
 export default function Sidebar() {
   const { theme, changeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
-
   return (
     <>
       {isOpen && (
@@ -35,7 +37,7 @@ export default function Sidebar() {
 
               <div class="MastheadCol MastheadColLogo">
                 <Link to="/home">
-                  <img src="assets/Images/Logo-White.svg" alt="Brighteon.AI" class="Logo" />
+                  <img src={logoWhite} alt="Brighteon.AI" class="Logo" />
                 </Link>
               </div>
 
@@ -48,14 +50,19 @@ export default function Sidebar() {
                     <Link to="/freeai/About" id="MastheadAbout">
                       About
                     </Link>
-                    <a href="Home/#SectionHomeTools" id="MastheadTools">
+                    <HashLink
+                      to="/Home/#SectionHomeTools"
+                      id="MastheadTools"
+                      replace={true}
+                      // onClick={() => handleScrollToId('SectionHomeTools')}
+                    >
                       Prompt Tools
-                    </a>
+                    </HashLink>
                     <Link to="/freeai/Guide" id="MastheadAbout">
-                    Prompting Guide
+                      Prompting Guide
                     </Link>
                     <Link to="/freeai/Download" id="MastheadAbout">
-                    Downloads
+                      Downloads
                     </Link>
                   </div>
                   <div class="NavCol NavColRight">
@@ -84,26 +91,24 @@ export default function Sidebar() {
                   <div class="Block Subhead">Discover</div>
                   <div class="Block Text">
                     <p>
-                      <a href="Home">Home</a>
+                      <Link to="/home">Home</Link>
                     </p>
                     <p>
                       <Link to="/freeai/About">About Enoch</Link>
                     </p>
                     <p>
-                      <a href="Home/#SectionHomeTools" id="MastheadTools">
+                      <HashLink to="/Home/#SectionHomeTools" id="MastheadTools">
                         Prompt Tools
-                      </a>
+                      </HashLink>
                     </p>
 
                     <p>
-                    <Link to="/freeai/Guide" id="MastheadAbout">
-                    Prompting Guide
-                    </Link>
+                      <Link to="/freeai/Guide" id="MastheadAbout">
+                        Prompting Guide
+                      </Link>
                     </p>
                     <p>
-                      <Link to="/freeai/Download">
-                    Downloads
-                    </Link>
+                      <Link to="/freeai/Download">Downloads</Link>
                     </p>
                     <p>
                       <a href="Newsletter">Newsletter</a>
@@ -115,7 +120,7 @@ export default function Sidebar() {
                   <div class="Block Subhead">Information</div>
                   <div class="Block Text">
                     <p>
-                    <Link to="/freeai/About">About Enoch</Link>
+                      <Link to="/freeai/About">About Enoch</Link>
                     </p>
                     <p>
                       <Link to="/freeai/Contact">Contact Us</Link>

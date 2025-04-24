@@ -34,7 +34,7 @@ function App() {
     <Router>
       <Routes>
         <Route element={<UnProtectLayout />}>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home/*" element={<HomePage />} />
           <Route path="/received" element={<ReceivePage />} />
           <Route path="/queue" element={<QueuePage />} />
           <Route path="/freeai/About" element={<AboutPage />} />
