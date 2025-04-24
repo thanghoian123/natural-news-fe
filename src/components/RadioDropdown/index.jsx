@@ -3,8 +3,9 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const RadioDropdown = ({ onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(value);
+  const [dropUp, setDropUp] = useState(false);
   const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const options = [
     {
@@ -15,11 +16,10 @@ const RadioDropdown = ({ onChange, value }) => {
     {
       value: 'reasoning',
       label: 'Reasoning Model',
-      subLabel: 'Uses a human-like `thought process` to generate answer',
+      subLabel: 'Uses a human-like "thought process" to generate answer',
     },
   ];
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -30,59 +30,58 @@ const RadioDropdown = ({ onChange, value }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      setDropUp(spaceBelow < 200 && spaceAbove > spaceBelow);
+    }
+  }, [isOpen]);
+
   return (
-    <div className="relative w-full h-full" ref={dropdownRef}>
+    <div className="relative w-full" ref={dropdownRef}>
       <button
+        ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 w-full h-full bg-background-dark border rounded-md shadow-sm hover:border-gray-400 text-white"
+        className="px-3 py-2 w-full bg-background-dark border rounded-md shadow-sm hover:border-gray-400 text-white flex items-center justify-center"
       >
-        <Settings />
+        <Settings className="w-5 h-5" />
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-2 bg-white dark:bg-background-dark rounded-md shadow-lg min-w-[300px] max-w-[400px] px-4 py-2">
-          <form className="flex flex-col space-y-2">
-            {options.map((option) => (
-              <label
-                key={option.value}
-                className="flex space-x-2 cursor-pointer whitespace-nowrap items-start"
-              >
-                <div className="relative mt-2">
-                  <input
-                    type="radio"
-                    name="dropdown"
-                    value={option.value}
-                    checked={selected === option.value}
-                    onChange={() => {
-                      onChange(option.value);
-                      setSelected(option.value);
-                      setIsOpen(false);
-                    }}
-                    className={`
-                    peer appearance-none w-4 h-4 border-2 rounded-full
-                    border-gray-400 checked:border-primary checked:bg-white checked:dark:bg-background-dark
-                    focus:outline-none cursor-pointer
-                  `}
-                  />
-                  {/* <div
-                    className={`
-                    pointer-events-none absolute top-1 left-1 w-2 h-2 rounded-full 
-                    bg-primary opacity-0 peer-checked:opacity-100 transition
-                  `}
-                  /> */}
+        <div
+          className={`absolute z-10 ${dropUp ? 'bottom-full mb-2' : 'top-full mt-2'} 
+          bg-white dark:bg-background-dark rounded-md shadow-lg min-w-[300px] px-4 py-2`}
+        >
+          <form className="flex flex-col gap-2">
+            {options.map((option) => {
+              const isSelected = value === option.value;
+              return (
+                <div
+                  key={option.value}
+                  className={`FormRadio ${isSelected ? 'ModelSelected' : ''}`}
+                >
+                  <label className="flex items-start space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="Model"
+                      value={option.value}
+                      checked={isSelected}
+                      onChange={() => {
+                        onChange(option.value);
+                        setIsOpen(false);
+                      }}
+                    />
+                    <div className="flex flex-col">
+                      <div className="Headline">{option.label}</div>
+                      <div className="Text">{option.subLabel}</div>
+                    </div>
+                    <span className="ml-auto"></span>
+                  </label>
                 </div>
-                <div className="flex flex-col">
-                  <p
-                    className={`${
-                      selected === option.value ? 'text-primary' : 'dark:text-white text-text-light'
-                    } font-[700] text-md text-wrap`}
-                  >
-                    {option.label}
-                  </p>
-                  <span className="text-sm text-wrap">{option.subLabel}</span>
-                </div>
-              </label>
-            ))}
+              );
+            })}
           </form>
         </div>
       )}

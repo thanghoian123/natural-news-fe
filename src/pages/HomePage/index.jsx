@@ -134,8 +134,8 @@ function HomePage() {
         </div>
       </Modal>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="Content NoClose">
+      <Modal isOpen={isOpen && user} onClose={() => setIsOpen(false)}>
+        {user && <div className="Content NoClose">
           <div className="Card">
             {user?.tier === 'Platinum' ? (
               <>
@@ -159,7 +159,7 @@ function HomePage() {
               </>
             ) : (
               <>
-                <div className="Block Headline Centered">You have 42 questions remaining</div>
+                <div className="Block Headline Centered">You have {user?.reward} questions remaining</div>
                 <div className="Block Text Centered">
                   More questions are added to your account each day.{' '}
                   <Link to="/Support/home">Learn More</Link>
@@ -177,7 +177,7 @@ function HomePage() {
               </>
             )}
           </div>
-        </div>
+        </div>}
       </Modal>
     </div>
   );

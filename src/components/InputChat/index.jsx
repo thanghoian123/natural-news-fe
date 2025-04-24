@@ -17,7 +17,7 @@ function InputChat(props) {
     modelType,
   } = props;
   const sendButtonRef = useRef(null);
-  const prompts = [
+    const prompts = [
     {
       id: 1,
       messages: 'Tell me about',

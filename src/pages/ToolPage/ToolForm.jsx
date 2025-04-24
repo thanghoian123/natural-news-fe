@@ -183,10 +183,7 @@ function ToolForm({ category }) {
               </button>
             </div>
             <div class="ChatNotice Centered">
-              <p>
-                <b>Note:</b>
-                Generating results will use 1 question from your account.
-              </p>
+            <p class="mb-3"><b>Note:</b> Generating results will use 1 question from your account.</p>
               <p>
                 Enoch AI is experimental. These statements are not intended to diagnose, treat, or
                 cure any medical condition. Please verify all important information and always seek
