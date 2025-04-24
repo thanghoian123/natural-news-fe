@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { startNewSession } from '../../redux/chatSlice';
 import CustomInput from '../../components/Input';
-import { Sparkles } from 'lucide-react';
 import { TYPE, dataFormStructure } from './mocks';
 import CheckboxGroup from '../../components/Checkbox';
 import CustomTextarea from '../../components/Textarea';
@@ -13,124 +14,78 @@ function ToolForm({ category }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const [selectedValues, setSelectedValues] = useState([]);
+
   const findStructure = dataFormStructure.find((i) => i.key === category);
+  const fields = findStructure.fields;
 
-  const [formData, setFormData] = useState(() =>
-    (findStructure.fields || []).reduce((acc, item) => ({ ...acc, [item.key]: item.default }), {})
-  );
+  const initialValues = fields.reduce((acc, field) => {
+    acc[field.key] = field.default || (field.type === TYPE.checkbox ? [] : '');
+    return acc;
+  }, {});
 
-  const handleChange = (key, value) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleCheckboxChange = (key, updatedValues) => {
-    setSelectedValues(updatedValues);
-    setFormData((prev) => ({
-      ...prev,
-      [key]: updatedValues, // Directly set the updated array
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const result = findStructure.fields
-      .map(({ label, key }) => {
-        const value = formData[key];
-        if (Array.isArray(value)) {
-          return `${label}: ${value.length > 0 ? value.join(', ') : 'None'}`;
+  const validationSchema = Yup.object(
+    fields.reduce((acc, field) => {
+      if (field?.required) {
+        if (field.type === TYPE.checkbox) {
+          acc[field.key] = Yup.array()
+            .min(1, 'Please select at least one option.')
+            .required('This field is required.');
+        } else if (field.type === TYPE.dropdown) {
+          acc[field.key] = Yup.string().required('This field is required.');
+        } else {
+          acc[field.key] = Yup.string()
+            .trim()
+            .required('This field is required.')
+            .min(2, 'Must be at least 2 characters.');
         }
-        return `${label}: ${value || 'N/A'}`;
-      })
-      .join('\n\n');
-
-    console.log(result);
-    dispatch(startNewSession(user?.id)).then(({ payload }) => {
-      const chatID = payload?.id;
-      if (chatID) {
-        navigate(`/chat?id=${chatID}`, { state: { initialMessage: result } });
       }
-    });
-  };
+      return acc;
+    }, {})
+  );
+  console.log('🚀 ~ ToolForm ~ validationSchema:', validationSchema);
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      const result = fields
+        .map(({ label, key }) => {
+          const value = values[key];
+          return Array.isArray(value)
+            ? `${label}: ${value.length ? value.join(', ') : 'None'}`
+            : `${label}: ${value || 'N/A'}`;
+        })
+        .join('\n\n');
+
+      const { payload } = await dispatch(startNewSession(user?.id));
+      if (payload?.id) {
+        navigate(`/chat?id=${payload.id}`, { state: { initialMessage: result } });
+      }
+    },
+  });
 
   return (
-    // <div className="p-[40px]">
-    //   <h1 className="text-2xl font-bold text-primary text-center text-[38px] font-[700] mb-[20px]">
-    //     {findStructure.title}
-    //   </h1>
-    //   <p className="text-gray-600 dark:text-[#E5E5EC] text-center text-[14px]">
-    //     {findStructure.subTitle}
-    //   </p>
-    //   <form className="mt-[20px] space-y-4" onSubmit={handleSubmit}>
-    //     {findStructure.fields.map(
-    //       ({ label, key, helperText, questionLabel, type, listCheckBoxes = [] }, index) => (
-    //         <div key={key}>
-    //           {type === TYPE.checkbox ? (
-    //             <CheckboxGroup
-    //               key={key}
-    //               options={listCheckBoxes.map((i) => ({ value: i, label: i }))}
-    //               selectedValues={selectedValues}
-    //               onChange={(value) => handleCheckboxChange(key, value)}
-    //               label={`${index + 1}. ${label}`}
-    //               helperText={helperText}
-    //               questionLabel={questionLabel}
-    //             />
-    //           ) : type === TYPE.input ? (
-    //             <CustomInput
-    //               label={`${index + 1}. ${label}`}
-    //               helperText={helperText}
-    //               questionLabel={questionLabel}
-    //               value={formData[key]}
-    //               onChange={(e) => handleChange(key, e.target.value)}
-    //             />
-    //           ) : type === TYPE.dropdown ? (
-    //             <Dropdown
-    //               label={formData[key] || 'Select an option'}
-    //               options={[
-    //                 '1 sentence',
-    //                 '1 paragraph',
-    //                 '2-3 paragraphs',
-    //                 '3-5 paragraphs',
-    //                 '5-10 paragraphs',
-    //               ]}
-    //               onSelect={(value) => handleChange(key, value)}
-    //             />
-    //           ) : (
-    //             <CustomTextarea
-    //               label={`${index + 1}. ${label}`}
-    //               helperText={helperText}
-    //               questionLabel={questionLabel}
-    //               value={formData[key]}
-    //               onChange={(e) => handleChange(key, e.target.value)}
-    //             />
-    //           )}
-    //         </div>
-    //       )
-    //     )}
-    //     <button type="submit" className="bg-primary text-white px-8 py-3 mt-4 rounded flex m-auto">
-    //       <Sparkles className="mr-4" />
-    //       <span className="text-[14px] font-[600]">Generate (1 question)</span>
-    //     </button>
-    //   </form>
-    // </div>
-
-    <div class="UITable">
-      <div class="UICol">
-        <div class="Questionnaire">
-          <div class="Block Headline Centered">{findStructure.title}</div>
-          <div class="Text Centered">{findStructure.subTitle}</div>
-          <form class="Form" id="11" onSubmit={handleSubmit}>
-            {findStructure.fields.map(
-              ({ label, key, helperText, questionLabel, type, listCheckBoxes = [] }, index) => (
+    <div className="UITable">
+      <div className="UICol">
+        <div className="Questionnaire">
+          <div className="Block Headline Centered">{findStructure.title}</div>
+          <div className="Text Centered">{findStructure.subTitle}</div>
+          <form className="Form" onSubmit={formik.handleSubmit}>
+            {fields.map(
+              (
+                { label, key, helperText, questionLabel, type, listCheckBoxes = [], name },
+                index
+              ) => (
                 <div key={key}>
                   {type === TYPE.checkbox ? (
                     <CheckboxGroup
-                      key={key}
-                      options={listCheckBoxes.map((i) => ({ value: i, label: i }))}
-                      selectedValues={selectedValues}
-                      onChange={(value) => handleCheckboxChange(key, value)}
                       label={`${index + 1}. ${label}`}
+                      options={listCheckBoxes.map((i) => ({ label: i, value: i }))}
+                      selectedValues={formik.values[key]}
+                      onChange={(val) => formik.setFieldValue(key, val)}
+                      error={formik.touched[key] && formik.errors[key]}
                       helperText={helperText}
+                      name={key}
                       questionLabel={questionLabel}
                     />
                   ) : type === TYPE.input ? (
@@ -138,12 +93,15 @@ function ToolForm({ category }) {
                       label={`${index + 1}. ${label}`}
                       helperText={helperText}
                       questionLabel={questionLabel}
-                      value={formData[key]}
-                      onChange={(e) => handleChange(key, e.target.value)}
+                      value={formik.values[key]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      name={key}
+                      error={formik.touched[key] && formik.errors[key]}
                     />
                   ) : type === TYPE.dropdown ? (
                     <Dropdown
-                      label={formData[key] || 'Select an option'}
+                      label={formik.values[key] || 'Select an option'}
                       options={[
                         '1 sentence',
                         '1 paragraph',
@@ -151,39 +109,46 @@ function ToolForm({ category }) {
                         '3-5 paragraphs',
                         '5-10 paragraphs',
                       ]}
-                      onSelect={(value) => handleChange(key, value)}
+                      onSelect={(val) => formik.setFieldValue(key, val)}
+                      error={formik.touched[key] && formik.errors[key]}
                     />
                   ) : (
                     <CustomTextarea
                       label={`${index + 1}. ${label}`}
                       helperText={helperText}
                       questionLabel={questionLabel}
-                      value={formData[key]}
-                      onChange={(e) => handleChange(key, e.target.value)}
+                      value={formik.values[key]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      name={key}
+                      error={formik.touched[key] && formik.errors[key]}
                     />
                   )}
                 </div>
               )
             )}
 
-            <div class="Block ButtonBox ButtonBoxCenter">
+            <div className="Block ButtonBox ButtonBoxCenter">
               <button
-                class="Button ButtonAuto ButtonAutoLeft ButtonPrimary ButtonLarge"
+                className="Button ButtonAuto ButtonAutoLeft ButtonPrimary ButtonLarge"
                 id="Generate"
                 type="submit"
               >
-                <div class="Auto">
-                  <div class="AutoCol AutoIcon">
-                    <div class="Icon">
-                      <span class="Mask MaskAI"></span>
+                <div className="Auto">
+                  <div className="AutoCol AutoIcon">
+                    <div className="Icon">
+                      <span className="Mask MaskAI" />
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel">Generate Results</div>
+                  <div className="AutoCol AutoLabel">Generate Results</div>
                 </div>
               </button>
             </div>
-            <div class="ChatNotice Centered">
-            <p class="mb-3"><b>Note:</b> Generating results will use 1 question from your account.</p>
+
+            <div className="ChatNotice Centered">
+              <p className="mb-3">
+                <b>Note:</b> Generating results will use 1 question from your account.
+              </p>
               <p>
                 Enoch AI is experimental. These statements are not intended to diagnose, treat, or
                 cure any medical condition. Please verify all important information and always seek

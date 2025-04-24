@@ -29,8 +29,7 @@ export default function Sidebar({ children }) {
   const isBronze = user?.tier === 'Bronze';
   const logoSrc = theme === 'dark' ? logoWhite : logoColor;
   const navigate = useNavigate();
-  const { sessions, activeSession } = useSelector((state) => state.chat);
-  console.log('🚀 ~ Sidebar ~ sessions:', sessions);
+  const { sessions } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
   const handleNewSession = () => {

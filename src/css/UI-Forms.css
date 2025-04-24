@@ -1,133 +1,350 @@
 /* FORMS */
 
-form { padding: 0px; margin: 0px; }
-input { background-color: var(--InputBG); color: var(--InputText); border-radius: 0px; outline: none 0px; border: none 0px; -webkit-appearance: none; }
+form {
+  padding: 0px;
+  margin: 0px;
+}
+input {
+  background-color: var(--InputBG);
+  color: var(--InputText);
+  border-radius: 0px;
+  outline: none 0px;
+  border: none 0px;
+  -webkit-appearance: none;
+}
 
 input::placeholder,
 input:-ms-input-placeholder,
-input::-ms-input-placeholder { 
-color: var(--InputPlaceholder); 
+input::-ms-input-placeholder {
+  color: var(--InputPlaceholder);
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
--webkit-box-shadow: 0 0 0 30px var(--InputBG) inset !important;
--webkit-text-fill-color: var(--InputText) !important; 
+  -webkit-box-shadow: 0 0 0 30px var(--InputBG) inset !important;
+  -webkit-text-fill-color: var(--InputText) !important;
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-textarea { width: 100%; color: var(--InputText); border-radius: 0px; font-family: var(--FontText); }
+textarea {
+  width: 100%;
+  color: var(--InputText);
+  border-radius: 0px;
+  font-family: var(--FontText);
+}
 
 textarea::placeholder,
 textarea:-ms-input-placeholder,
-textarea::-ms-input-placeholder { 
-color: var(--InputPlaceholder); 
+textarea::-ms-input-placeholder {
+  color: var(--InputPlaceholder);
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-select { width: 100%; color: var(--InputText); border-radius: 0px; outline: none 0px; border: none 0px; cursor: pointer; }
+select {
+  width: 100%;
+  color: var(--InputText);
+  border-radius: 0px;
+  outline: none 0px;
+  border: none 0px;
+  cursor: pointer;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormTable { display: table; width: 100%; margin: 0px; }
-.FormCol { display: table-cell; width: auto; vertical-align: middle; }
+.FormTable {
+  display: table;
+  width: 100%;
+  margin: 0px;
+}
+.FormCol {
+  display: table-cell;
+  width: auto;
+  vertical-align: middle;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormInput { position: relative; }
-.FormInput input { height: 36px; width: 100%; padding: 10px 10px; margin: 0px; }
+.FormInput {
+  position: relative;
+}
+.FormInput input {
+  height: 36px;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0px;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormSubmit { width: 80px; }
-.FormSubmit .Button { width: 100%; height: 36px; border-radius: 0px; }
+.FormSubmit {
+  width: 80px;
+}
+.FormSubmit .Button {
+  width: 100%;
+  height: 36px;
+  border-radius: 0px;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormMore { width: 80px; }
-.FormMore .Button { width: 100%; border-radius: 0px; }
+.FormMore {
+  width: 80px;
+}
+.FormMore .Button {
+  width: 100%;
+  border-radius: 0px;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormCheckbox { display: table; margin-bottom: 8px; }
-.FormCheckbox label { display: table-cell; vertical-align: middle; width: auto; min-height: 20px; padding-left: 36px; padding-right: 10px; position: relative; font-size: var(--FSMedium); color: var(--Text); cursor: pointer; }
-.FormCheckbox label input[type=checkbox] { display: none; position: absolute; width: 0px; height: 0px; opacity: 0; }
-.FormCheckbox label span { position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border: solid 2px var(--InputBorder); border-radius: 2px; pointer-events: none; }
-.FormCheckbox label span:after { content: ""; display: none; position: absolute; left: 5px; top: 2px; width: 6px; height: 10px; border: solid var(--White); border-width: 0 2px 2px 0; transform: rotate(45deg); }
-	
-.FormCheckbox label input:checked ~ span { background-color: var(--UIBG); border-color: var(--UIBG); }
-.FormCheckbox label input:checked ~ span:after { display: block; }
+.FormCheckbox {
+  display: table;
+  margin-bottom: 8px;
+}
+.FormCheckbox label {
+  display: table-cell;
+  vertical-align: middle;
+  width: auto;
+  min-height: 20px;
+  padding-left: 36px;
+  padding-right: 10px;
+  position: relative;
+  font-size: var(--FSMedium);
+  color: var(--Text);
+  cursor: pointer;
+}
+.FormCheckbox label input[type='checkbox'] {
+  display: none;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.FormCheckbox label span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  border: solid 2px var(--InputBorder);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.FormCheckbox label span:after {
+  content: '';
+  display: none;
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--White);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.FormCheckbox label input:checked ~ span {
+  background-color: var(--UIBG);
+  border-color: var(--UIBG);
+}
+.FormCheckbox label input:checked ~ span:after {
+  display: block;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormRadio { display: table; margin-bottom: 15px; }
-.FormRadio label { display: table-cell; vertical-align: middle; width: auto; min-height: 20px; padding-left: 36px; position: relative; font-size: var(--FSMedium); color: var(--Text); cursor: pointer; }
-.FormRadio label input[type=radio] { display: none; position: absolute; width: 0px; height: 0px; opacity: 0; }
+.FormRadio {
+  display: table;
+  margin-bottom: 15px;
+}
+.FormRadio label {
+  display: table-cell;
+  vertical-align: middle;
+  width: auto;
+  min-height: 20px;
+  padding-left: 36px;
+  position: relative;
+  font-size: var(--FSMedium);
+  color: var(--Text);
+  cursor: pointer;
+}
+.FormRadio label input[type='radio'] {
+  display: none;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
 
-.FormRadio label span { position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border: solid 2px var(--InputBorder); border-radius: 50%; pointer-events: none; }
-.FormRadio label span:after { content: ""; position: absolute; display: none; top: 50%; left: 50%; transform: translate(-50%,-50%); background-color: var(--UIBG); width: 8px; height: 8px; border-radius: 50%; }
-	
-.FormRadio label input:checked ~ span { border-color: var(--UIBG); }
-.FormRadio label input:checked ~ span:after { display: block; }
+.FormRadio label span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  border: solid 2px var(--InputBorder);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.FormRadio label span:after {
+  content: '';
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--UIBG);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.FormRadio label input:checked ~ span {
+  border-color: var(--UIBG);
+}
+.FormRadio label input:checked ~ span:after {
+  display: block;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.FormSelect {
+  position: relative;
+}
+.FormSelect select {
+  height: 36px;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0px;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-
-
-
-
-
-
-
-
-.FormSelect { position: relative; }
-.FormSelect select { height: 36px; width: 100%; padding: 10px 10px; margin: 0px; }
-
-/* ////////////////////////////////////////////////////////////////// */
-
-._error { }
-._error-arrow { display: none!important; }
-._error-inner { text-align: left; color: var(--Red); padding-top: 8px; font-size: var(--FSSmall); font-weight: 600; }
+._error {
+}
+._error-arrow {
+  display: none !important;
+}
+._error-inner {
+  text-align: left;
+  color: var(--Red);
+  padding-top: 8px;
+  font-size: var(--FSSmall);
+  font-weight: 600;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.Form { display: block; }
-.Form ._error { position: absolute; left: 0px; bottom: -20px; z-index: 1; }
+.Form {
+  display: block;
+}
+.Form ._error {
+  position: absolute;
+  left: 0px;
+  bottom: -20px;
+  z-index: 1;
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormBlock { display: block; border: none 0px; margin: 0px auto; }
+.FormBlock {
+  display: block;
+  border: none 0px;
+  margin: 0px auto;
+}
 
-.FormBlock .FormTable { display: block; }
-.FormBlock .FormCol { display: block; margin-bottom: 8px; }
-.FormBlock .FormCol:last-child { margin-bottom: 0px; }
-.FormBlock .FormSubmit { width: 100%; }
-.FormBlock .FormInput input { border: solid 1px var(--InputBorder); }
-
-/* ////////////////////////////////////////////////////////////////// */
-
-.FormToggleTable { display: table; cursor: pointer; }
-.FormToggleCol { display: table-cell; vertical-align: middle; font-size: var(--FSSmall); font-weight: 500; }
-.FormToggleTable .FormToggleCol:nth-child(1) { width: 50px; }
-.FormToggleTable .FormToggleCol:nth-child(2) { width: auto; padding-left: 10px; }
-
-.Toggle { display: table; width: 52px; height: 26px; border-radius: 14px; position: relative; cursor: pointer; }
-.Toggle span:nth-child(1) { display: table-cell; width: auto; vertical-align: middle; font-size: var(--FSTiny); font-weight: bold; }
-.Toggle span:nth-child(2) { display: block; width: 20px; height: 20px; border-radius: 10px; background-color: var(--White); position: absolute; z-index: 1; top: 3px; }
-
-.ToggleOn { background-color: var(--UIBG); }
-.ToggleOn span:nth-child(1) { text-align: left; color: var(--White); padding-left: 8px; }
-.ToggleOn span:nth-child(2) { right: 3px; }
-
-.ToggleOff { background-color: var(--Gray90); }
-.ToggleOff span:nth-child(1) { text-align: right; color: var(--Gray40); padding-right: 8px; }
-.ToggleOff span:nth-child(2) { left: 3px; }
+.FormBlock .FormTable {
+  display: block;
+}
+.FormBlock .FormCol {
+  display: block;
+  margin-bottom: 8px;
+}
+.FormBlock .FormCol:last-child {
+  margin-bottom: 0px;
+}
+.FormBlock .FormSubmit {
+  width: 100%;
+}
+.FormBlock .FormInput input {
+  border: solid 1px var(--InputBorder);
+}
 
 /* ////////////////////////////////////////////////////////////////// */
+
+.FormToggleTable {
+  display: table;
+  cursor: pointer;
+}
+.FormToggleCol {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: var(--FSSmall);
+  font-weight: 500;
+}
+.FormToggleTable .FormToggleCol:nth-child(1) {
+  width: 50px;
+}
+.FormToggleTable .FormToggleCol:nth-child(2) {
+  width: auto;
+  padding-left: 10px;
+}
+
+.Toggle {
+  display: table;
+  width: 52px;
+  height: 26px;
+  border-radius: 14px;
+  position: relative;
+  cursor: pointer;
+}
+.Toggle span:nth-child(1) {
+  display: table-cell;
+  width: auto;
+  vertical-align: middle;
+  font-size: var(--FSTiny);
+  font-weight: bold;
+}
+.Toggle span:nth-child(2) {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: var(--White);
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+}
+
+.ToggleOn {
+  background-color: var(--UIBG);
+}
+.ToggleOn span:nth-child(1) {
+  text-align: left;
+  color: var(--White);
+  padding-left: 8px;
+}
+.ToggleOn span:nth-child(2) {
+  right: 3px;
+}
+
+.ToggleOff {
+  background-color: var(--Gray90);
+}
+.ToggleOff span:nth-child(1) {
+  text-align: right;
+  color: var(--Gray40);
+  padding-right: 8px;
+}
+.ToggleOff span:nth-child(2) {
+  left: 3px;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
 /* ////////////////////////////////////////////////////////////////// */
 /* ////////////////////////////////////////////////////////////////// */
 /* ////////////////////////////////////////////////////////////////// */
@@ -138,41 +355,125 @@ select { width: 100%; color: var(--InputText); border-radius: 0px; outline: none
 /* ////////////////////////////////////////////////////////////////// */
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormOptionsTable { display: block; }
-.FormOptionsCol { display: block; }
+.FormOptionsTable {
+  display: block;
+}
+.FormOptionsCol {
+  display: block;
+}
 
 @media (min-width: 500px) {
-.FormOptionsTable { display: table; width: 100%; }
-.FormOptionsCol { display: table-cell; vertical-align: top; }
-.FormOptionsTable .FormOptionCol:nth-child(1) { padding-right: 15px; }
-.FormOptionsTable .FormOptionCol:nth-child(2) { padding-left: 15px; }
+  .FormOptionsTable {
+    display: table;
+    width: 100%;
+  }
+  .FormOptionsCol {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .FormOptionsTable .FormOptionCol:nth-child(1) {
+    padding-right: 15px;
+  }
+  .FormOptionsTable .FormOptionCol:nth-child(2) {
+    padding-left: 15px;
+  }
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.FormGroup { display: block; margin-bottom: 40px; }
-.FormGroup .Subhead { margin-bottom: 10px; }
-.FormGroup .Text { margin-bottom: 10px; }
-.FormGroup .Disclaimer { }
-.FormGroup .JournalText { font-size: var(--FSSmall)!important; color: var(--Text); }
+.FormGroup {
+  display: block;
+  margin-bottom: 40px;
+}
+.FormGroup .Subhead {
+  margin-bottom: 10px;
+}
+.FormGroup .Text {
+  margin-bottom: 10px;
+}
+.FormGroup .Disclaimer {
+}
+.FormGroup .JournalText {
+  font-size: var(--FSSmall) !important;
+  color: var(--Text);
+}
 
-.FormGroup .FormInput { margin-bottom: 5px; }
-.FormGroup .FormInput input { height: 48px; font-size: var(--FSLarge); border-radius: 5px; border: solid 2px var(--InputBorder); outline: none !important; background-color: var(--Trans1); }
-.FormGroup .FormInput input:focus { border-color: var(--InputText); }
+.FormGroup .FormInput {
+  margin-bottom: 5px;
+}
+.FormGroup .FormInput input {
+  height: 48px;
+  font-size: var(--FSLarge);
+  border-radius: 5px;
+  border: solid 2px var(--InputBorder);
+  outline: none !important;
+  background-color: var(--Trans1);
+}
+.FormGroup .FormInput input:focus {
+  border-color: var(--InputText);
+}
 
-.FormGroup .FormInput textarea { font-size: var(--FSLarge); border-radius: 5px; border: solid 2px var(--InputBorder); background-color: var(--Trans1); resize: none; overflow-y: auto; outline: none !important; }
-.FormGroup .FormInput textarea:focus { border-color: var(--InputText); }
+.FormGroup .FormInput textarea {
+  font-size: var(--FSLarge);
+  border-radius: 5px;
+  border: solid 2px var(--InputBorder);
+  background-color: var(--Trans1);
+  resize: none;
+  overflow-y: auto;
+  outline: none !important;
+}
+.FormGroup .FormInput textarea:focus {
+  border-color: var(--InputText);
+}
 
+.FormGroup .FormSelect {
+  margin-bottom: 5px;
+}
+.FormGroup .FormSelect select {
+  -webkit-appearance: none;
+  height: 48px;
+  font-size: var(--FSLarge);
+  border-radius: 5px;
+  border: solid 2px var(--InputBorder);
+  outline: none !important;
+  background-color: var(--Trans1);
+}
 
-.FormGroup .FormSelect { margin-bottom: 5px; }
-.FormGroup .FormSelect select { -webkit-appearance: none; height: 48px; font-size: var(--FSLarge); border-radius: 5px; border: solid 2px var(--InputBorder); outline: none !important; background-color: var(--Trans1); }
+.FormGroup .FormSelect select:focus {
+  border-color: var(--InputText);
+}
 
-
-
-.FormGroup .FormSelect select option:first-child { color: var(--Gray40); }
-.FormGroup .FormSelect .Icon { position: absolute; right: 10px; top: 0px; height: 100%; }
-.FormGroup .FormSelect .Icon .Mask { background-color: var(--UIBG); }
+.FormGroup .FormSelect select option:first-child {
+  color: var(--Gray40);
+}
+.FormGroup .FormSelect .Icon {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  height: 100%;
+}
+.FormGroup .FormSelect .Icon .Mask {
+  background-color: var(--UIBG);
+}
 
 /* ////////////////////////////////////////////////////////////////// */
 
+.Required {
+}
 
+.RequiredError:focus {
+  border-color: var(--Alert) !important;
+}
+.RequiredError::placeholder {
+  color: var(--Alert) !important;
+  opacity: 1;
+}
+.RequiredError::-ms-input-placeholder {
+  color: var(--Alert) !important;
+}
+
+.ChooseError {
+  color: var(--Alert) !important;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
