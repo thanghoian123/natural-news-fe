@@ -2,7 +2,7 @@ import React from 'react';
 import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
 import { Link } from 'react-router-dom';
 
-import useLoginHandler from './handler';
+import useLoginHandler from './handler.jsx';
 
 function LoginPage() {
   const {
