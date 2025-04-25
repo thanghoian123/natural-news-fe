@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { appendMessage, regenerateMessage, sendMessage } from '../redux/chatSlice';
 import { useSelector } from 'react-redux';
-const wsUrl = 'ws://api-vip.naturalnews.com/chats/ws'; //import.meta.env.VITE_WS_URL;
+const wsUrl = 'wss://api-vip.naturalnews.com/chats/ws'; //import.meta.env.VITE_WS_URL;
 
 export default function useWebSocket({ activeSession, dispatch, userID }) {
   const socketRef = useRef(null);
