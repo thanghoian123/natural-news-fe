@@ -16,7 +16,7 @@ import IngredientCheckerImg from '../../assets/Tool-Ingredient-Checker.jpg';
 const mockList = [
   {
     title: 'Chat with Enoch AI',
-    imageSrc: 'src\\assets\\Tool-Chat.jpg',
+    imageSrc: ToolChatImg,
     link: `/chat?_=${Date.now()}`,
     tierAllow: ['Gold', 'Platinum', 'Silver', 'Bronze'],
     toolName: 'chat-with-enoch',
