@@ -3,6 +3,7 @@ import Modal from '../../components/Modal';
 import { useSelector } from 'react-redux';
 import ToolItem from '../../components/ToolItem';
 import { Link } from 'react-router-dom';
+import ToolChatImg from '../../assets/Tool-Chat.jpg';
 import ToolSummaryImg from '../../assets/Tool-Summary.jpg';
 import DailyMealPlannerImg from '../../assets/Tool-Daily-Meal-Planner.jpg';
 import SupplementsImg from '../../assets/Tool-Supplements-and-Ingredients.jpg';
