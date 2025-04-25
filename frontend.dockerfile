@@ -1,22 +1,20 @@
-FROM node:lts-alpine
+FROM node:20 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy only package files first to leverage Docker layer caching
 COPY package*.json ./
 
-# Optional: Clear npm cache (especially useful in CI/CD)
-RUN npm cache clean --force
+RUN npm ci
 
-# Install dependencies
-RUN rm -rf node_modules package-lock.json && npm install --legacy-peer-deps
-
-# Copy the rest of the app after deps are installed
 COPY . .
 
-# Expose the port
-EXPOSE 8000
+RUN npm run build
 
-# Run the app
-CMD ["npm", "run", "dev", "--", "--port", "8000", "--host", "0.0.0.0"]
+# Stage 2. Run
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD [ "nginx", "-g", "daemon off;" ]
