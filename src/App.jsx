@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ChatPage from './pages/ChatPage';
 import HomePage from './pages/HomePage';
 import ReceivePage from './pages/ReceivePage';
@@ -33,6 +33,8 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
+
         <Route element={<UnProtectLayout />}>
           <Route path="/home/*" element={<HomePage />} />
           <Route path="/received" element={<ReceivePage />} />

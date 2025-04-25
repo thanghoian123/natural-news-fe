@@ -187,13 +187,13 @@ img {
 .UIColor {
   color: var(--UIBG) !important;
   /*
-  background: -webkit-linear-gradient(left, #FF00CC , #7765FD); 
-  background: -o-linear-gradient(right, #7765FD, #FF00CC); 
-  background: -moz-linear-gradient(right, #7765FD, #FF00CC); 
-  background: linear-gradient(to right, #7765FD, #FF00CC); 
-  -webkit-background-clip: text; 
-  -webkit-text-fill-color: transparent;
-  */
+background: -webkit-linear-gradient(left, #FF00CC , #7765FD); 
+background: -o-linear-gradient(right, #7765FD, #FF00CC); 
+background: -moz-linear-gradient(right, #7765FD, #FF00CC); 
+background: linear-gradient(to right, #7765FD, #FF00CC); 
+-webkit-background-clip: text; 
+-webkit-text-fill-color: transparent;
+*/
 }
 
 .Gradient1 {

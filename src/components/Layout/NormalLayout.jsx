@@ -63,22 +63,22 @@ function NormalLayout({ children }) {
       <Sidebar />
       <div className="PageOpen" id="Page" ref={pageRef}>
         {children}
-      </div>
 
-      <div class="Section" id="SectionFooter">
-        <div class="Content">
-          <div class="FooterTable">
-            <div class="FooterCol FooterColLeft">
-              <Link to="/freeai/About">About Enoch</Link>
-              <Link to="/freeai/Contact">Contact Us</Link>
-              <Link to="/freeai/Notice">Notice</Link>
-              <Link to="/freeai/License">License Information</Link>
-            </div>
-            <div class="FooterCol FooterColRight">
-              <Link to="/freeai/Terms">Terms of Service</Link>
-              <Link to="/freeai/Privacy">Privacy Policy</Link>
-              <Link to="/freeai/Credits">Credits</Link>
-              <Link to="/freeai/Copyrights">Copyrights</Link>
+        <div class="Section" id="SectionFooter">
+          <div class="Content">
+            <div class="FooterTable">
+              <div class="FooterCol FooterColLeft">
+                <Link to="/freeai/About">About Enoch</Link>
+                <Link to="/freeai/Contact">Contact Us</Link>
+                <Link to="/freeai/Notice">Notice</Link>
+                <Link to="/freeai/License">License Information</Link>
+              </div>
+              <div class="FooterCol FooterColRight">
+                <Link to="/freeai/Terms">Terms of Service</Link>
+                <Link to="/freeai/Privacy">Privacy Policy</Link>
+                <Link to="/freeai/Credits">Credits</Link>
+                <Link to="/freeai/Copyrights">Copyrights</Link>
+              </div>
             </div>
           </div>
         </div>

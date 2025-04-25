@@ -20,9 +20,9 @@ function AboutPage() {
 
         <h2>What is Enoch AI? </h2>
         <p>
-          Enoch AI, is our latest &quot;Knowledge Model&quot; (LLM) trained on the world's largest
-          curated collection of content that's typically censored or missing from search engines and
-          other LLMs. Enoch AI is especially well trained on:
+          Enoch AI, is our latest "Knowledge Model" (LLM) trained on the world's largest curated
+          collection of content that's typically censored or missing from search engines and other
+          LLMs. Enoch AI is especially well trained on:
         </p>
 
         <ul>
@@ -66,8 +66,8 @@ function AboutPage() {
           <a href="//ollama.com" target="_blank">
             Ollama
           </a>
-          , which then provides &quot;inference&quot; of Enoch AI (so that you can chat with it and
-          ask questions).
+          , which then provides "inference" of Enoch AI (so that you can chat with it and ask
+          questions).
         </p>
 
         <h2>Training Data </h2>
