@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ChatPage from './pages/ChatPage';
 import HomePage from './pages/HomePage';
@@ -24,6 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route element={<UnProtectLayout />}>
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/support/home" element={<SupportPage />} />
           <Route path="/support/terms" element={<TermPage />} />
