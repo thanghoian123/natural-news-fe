@@ -56,7 +56,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
         )}
       </div>
       {sender !== 'user' && (
-        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity mt-2 dark:text-text-dark text-black">
+        <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
           <button
             onClick={handleCopy}
             title="Copy Text to Clipboard"
