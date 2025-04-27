@@ -4,9 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import Bubble from './Bubble';
 import { setModelType } from '../redux/chatSlice';
 
-export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSession }) {
+export default function Chatbox({
+  onSendMessage,
+  onRegenerateMessage,
+  activeSession,
+  disconnectWebSocket,
+  isStreaming,
+}) {
+  console.log('🚀 ~ isStreaming:----------------', isStreaming);
   const [input, setInput] = useState('');
-  const [isStreaming, setIsStreaming] = useState(false);
+  // const [isStreaming, setIsStreaming] = useState(false);
   const { sessions, isLoading, modelType } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -19,15 +26,14 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
   const handleSendMessage = () => {
     if (!input.trim()) return;
     onSendMessage(input);
-    setIsStreaming(true);
     setInput('');
   };
 
-  useEffect(() => {
-    if (activeSession) {
-      setIsStreaming(false);
-    }
-  }, [activeSession]);
+  // useEffect(() => {
+  //   if (activeSession) {
+  //     setIsStreaming(false);
+  //   }
+  // }, [activeSession]);
 
   // ✅ Auto-scroll to the latest message
   useEffect(() => {
@@ -78,6 +84,8 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
                     handlePressPropmt={handlePress}
                     handleChangeModel={handleChangeModel}
                     modelType={modelType}
+                    disconnectWebSocket={disconnectWebSocket}
+                    isStreaming={isStreaming}
                   />
                 </div>
               </div>
@@ -119,6 +127,8 @@ export default function Chatbox({ onSendMessage, onRegenerateMessage, activeSess
               handlePressPropmt={handlePress}
               handleChangeModel={handleChangeModel}
               modelType={modelType}
+              isStreaming={isStreaming}
+              disconnectWebSocket={disconnectWebSocket}
             />
           </div>
         </div>

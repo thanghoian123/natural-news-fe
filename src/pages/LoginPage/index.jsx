@@ -41,50 +41,45 @@ function LoginPage() {
                 ? `We've sent a six-digit access code to your inbox, please enter it below to continue.`
                 : 'Enter your Health Ranger Store newsletter email address to continue.'}
         </div>
-        <form action="Auth/Submit">
-          <div class="AuthForm">
-            {isVerifyOTP ? (
-              <>
-                <div class="AuthLabel">Confirmation Code*</div>
-                <div class="AuthInput">
-                  <input
-                    class="Focus !bg-white placeholder-[color:var(--InputPlaceholder)]"
-                    type="text"
-                    id="code"
-                    name="code"
-                    value={code}
-                    onChange={(e) => validateCode(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div class="AuthLabel">Email Address*</div>
-                <div class="AuthInput">
-                  <input
-                    class="Focus !bg-white"
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => validateEmail(e.target.value)}
-                  />
-                </div>
-              </>
-            )}
+        <div class="AuthForm">
+          {isVerifyOTP ? (
+            <>
+              <div class="AuthLabel">Confirmation Code*</div>
+              <div class="AuthInput">
+                <input
+                  class="Focus !bg-white placeholder-[color:var(--InputPlaceholder)]"
+                  type="text"
+                  id="code"
+                  name="code"
+                  value={code}
+                  onChange={(e) => validateCode(e.target.value)}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div class="AuthLabel">Email Address*</div>
+              <div class="AuthInput">
+                <input
+                  class="Focus !bg-white"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => validateEmail(e.target.value)}
+                />
+              </div>
+            </>
+          )}
 
-            <div class="AuthSubmit">
-              <button
-                id="AuthSubmit"
-                name="AuthSubmit"
-                type="submit"
-                onClick={() => (isVerifyOTP ? handleVerifyOtp() : handleContinue())}
-                disabled={loading}
-              >
-                {loading ? 'Loading...' : isVerifyOTP ? 'Login' : 'Continue'}
-              </button>
-            </div>
+          <div class="AuthSubmit">
+            <button
+              onClick={() => (isVerifyOTP ? handleVerifyOtp() : handleContinue())}
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : isVerifyOTP ? 'Login' : 'Continue'}
+            </button>
           </div>
-        </form>
+        </div>
       </div>
       {isVerifyOTP && !resendClicked && (
         <div className="AuthResend">

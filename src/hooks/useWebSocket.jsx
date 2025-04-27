@@ -10,6 +10,7 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
   const pendingMessage = useRef(null);
   const reconnecting = useRef(false);
   const [url, setUrl] = useState('');
+  const [isStreaming, setIsStreaming] = useState(false);
   const { modelType, toolName } = useSelector((state) => state.chat);
   const getSocketUrl = (chatId, userId, modelType, toolName) =>
     chatId ? `${wsUrl}/${modelType}/${userId}/${chatId}/${toolName}` : null;
@@ -39,6 +40,7 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
   const handleIncomingMessage = useCallback(
     (event) => {
       messageRef.current = event;
+      setIsStreaming(true);
       const streamNextChunk = () => {
         if (!messageRef.current) return;
 
@@ -84,8 +86,11 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
       };
       socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
       socketRef.current.onerror = (error) => console.error('❌ WebSocket Error:', error);
-      socketRef.current.onclose = (event) =>
+      socketRef.current.onclose = (event) => {
+        setIsStreaming(false);
+
         console.log(`🔴 WebSocket Disconnected (Code: ${event.code}, Reason: ${event.reason})`);
+      };
     },
     [activeSession, disconnectWebSocket, handleIncomingMessage]
   );
@@ -113,5 +118,6 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
     setUrl,
     socketUrl,
     pendingMessage,
+    isStreaming,
   };
 }

@@ -15,9 +15,11 @@ function InputChat(props) {
     handlePressPropmt,
     handleChangeModel,
     modelType,
+    disconnectWebSocket,
+    isStreaming,
   } = props;
   const sendButtonRef = useRef(null);
-    const prompts = [
+  const prompts = [
     {
       id: 1,
       messages: 'Tell me about',
@@ -106,14 +108,14 @@ function InputChat(props) {
             <div className="ChatCol ChatColRight">
               <div className="ButtonBox ButtonBoxRight">
                 <div
-                  className={`ButtonPrimary ButtonIcon  NoClose ${!value && 'ButtonDisabled'}`}
+                  className={`ButtonPrimary ButtonIcon  NoClose ${!value && !isStreaming && 'ButtonDisabled'}`}
                   id="ButtonGo"
                   title=""
                   ref={sendButtonRef}
-                  onClick={sendMessage}
+                  onClick={() => (isStreaming ? disconnectWebSocket() : sendMessage())}
                 >
                   <div className="Icon">
-                    <span className="Mask MaskGo"></span>
+                    {isStreaming ? <span>Stop</span> : <span className="Mask MaskGo"></span>}
                   </div>
                 </div>
               </div>
@@ -201,19 +203,11 @@ function InputChat(props) {
             </div>
             {isNewChat && (
               <div className="Disclaimer Centered">
-                <Link to="/Support/home">
-                Visit our support area
-                      </Link>
-                {' '}
-                for a detailed guide on using Enoch AI.
+                <Link to="/Support/home">Visit our support area</Link> for a detailed guide on using
+                Enoch AI.
                 <p>
-                  <a href="Support/Terms">
-                    Terms of Service
-                  </a>{' '}
-                  •{' '}
-                  <a href="Support/Privacy">
-                    Privacy Policy
-                  </a>
+                  <a href="Support/Terms">Terms of Service</a> •{' '}
+                  <a href="Support/Privacy">Privacy Policy</a>
                 </p>
               </div>
             )}

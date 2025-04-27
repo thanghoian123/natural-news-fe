@@ -18,6 +18,8 @@ function ChatPage() {
     onRegenerateMessage,
     socketUrl,
     pendingMessage,
+    disconnectWebSocket,
+    isStreaming,
   } = useWebSocket({
     activeSession: chatID,
     dispatch,
@@ -84,6 +86,9 @@ function ChatPage() {
       onSendMessage={handleSendMessage}
       onRegenerateMessage={onRegenerateMessage}
       activeSession={chatID}
+      socketRef={socketRef}
+      disconnectWebSocket={disconnectWebSocket}
+      isStreaming={isStreaming}
     />
   );
 }

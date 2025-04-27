@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
 
-
 // rename it to follow the React hook naming convention
 function useLoginHandler() {
   console.log('useLoginHandler called');
@@ -17,7 +16,6 @@ function useLoginHandler() {
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
   const [error, setError] = useState('');
   const [resendClicked, setResendClicked] = useState(false);
-
 
   const validateEmail = (value) => {
     setEmail(value);
@@ -35,11 +33,15 @@ function useLoginHandler() {
   };
 
   const handleContinue = async () => {
-    const result = await dispatch(loginUser(email));
-    if (loginUser.fulfilled.match(result)) {
-      setIsVerifyOTP(true);
+    if (email) {
+      const result = await dispatch(loginUser(email));
+      if (loginUser.fulfilled.match(result)) {
+        setIsVerifyOTP(true);
+      } else {
+        addToast('Failed to login.', 'error');
+      }
     } else {
-      addToast('Failed to login.', 'error');
+      addToast('Please type email', 'error');
     }
   };
 
@@ -70,4 +72,3 @@ function useLoginHandler() {
 }
 
 export default useLoginHandler;
-
