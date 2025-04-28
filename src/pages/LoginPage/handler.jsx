@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
 
-// rename it to follow the React hook naming convention
 function useLoginHandler() {
   console.log('useLoginHandler called');
   const [email, setEmail] = useState('');
@@ -33,15 +32,17 @@ function useLoginHandler() {
   };
 
   const handleContinue = async () => {
-    if (email) {
-      const result = await dispatch(loginUser(email));
+    if (email && !error) {
+      // ⚡️ FIX: dispatch an object matching the thunk signature
+      const result = await dispatch(loginUser({ email }));
       if (loginUser.fulfilled.match(result)) {
         setIsVerifyOTP(true);
       } else {
+        console.error('loginUser rejected, payload:', result.payload, 'error:', result.error);
         addToast('Failed to login.', 'error');
       }
     } else {
-      addToast('Please type email', 'error');
+      addToast('Please type a valid email', 'error');
     }
   };
 
@@ -49,9 +50,10 @@ function useLoginHandler() {
     const result = await dispatch(verifyOtp({ email, otp: code }));
     if (verifyOtp.fulfilled.match(result)) {
       navigate('/home');
-      addToast('login successfully!', 'success');
+      addToast('Login successful!', 'success');
     } else {
-      addToast('Failed to login.', 'error');
+      console.error('verifyOtp rejected, payload:', result.payload, 'error:', result.error);
+      addToast('Failed to verify OTP.', 'error');
     }
   };
 
