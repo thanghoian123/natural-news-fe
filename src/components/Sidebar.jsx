@@ -31,6 +31,8 @@ export default function Sidebar({ children }) {
   const navigate = useNavigate();
   const { sessions } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
+  const [selectedChatId, setSelectedChatId] = useState(null);
+
 
   const handleNewSession = () => {
     navigate(`/chat`);
@@ -62,6 +64,7 @@ export default function Sidebar({ children }) {
 
   const handleChatClick = (chat) => {
     if (chat?.id) {
+      setSelectedChatId(chat.id);
       dispatch(setActiveSession(chat.id));
       navigate(`/chat?id=${chat.id}`);
       setIsOpen(false); // Close dropdown on mobile
@@ -195,9 +198,10 @@ export default function Sidebar({ children }) {
               <div className="History">
                 {sessions.map((chat) => (
                   <div
-                    className="ChatTitle TitleUpdate NoClose"
-                    onClick={() => handleChatClick(chat)}
-                  >
+                  key={chat.id}
+                  className={`ChatTitle TitleUpdate NoClose ${selectedChatId === chat.id ? 'ChatTitleActive' : ''}`}
+                  onClick={() => handleChatClick(chat)}
+                >
                     <div className="Auto">
                       <div className="AutoCol ChatText">
                         <p>
