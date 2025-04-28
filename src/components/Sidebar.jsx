@@ -33,12 +33,7 @@ export default function Sidebar({ children }) {
   const dispatch = useDispatch();
 
   const handleNewSession = () => {
-    dispatch(startNewSession(user?.id)).then(({ payload }) => {
-      const chatID = payload?.id;
-      if (chatID) {
-        navigate(`/chat?id=${chatID}`);
-      }
-    });
+    navigate(`/chat`);
   };
 
   const handleDeleteChat = async () => {
