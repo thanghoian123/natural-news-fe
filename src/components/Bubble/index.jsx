@@ -4,6 +4,29 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useToast } from '../../contexts/ToastContext';
 import ChatSkeleton from './ChatSkeleton';
+import emoji from 'emoji-dictionary'; // <-- Install this if not already
+
+function EmojiText({ children }) {
+  const flattenChildren = (children) => {
+    if (Array.isArray(children)) {
+      return children.map(flattenChildren).join('');
+    } else if (typeof children === 'string') {
+      return children;
+    } else if (typeof children === 'object' && children?.props?.children) {
+      return flattenChildren(children.props.children);
+    } else {
+      return '';
+    }
+  };
+
+  const text = flattenChildren(children);
+  const parsed = text.replace(
+    /:([a-zA-Z0-9_+-]+):/g,
+    (match, name) => emoji.getUnicode(name) || match
+  );
+
+  return <>{parsed}</>;
+}
 
 function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
   const [streamedText, setStreamedText] = useState('');
@@ -52,7 +75,69 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
         {isLoading ? (
           <ChatSkeleton />
         ) : (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamedText}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p: ({ children }) => (
+                <p>
+                  <EmojiText>{children}</EmojiText>
+                </p>
+              ),
+              li: ({ children }) => (
+                <li className="list-disc ml-6">
+                  <EmojiText>{children}</EmojiText>
+                </li>
+              ),
+              h1: ({ children }) => (
+                <h1 className="text-2xl font-bold">
+                  <EmojiText>{children}</EmojiText>
+                </h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-xl font-semibold">
+                  <EmojiText>{children}</EmojiText>
+                </h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="text-lg font-medium">
+                  <EmojiText>{children}</EmojiText>
+                </h3>
+              ),
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 pl-4 italic text-gray-600">
+                  <EmojiText>{children}</EmojiText>
+                </blockquote>
+              ),
+              td: ({ children }) => (
+                <td className="border px-2 py-1">
+                  <EmojiText>{children}</EmojiText>
+                </td>
+              ),
+              th: ({ children }) => (
+                <th className="border px-2 py-1 font-bold">
+                  <EmojiText>{children}</EmojiText>
+                </th>
+              ),
+              a: ({ href, children }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  <EmojiText>{children}</EmojiText>
+                </a>
+              ),
+              code: ({ children }) => (
+                <code className="bg-gray-100 p-1 rounded text-sm font-mono">
+                  {/* Do NOT EmojiText here */}
+                  {children}
+                </code>
+              ),
+            }}
+          >
+            {streamedText}
+          </ReactMarkdown>
         )}
       </div>
       {sender !== 'user' && (
