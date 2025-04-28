@@ -21,7 +21,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
       const timeout = setTimeout(() => {
         setStreamedText((prev) => prev + [...text][index]);
         setIndex(index + 1);
-      }, 10);
+      }, 5);
 
       return () => clearTimeout(timeout);
     }
