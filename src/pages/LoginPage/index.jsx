@@ -1,7 +1,6 @@
-import React from 'react';
-import logoColor from '../../assets/Images/Logo-Color.svg'; // Adjust path as needed
+import React, { useState } from 'react';
+import logoColor from '../../assets/Images/Logo-Color.svg'; // adjust as needed
 import { Link } from 'react-router-dom';
-
 import useLoginHandler from './handler.jsx';
 
 function LoginPage() {
@@ -13,41 +12,54 @@ function LoginPage() {
     validateCode,
     handleContinue,
     isVerifyOTP,
+    setIsVerifyOTP,
     userError,
     handleVerifyOtp,
     loading,
-    resendClicked,
-    setResendClicked,
+    setEmail,
+    setCode,
   } = useLoginHandler();
+
+  const [resendMode, setResendMode] = useState(false); // 👈 ADD resendMode
+
+  const handleResend = (e) => {
+    e.preventDefault();
+    setResendMode(true); // 👈 set resend mode active
+    setIsVerifyOTP(false); // 👈 go back to Email input
+    setCode('');
+    setEmail('');
+  };
 
   return (
     <div id="Page">
-      <div class="AuthLogin">
+      <div className="AuthLogin">
         <div className="Block Headline Centered">
           {userError
             ? `We're sorry but...`
-            : resendClicked
-              ? 'Resend Code'
+            : resendMode
+              ? 'Resend Code' // 👈 when resendMode, show Resend Code
               : isVerifyOTP
                 ? 'Enter Access Code'
                 : 'Hello There'}
         </div>
+
         <div className="Block Text Centered">
           {userError
             ? `We're unable to find an account associated with that email address. Please try another.`
-            : resendClicked
+            : resendMode
               ? `If you need the access code again, please enter your email address and try again.`
               : isVerifyOTP
                 ? `We've sent a six-digit access code to your inbox, please enter it below to continue.`
                 : 'Enter your Health Ranger Store newsletter email address to continue.'}
         </div>
-        <div class="AuthForm">
+
+        <div className="AuthForm">
           {isVerifyOTP ? (
             <>
-              <div class="AuthLabel">Confirmation Code*</div>
-              <div class="AuthInput">
+              <div className="AuthLabel">Confirmation Code*</div>
+              <div className="AuthInput">
                 <input
-                  class="Focus !bg-white placeholder-[color:var(--InputPlaceholder)]"
+                  className="Focus !bg-white placeholder-[color:var(--InputPlaceholder)]"
                   type="text"
                   id="code"
                   name="code"
@@ -58,10 +70,10 @@ function LoginPage() {
             </>
           ) : (
             <>
-              <div class="AuthLabel">Email Address*</div>
-              <div class="AuthInput">
+              <div className="AuthLabel">Email Address*</div>
+              <div className="AuthInput">
                 <input
-                  class="Focus !bg-white"
+                  className="Focus !bg-white"
                   id="email"
                   type="email"
                   value={email}
@@ -71,37 +83,43 @@ function LoginPage() {
             </>
           )}
 
-          <div class="AuthSubmit">
+          <div className="AuthSubmit">
             <button
-              onClick={() => (isVerifyOTP ? handleVerifyOtp() : handleContinue())}
+              onClick={() => {
+                if (isVerifyOTP) {
+                  handleVerifyOtp();
+                } else {
+                  handleContinue();
+                  setResendMode(false); // 👈 after re-continue, clear resendMode
+                }
+              }}
               disabled={loading}
             >
               {loading ? 'Loading...' : isVerifyOTP ? 'Login' : 'Continue'}
             </button>
           </div>
         </div>
-      </div>
-      {isVerifyOTP && !resendClicked && (
-        <div className="AuthResend">
-          <div className="Text Centered">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setResendClicked(true); // hides the link
-              }}
-            >
-              Resend Code
-            </a>
+
+        {/* Only show "Resend Code" when verifying OTP */}
+        {isVerifyOTP && !resendMode && (
+          <div className="AuthResend">
+            <div className="Text Centered">
+              <a
+                href="#"
+                onClick={handleResend}
+              >
+                Resend Code
+              </a>
+            </div>
           </div>
-        </div>
-      )}
-      <div class="AuthInfo">
+        )}
+      </div>
+
+      <div className="AuthInfo">
         <div className="Disclaimer Centered !text-[#2D2D30]">
-          {resendClicked ? (
+          {resendMode ? (
             <>
-              <b>Note:</b> Please check your spam/junk folder as the access code email may have
-              ended up there.
+              <b>Note:</b> Please check your spam/junk folder as the access code email may have ended up there.
             </>
           ) : isVerifyOTP ? (
             `By proceeding, you acknowledge and agree to our terms and conditions, which outline the rules and guidelines for using this site. You also acknowledge that AI is experimental and that it is your responsibility to verify all important information and always consult with your doctor before taking medication or making any changes to your existing medication or health routine.`
@@ -111,15 +129,15 @@ function LoginPage() {
         </div>
       </div>
 
-      <div class="AuthLinks">
-        <div class="Text Centered">
+      <div className="AuthLinks">
+        <div className="Text Centered">
           Don't have an account? <Link to="/Support/home">Learn how to gain access</Link>
         </div>
       </div>
-      <div class="AuthLinks">
-        <div class="Disclaimer Centered">
-          <a href="Support/Terms">Terms of Service</a> •{' '}
-          <a href="Support/Privacy">Privacy Policy</a>
+
+      <div className="AuthLinks">
+        <div className="Disclaimer Centered">
+          <Link to="/Support/Terms">Terms of Service</Link> • <Link to="/Support/Privacy">Privacy Policy</Link>
         </div>
       </div>
     </div>

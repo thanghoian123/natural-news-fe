@@ -141,28 +141,36 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
         )}
       </div>
       {sender !== 'user' && (
-        <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
-          <button
-            onClick={handleCopy}
-            title="Copy Text to Clipboard"
-            className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
-          >
-            <Copy size={14} />
-            {copied && (
-              <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
-                Copied!
-              </span>
-            )}
-          </button>
-          <button
-            onClick={onRegenerateMessage}
-            title="Regenerate"
-            className="p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
-          >
-            <RefreshCw size={14} />
-          </button>
-        </div>
+  <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
+    {/* Copy Button */}
+    <div
+      onClick={handleCopy}
+      title="Copy Text to Clipboard"
+      className="ButtonIcon ButtonIconSmall ButtonCopy NoClose p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
+    >
+      <div className="Icon">
+        <span className="Mask MaskCopy"></span>
+      </div>
+      {copied && (
+        <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
+          Copied!
+        </span>
       )}
+    </div>
+
+    {/* Regenerate Button */}
+    <div
+      onClick={onRegenerateMessage}
+      title="Regenerate"
+      className="ButtonIcon ButtonIconSmall ButtonRegenerate NoClose p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
+    >
+      <div className="Icon">
+        <span className="Mask MaskRegenerate"></span>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

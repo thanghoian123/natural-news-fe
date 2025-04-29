@@ -16,6 +16,7 @@ import Modal from './Modal';
 import ProfileDetail from './ProfileDetail';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar({ children }) {
   const { addToast } = useToast();
@@ -107,9 +108,9 @@ export default function Sidebar({ children }) {
               </div>
 
               <div className="MastheadCol MastheadColLogo">
-                <a href="Home">
+                <Link to="Home">
                   <img alt="Enoch AI" className="Logo" src={logoSrc} />
-                </a>
+                </Link>
               </div>
 
               <div className="MastheadCol MastheadColNav">
@@ -149,11 +150,11 @@ export default function Sidebar({ children }) {
           </div>
           <div className="Card">
             <div className="MenuGroup StickyTop" id="MenuLogo">
-              <a href="Home">
+              <Link to="Home">
                 <img alt="Enoch AI" className="Logo" src={logoSrc} />
 
                 {/* <img alt="Enoch AI" className="Logo" src={logo} /> */}
-              </a>
+              </Link>
             </div>
 
             <div className="MenuGroup">

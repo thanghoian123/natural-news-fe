@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
 
-// rename it to follow the React hook naming convention
 function useLoginHandler() {
   console.log('useLoginHandler called');
   const [email, setEmail] = useState('');
@@ -37,6 +36,7 @@ function useLoginHandler() {
       const result = await dispatch(loginUser(email));
       if (loginUser.fulfilled.match(result)) {
         setIsVerifyOTP(true);
+        setResendClicked(false); // 👈 after successful resend, return to verify screen
       } else {
         addToast('Failed to login.', 'error');
       }
@@ -49,10 +49,16 @@ function useLoginHandler() {
     const result = await dispatch(verifyOtp({ email, otp: code }));
     if (verifyOtp.fulfilled.match(result)) {
       navigate('/home');
-      addToast('login successfully!', 'success');
+      addToast('Login successfully!', 'success');
     } else {
       addToast('Failed to login.', 'error');
     }
+  };
+
+  const handleResend = () => {
+    setIsVerifyOTP(false); // 👈 go back to email form
+    setResendClicked(true); // 👈 trigger special "Resend Code" mode
+    setCode(''); // 👈 clear code input
   };
 
   return {
@@ -63,11 +69,15 @@ function useLoginHandler() {
     validateCode,
     handleContinue,
     isVerifyOTP,
+    setIsVerifyOTP,
     userError,
     handleVerifyOtp,
     loading,
     resendClicked,
     setResendClicked,
+    setEmail,
+    setCode,
+    handleResend,
   };
 }
 

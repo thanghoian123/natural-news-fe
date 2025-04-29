@@ -115,7 +115,7 @@ function InputChat(props) {
                   onClick={() => (isStreaming ? disconnectWebSocket() : sendMessage())}
                 >
                   <div className="Icon">
-                    {isStreaming ? <span>Stop</span> : <span className="Mask MaskGo"></span>}
+                  {isStreaming ? <span style={{ color: 'white' }}>Stop</span> : <span className="Mask MaskGo"></span>}
                   </div>
                 </div>
               </div>
