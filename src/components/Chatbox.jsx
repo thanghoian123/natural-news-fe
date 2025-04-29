@@ -3,6 +3,8 @@ import InputChat from './InputChat';
 import { useDispatch, useSelector } from 'react-redux';
 import Bubble from './Bubble';
 import { setModelType } from '../redux/chatSlice';
+import { usePrompt } from '../hooks/usePrompt';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Chatbox({
   onSendMessage,
@@ -22,6 +24,9 @@ export default function Chatbox({
 
   // ✅ Identify the last bot message for streaming
   const lastBotMessageIndex = activeChat?.history?.length - 1;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [lastId, setLastId] = useState(new URLSearchParams(location.search).get('id'));
 
   const handleSendMessage = () => {
     if (!input.trim()) return;
@@ -29,16 +34,44 @@ export default function Chatbox({
     setInput('');
   };
 
-  // useEffect(() => {
-  //   if (activeSession) {
-  //     setIsStreaming(false);
-  //   }
-  // }, [activeSession]);
 
-  // ✅ Auto-scroll to the latest message
+  useEffect(() => {
+    const currentId = new URLSearchParams(location.search).get('id');
+    if (lastId !== currentId) {
+      if (isStreaming) {
+        const confirmed = window.confirm('A response is still streaming. Leaving now will charge a credit without completing the reply. Are you sure?');
+        if (!confirmed) {
+          // User canceled → stay at previous id
+          navigate(`/chat?id=${lastId}`, { replace: true });
+          return;
+        }
+      }
+      // update lastId if allowed
+      setLastId(currentId);
+    }
+  }, [location.search, lastId, isStreaming, navigate]);
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [activeChat?.history]);
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (isStreaming) {
+        event.preventDefault();
+        event.returnValue = 'You are in the middle of a response. Leaving now will charge a credit without completing the reply. Are you sure?';
+      }
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isStreaming]);
+
+  usePrompt(
+    'A response is still streaming. Leaving now will charge a credit. Are you sure you want to leave?',
+    isStreaming
+  );
 
   const handlePress = (prompt) => {
     setInput(prompt.messages);
