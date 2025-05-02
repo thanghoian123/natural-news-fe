@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Paperclip, Settings } from 'lucide-react';
 import Dropdown from '../Dropdown';
 import RadioDropdown from '../RadioDropdown';
@@ -54,7 +54,7 @@ function InputChat(props) {
     },
     {
       id: 4,
-      messages: 'Give me advice',
+      messages: 'Give me advice about',
       label: 'Give me advice about',
       options: [
         { label: 'Losing Weight', value: 'Losing Weight' },
@@ -79,20 +79,29 @@ function InputChat(props) {
       ? 'As a Platinum member, you have access to unlimited questions.'
       : `                Each prompt uses 1 question. You have ${tokenRemaining} questions remaining.
 `;
+  const textareaRef = useRef(null);
 
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto'; // reset height
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // adjust with max
+    }
+  }, [value]);
   return (
     <div className="">
       <div className="ChatBox USN">
         <div className="ChatPrompt">
-          <textarea
-            rows="1"
-            name="Prompt"
-            id="Prompt"
-            value={value}
-            onChange={onChange}
-            placeholder="Type something here"
-            className="Focus"
-          ></textarea>
+        <textarea
+          ref={textareaRef}
+          rows="1"
+          name="Prompt"
+          id="Prompt"
+          value={value}
+          onChange={onChange}
+          placeholder="Type something here"
+          className="Focus"
+        ></textarea>
         </div>
 
         <div className="ChatButtons">
@@ -100,9 +109,14 @@ function InputChat(props) {
             <div className="ChatCol ChatColLeft">
               <div className="Disclaimer">
                 {helperText}{' '}
-                <Link to="/Support/home" className="Link ButtonProfile NoClose">
+                <a
+                  href="/Support/home"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="Link ButtonProfile NoClose"
+                >
                   Learn More
-                </Link>
+                </a>
               </div>
             </div>
             <div className="ChatCol ChatColRight">
@@ -115,7 +129,11 @@ function InputChat(props) {
                   onClick={() => (isStreaming ? disconnectWebSocket() : sendMessage())}
                 >
                   <div className="Icon">
-                  {isStreaming ? <span style={{ color: 'white' }}>Stop</span> : <span className="Mask MaskGo"></span>}
+                    {isStreaming ? (
+                      <span style={{ color: 'white' }}>Stop</span>
+                    ) : (
+                      <span className="Mask MaskGo"></span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -161,15 +179,25 @@ function InputChat(props) {
         {isNewChat && (
           <div className="Content">
             <div className="Block ScrollContainer">
-              <div className="">
+              {/* <div class="ScrollBox"> */}
+              <div class="">
                 <div className="flex flex-row pt-[20px] gap-[1px]" id="HomePresets">
                   {prompts.map((p) => (
                     <div key={p.label} className="relative">
                       <Dropdown
                         label={p.label}
                         options={p.options}
-                        onSelect={handleSelectPrompt}
-                        onPress={() => handlePressPropmt(p)}
+                        onSelect={(option) => {
+                          const needsQuestionMark = [2, 3].includes(p.id);
+                          let fullMessage = `${p.messages} ${option.value}`.trim();
+
+                          if (needsQuestionMark && !fullMessage.endsWith('?')) {
+                            fullMessage += '?';
+                          }
+
+                          handlePressPropmt(fullMessage); // ✅ Send clean full message only
+                        }}
+                        onPress={() => handlePressPropmt(p.messages)} // ⚠️ No option selected here
                       />
                     </div>
                   ))}
@@ -193,7 +221,7 @@ function InputChat(props) {
 
         <div className="Section Narrow" id="SectionHomeDetails">
           <div className="Content">
-            <div className="ChatNotice Centered z-1">
+            <div className="ChatNotice Centered">
               <p>
                 Enoch AI is experimental. These statements are not intended to diagnose, treat, or
                 cure any medical condition. Please verify all important information and always seek
@@ -203,11 +231,18 @@ function InputChat(props) {
             </div>
             {isNewChat && (
               <div className="Disclaimer Centered">
-                <Link to="/Support/home">Visit our support area</Link> for a detailed guide on using
-                Enoch AI.
+                <a href="/Support/home" target="_blank" rel="noopener noreferrer">
+                  Visit our support area
+                </a>{' '}
+                for a detailed guide on using Enoch AI.
                 <p>
-                  <a href="Support/Terms">Terms of Service</a> •{' '}
-                  <a href="Support/Privacy">Privacy Policy</a>
+                  <a href="Support/Terms" target="_blank" rel="noopener noreferrer">
+                    Terms of Service
+                  </a>{' '}
+                  •{' '}
+                  <a href="Support/Privacy" target="_blank" rel="noopener noreferrer">
+                    Privacy Policy
+                  </a>
                 </p>
               </div>
             )}

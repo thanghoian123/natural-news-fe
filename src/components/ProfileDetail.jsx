@@ -42,9 +42,9 @@ function ProfileDetail({ user, onClearChat }) {
       name: 'Health Ranger Store Subscriber',
       allows: ['Gold', 'Platinum', 'Silver', 'Bronze'],
       rightAction: (
-        <Link to="/Support/home">
+        <a href="/Support/home" target="_blank" rel="noopener noreferrer">
           Learn More
-        </Link>
+        </a>
       ),
     },
 
@@ -53,9 +53,9 @@ function ProfileDetail({ user, onClearChat }) {
       name: 'Health Ranger Store Buyer',
       allows: ['Gold', 'Platinum', 'Silver'],
       rightAction: (
-        <Link to="/Support/home">
+        <a href="/Support/home" target="_blank" rel="noopener noreferrer">
           Learn More
-        </Link>
+        </a>
       ),
     },
   ];
@@ -92,7 +92,7 @@ function ProfileDetail({ user, onClearChat }) {
           </div>
           <div className="AutoCol AutoLabel">
             <b>{user?.tier} Member</b> •{' '}
-            <Link to="/Support/home">Learn More</Link>
+            <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">Learn More</a>
           </div>
         </div>
 
@@ -105,11 +105,10 @@ function ProfileDetail({ user, onClearChat }) {
 
           <div className="AutoCol AutoLabel">
             <b>{reward}</b> •{' '}
-            <Link to="/Support/home">How to Get More</Link>
+            <a href="/Support/home" target="_blank" rel="noopener noreferrer">How to Get More</a>
           </div>
         </div>
       </div>
-
       <div className="ProfileGroup">
         <div className="Text">Your email address is connected to the following:</div>
         {engineList.map((i, index) => {

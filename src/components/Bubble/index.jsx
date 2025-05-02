@@ -33,6 +33,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
   const [index, setIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const { addToast } = useToast();
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     if (!isStreaming) {
@@ -70,24 +71,43 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
             ? 'dark:bg-[#7765FD] bg-ui-bg !text-white rounded-l-lg rounded-br-lg'
             : 'text-white rounded-r-lg rounded-bl-lg'
         }`}
-        style={{ whiteSpace: 'pre-wrap' }}
       >
         {isLoading ? (
           <ChatSkeleton />
         ) : (
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              p: ({ children }) => (
-                <p>
-                  <EmojiText>{children}</EmojiText>
-                </p>
-              ),
-              li: ({ children }) => (
-                <li className="list-disc ml-6">
-                  <EmojiText>{children}</EmojiText>
-                </li>
-              ),
+          remarkPlugins={[remarkGfm]}
+          components={{
+            p: ({ children }) => (
+              // use a span instead of a <p> so there is no block‑margin
+              <span style={{ whiteSpace: 'pre-wrap' }}>
+                <EmojiText>{children}</EmojiText>
+              </span>
+            ),
+        
+            ol: ({ children }) => (
+              <ol
+                className="list-disc list-inside ml-6 leading-normal inline-block mt-0 mb-0 align-top"
+                style={{ verticalAlign: 'top' }}
+              >
+                {children}
+              </ol>
+            ),
+            ul: ({ children }) => (
+              <ul
+                className="list-disc list-inside ml-6 leading-normal inline-block mt-0 mb-0 align-top"
+                style={{ verticalAlign: 'top' }}
+              >
+                {children}
+              </ul>
+            ),
+        
+            li: ({ children }) => (
+              // li can remain the default list‑item display
+              <li>
+                <EmojiText>{children}</EmojiText>
+              </li>
+            ),
               h1: ({ children }) => (
                 <h1 className="text-2xl font-bold">
                   <EmojiText>{children}</EmojiText>
@@ -141,36 +161,85 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
         )}
       </div>
       {sender !== 'user' && (
-  <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
-    {/* Copy Button */}
-    <div
-      onClick={handleCopy}
-      title="Copy Text to Clipboard"
-      className="ButtonIcon ButtonIconSmall ButtonCopy NoClose p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
-    >
-      <div className="Icon">
-        <span className="Mask MaskCopy"></span>
-      </div>
-      {copied && (
-        <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
-          Copied!
-        </span>
+        <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
+          {/* Copy Button */}
+          <div
+            onClick={handleCopy}
+            title="Copy Text to Clipboard"
+            className="ButtonIcon ButtonIconSmall ButtonCopy NoClose rounded-full hover:bg-gray-200 hover:text-background-dark transition relative"
+          >
+            <div className="Icon">
+              <span className="Mask MaskCopy"></span>
+            </div>
+            {copied && (
+              <span className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded">
+                Copied!
+              </span>
+            )}
+          </div>
+
+          {/* Regenerate Button */}
+          <div
+            onClick={() => setShowPopup(true)}
+            title="Regenerate"
+            className="ButtonIcon ButtonIconSmall ButtonRegenerate NoClose rounded-full hover:bg-gray-200 hover:text-background-dark transition"
+          >
+            <div className="Icon">
+              <span className="Mask MaskRegenerate"></span>
+            </div>
+          </div>
+        </div>
       )}
-    </div>
-
-    {/* Regenerate Button */}
-    <div
-      onClick={onRegenerateMessage}
-      title="Regenerate"
-      className="ButtonIcon ButtonIconSmall ButtonRegenerate NoClose p-1 rounded-full hover:bg-gray-200 hover:text-background-dark transition"
-    >
-      <div className="Icon">
-        <span className="Mask MaskRegenerate"></span>
-      </div>
-    </div>
-  </div>
-)}
-
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="Popup USN" id="PopupRegenerate">
+          <div className="PopupTable">
+            <div className="PopupCol">
+              <div className="Content NoClose">
+                <div
+                  className="ButtonIcon Close SubscribePopupClose"
+                  title="Close"
+                  onClick={() => setShowPopup(false)}
+                >
+                  <div className="Icon">
+                    <span className="Mask MaskClose"></span>
+                  </div>
+                </div>
+                <div className="Card">
+                  <div className="Subhead">Are You Sure?</div>
+                  <div className="Block Text">
+                    Regenerating a response will use 1 question from your account.
+                  </div>
+                  <div className="ButtonBox ButtonBoxLeft">
+                    <button
+                      className="Button ButtonGray ButtonClose"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="Button ButtonAuto ButtonAutoLeft ButtonPrimary ButtonClose"
+                      onClick={() => {
+                        setShowPopup(false);
+                        onRegenerateMessage(); // Trigger regeneration
+                      }}
+                    >
+                      <div className="Auto">
+                        <div className="AutoCol AutoIcon">
+                          <div className="Icon IconSmall">
+                            <span className="Mask MaskAI"></span>
+                          </div>
+                        </div>
+                        <div className="AutoCol AutoLabel">Regenerate</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -25,7 +25,7 @@ const Dropdown = ({ options = [], onSelect, label, onPress }) => {
     <div ref={dropdownRef} className=" inline-block my-2  ">
       <button
         onClick={onPressBtn}
-        className={`Button ButtonTransBorder Preset NoClose px-4 py-2 rounded focus:outline-none ${
+        className={`Button ButtonTransBorder Preset NoClose ${
           isOpen ? 'ring-2 ring-ui-bg  dark:ring-primary !text-ui-bg dark:!text-primary' : ''
         } `}
         id={`Button${label.replace(/\s+/g, '')}`}

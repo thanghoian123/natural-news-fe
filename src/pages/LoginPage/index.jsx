@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logoColor from '../../assets/Images/Logo-Color.svg'; // adjust as needed
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useLoginHandler from './handler.jsx';
 
 function LoginPage() {
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     if (token) {
+  //       navigate('/home', { replace: true });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error checking auth token:', error);
+  //   }
+  // }, [navigate]);
   const {
     email,
     code,
@@ -131,13 +143,13 @@ function LoginPage() {
 
       <div className="AuthLinks">
         <div className="Text Centered">
-          Don't have an account? <Link to="/Support/home">Learn how to gain access</Link>
+          Don't have an account? <a href="/Support/home" target="_blank" rel="noopener noreferrer">Learn how to gain access</a>
         </div>
       </div>
 
       <div className="AuthLinks">
         <div className="Disclaimer Centered">
-          <Link to="/Support/Terms">Terms of Service</Link> • <Link to="/Support/Privacy">Privacy Policy</Link>
+          <a href="/Support/Terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> • <a href="/Support/Privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
         </div>
       </div>
     </div>

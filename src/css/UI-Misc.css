@@ -221,16 +221,7 @@ background: linear-gradient(to right, #7765FD, #FF00CC);
 .ScrollContainer {
   display: block;
 }
-.ScrollBox {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overflow-x: auto;
-  white-space: nowrap;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.ScrollBox { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
 .ScrollBox::-webkit-scrollbar {
   height: 0px;
 }

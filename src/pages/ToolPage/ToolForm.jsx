@@ -15,7 +15,7 @@ function ToolForm({ category }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const fieldRefs = useRef({}); // Holds refs to inputs
+  const fieldRefs = useRef({});
 
   const findStructure = dataFormStructure.find((i) => i.key === category);
   const fields = findStructure.fields;
@@ -25,26 +25,31 @@ function ToolForm({ category }) {
     return acc;
   }, {});
 
-  const validationSchema = Yup.object(
-    fields.reduce((acc, field) => {
-      // console.log('🚀 ~ fields.reduce ~ field:', field);
-      if (field?.isRequired) {
-        if (field.type === TYPE.checkbox) {
-          acc[field.key] = Yup.array()
-            .min(
-              field?.min || 3,
-              `Select at least ${field?.min || 3} ${field.key} from the list below.`
-            )
-            .required('This field is required.');
-        } else if (field.type === TYPE.dropdown) {
-          acc[field.key] = Yup.string().required('This field is required.');
-        } else {
+  const validationSchema = Yup.object().shape({
+    ...fields.reduce((acc, field) => {
+      if (field.key === 'Primary Wellness Goals') {
+        acc[field.key] = Yup.array()
+          .min(
+            field.min || 3,
+            `Select at least ${field.min || 3} ${field.key} from the list below.`
+          )
+          .required('This field is required.');
+      } else if (field.key === 'Other Goals') {
+        acc[field.key] = Yup.string().when('Primary Wellness Goals', {
+          is: (goals) => Array.isArray(goals) && goals.includes('Other'),
+          then: (schema) => schema.required("Enter text here"),
+          otherwise: (schema) => schema,
+        });
+      } else if (field.type === TYPE.input || field.type === TYPE.textarea) {
+        if (field.isRequired) {
           acc[field.key] = Yup.string().trim().required('This field is required.');
         }
+      } else if (field.type === TYPE.dropdown && field.isRequired) {
+        acc[field.key] = Yup.string().required('This field is required.');
       }
       return acc;
     }, {})
-  );
+  });
 
   const formik = useFormik({
     initialValues,
@@ -65,6 +70,7 @@ function ToolForm({ category }) {
       }
     },
   });
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -76,10 +82,7 @@ function ToolForm({ category }) {
       formik.setFieldTouched(firstErrorKey, true);
 
       if (firstRef && typeof firstRef.scrollIntoView === 'function') {
-        // Scroll to the field with an error
         firstRef.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        console.warn(`❗ The element does not have scrollIntoView:`, firstRef);
       }
 
       if (firstRef && typeof firstRef.focus === 'function') {
@@ -122,13 +125,17 @@ function ToolForm({ category }) {
                       name={key}
                       error={formik.touched[key] && formik.errors[key]}
                       ref={(el) => (fieldRefs.current[key] = el)}
-                      isRequired={isRequired}
+                      isRequired={
+                        isRequired ||
+                        (key === 'Other Goals' &&
+                          formik.values['Primary Wellness Goals'].includes('Other'))
+                      }
                       {...fieldProps}
                     />
                   ) : type === TYPE.dropdown ? (
                     <Dropdown
                       label={`${index + 1}. ${label}`}
-                      options={fields.options}
+                      options={fieldProps.options || []}
                       onSelect={(val) => formik.setFieldValue(key, val)}
                       error={formik.touched[key] && formik.errors[key]}
                       ref={(el) => (fieldRefs.current[key] = el)}

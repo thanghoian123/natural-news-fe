@@ -197,36 +197,41 @@ export default function Sidebar({ children }) {
             <div className="MenuGroup" id="GroupRecent">
               <div className="Block Subhead">Recent Questions</div>
               <div className="History">
-                {sessions.map((chat) => (
-                  <div
-                  key={chat.id}
-                  className={`ChatTitle TitleUpdate NoClose ${selectedChatId === chat.id ? 'ChatTitleActive' : ''}`}
-                  onClick={() => handleChatClick(chat)}
-                >
-                    <div className="Auto">
-                      <div className="AutoCol ChatText">
-                        <p>
-                          <span className="Clamp1">{chat.title}</span>
-                        </p>
-                      </div>
-                      <div className="AutoCol ChatOptions">
-                        <div
-                          className="ButtonIcon ButtonIconSmall ButtonChatDelete"
-                          title="Delete"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeleteId(chat.id);
-                            setIsOpenConfirmDelete(true);
-                          }}
-                        >
-                          <div className="Icon">
-                            <span className="Mask MaskDelete"></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {sessions
+  .slice()
+  .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Ensure valid Date conversion
+  .slice(0, 10) // Limit to 10
+  .map((chat) => (
+    <div
+      key={chat.id}
+      className={`ChatTitle TitleUpdate NoClose ${selectedChatId === chat.id ? 'ChatTitleActive' : ''}`}
+      onClick={() => handleChatClick(chat)}
+    >
+      <div className="Auto">
+        <div className="AutoCol ChatText">
+          <p>
+            <span className="Clamp1">{chat.title}</span>
+          </p>
+        </div>
+        <div className="AutoCol ChatOptions">
+          <div
+            className="ButtonIcon ButtonIconSmall ButtonChatDelete"
+            title="Delete"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDeleteId(chat.id);
+              setIsOpenConfirmDelete(true);
+            }}
+          >
+            <div className="Icon">
+              <span className="Mask MaskDelete"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+))}
+
               </div>
             </div>
 
@@ -284,14 +289,14 @@ export default function Sidebar({ children }) {
             <div class="Block Text">Are you sure you want to delete this chat?</div>
 
             <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
+              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete" onClick={handleDeleteChat}>
                 <div class="Auto">
                   <div class="AutoCol AutoIcon">
                     <div class="Icon IconSmall">
                       <span class="Mask MaskDelete"></span>
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel" onClick={handleDeleteChat}>
+                  <div class="AutoCol AutoLabel">
                     Delete
                   </div>
                 </div>
@@ -311,14 +316,14 @@ export default function Sidebar({ children }) {
             <div class="Block Text">Are you sure you want to delete this chat?</div>
 
             <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
+              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete" onClick={handleDeleteAllChat}>
                 <div class="Auto">
                   <div class="AutoCol AutoIcon">
                     <div class="Icon IconSmall">
                       <span class="Mask MaskDelete"></span>
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel" onClick={handleDeleteAllChat}>
+                  <div class="AutoCol AutoLabel">
                     Delete
                   </div>
                 </div>

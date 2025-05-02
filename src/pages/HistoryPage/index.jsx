@@ -82,14 +82,14 @@ function HistoryPage() {
             <div class="Block Text">Are you sure you want to delete this chat?</div>
 
             <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete">
+              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete" onClick={handleDeleteChat}>
                 <div class="Auto">
                   <div class="AutoCol AutoIcon">
                     <div class="Icon IconSmall">
                       <span class="Mask MaskDelete"></span>
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel" onClick={handleDeleteChat}>
+                  <div class="AutoCol AutoLabel">
                     Delete
                   </div>
                 </div>

@@ -73,12 +73,13 @@ export default function Chatbox({
     isStreaming
   );
 
-  const handlePress = (prompt) => {
-    setInput(prompt.messages);
+  const handlePress = (finalMessage) => {
+    setInput(finalMessage); // Just set the input directly
   };
+  
 
-  const handleSelect = (option) => {
-    setInput((pre) => `${pre} ${option.label}`);
+  const handleSelect = (value, prompt) => {
+    handlePress(prompt, value);
   };
 
   const handleChangeModel = (option) => {

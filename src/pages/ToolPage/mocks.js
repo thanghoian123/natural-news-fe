@@ -269,7 +269,6 @@ export const dataFormStructure = [
         questionLabel: 'List any allergies or any food restrictions you must avoid.',
         helperText: 'Example: Nuts, dairy, shellfish, soy, lactose.',
         type: TYPE.input,
-        isRequired: true,
       },
       {
         label: 'Current Supplements/Medications',
@@ -306,7 +305,7 @@ export const dataFormStructure = [
         promptText: 'Primary Wellness Goals',
         key: 'Primary Wellness Goals',
         default: '',
-        questionLabel: 'Select a few wellness goals from the list below.',
+        questionLabel: 'Select at least 3 - 5 wellness goals from the list below',
         helperText: '',
         listCheckBoxes: [
           'Weight Management',
@@ -698,6 +697,7 @@ export const dataFormStructure = [
         helperText: 'This will help determine the type of instructions provided',
         type: TYPE.dropdown,
         options: ['Select an option...', 'Garden Organically', 'Rainwater Harvesting', 'Both'],
+        isRequired: true,
       },
       {
         label: 'Attraction',
@@ -708,6 +708,7 @@ export const dataFormStructure = [
         helperText: 'This will help determine the type of instructions provided',
         type: TYPE.dropdown,
         options: ['Select an option...', 'None', 'Bees', 'Butterflies', 'Birds', 'All'],
+        isRequired: true,
       },
       {
         label: 'Challenges',
@@ -792,7 +793,7 @@ export const dataFormStructure = [
         promptText: 'Primary Aging-Related Goals',
         key: 'Primary Aging-Related Goals',
         default: '',
-        questionLabel: 'Select at least five goals from the list below.',
+        questionLabel: 'Select at least 5 goals from the list below.',
         helperText: '',
         listCheckBoxes: [
           'Joint/Mobility Health',

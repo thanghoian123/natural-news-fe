@@ -14,7 +14,7 @@ function CustomTextarea({ label, questionLabel, error, isRequired, helperText, .
           wrap="virtual"
           name="Journal"
           class={`Focus JournalText ${error && 'Required RequiredError'}`}
-          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter your answer here'}
+          placeholder={error ? error : !isRequired ? 'Leave blank if none' : 'Enter text here'}
           {...props}
         ></textarea>
         {helperText && <div class="Disclaimer">{helperText}</div>}
