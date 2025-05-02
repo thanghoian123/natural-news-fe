@@ -43,7 +43,7 @@ function LoginPage() {
   };
 
   return (
-    <div id="Page">
+    <div className="p-[30px]">
       <div className="AuthLogin">
         <div className="Block Headline Centered">
           {userError
@@ -116,10 +116,7 @@ function LoginPage() {
         {isVerifyOTP && !resendMode && (
           <div className="AuthResend">
             <div className="Text Centered">
-              <a
-                href="#"
-                onClick={handleResend}
-              >
+              <a href="#" onClick={handleResend}>
                 Resend Code
               </a>
             </div>
@@ -131,7 +128,8 @@ function LoginPage() {
         <div className="Disclaimer Centered !text-[#2D2D30]">
           {resendMode ? (
             <>
-              <b>Note:</b> Please check your spam/junk folder as the access code email may have ended up there.
+              <b>Note:</b> Please check your spam/junk folder as the access code email may have
+              ended up there.
             </>
           ) : isVerifyOTP ? (
             `By proceeding, you acknowledge and agree to our terms and conditions, which outline the rules and guidelines for using this site. You also acknowledge that AI is experimental and that it is your responsibility to verify all important information and always consult with your doctor before taking medication or making any changes to your existing medication or health routine.`
@@ -143,13 +141,22 @@ function LoginPage() {
 
       <div className="AuthLinks">
         <div className="Text Centered">
-          Don't have an account? <a href="/Support/home" target="_blank" rel="noopener noreferrer">Learn how to gain access</a>
+          Don't have an account?{' '}
+          <a href="/Support/home" target="_blank" rel="noopener noreferrer">
+            Learn how to gain access
+          </a>
         </div>
       </div>
 
       <div className="AuthLinks">
         <div className="Disclaimer Centered">
-          <a href="/Support/Terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> • <a href="/Support/Privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <a href="/Support/Terms" target="_blank" rel="noopener noreferrer">
+            Terms of Service
+          </a>{' '}
+          •{' '}
+          <a href="/Support/Privacy" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>
         </div>
       </div>
     </div>

@@ -67,6 +67,7 @@ const initialState = {
   isLoading: false,
   toolName: 'chat-with-enoch', // New state for tool name
   modelType: 'default', // New state for service name
+  reward: null,
 };
 
 // ✅ Create a new chat session
@@ -162,6 +163,14 @@ const chatSlice = createSlice({
     setModelType: (state, action) => {
       state.modelType = action.payload; // Set service name
     },
+    setReward: (state, action) => {
+      state.reward = action.payload; // Set service name
+    },
+    decreaseReward: (state) => {
+      if (typeof state.reward === 'number' && state.reward > 0) {
+        state.reward -= 1; // Decrease reward count
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -169,9 +178,12 @@ const chatSlice = createSlice({
         state.isLoading = true;
         const { sessionId, message } = action.payload;
         const session = state.sessions.find((s) => s.id === sessionId);
-
         if (session) {
           session.history.push(message); // Append message to history
+        }
+        // ✅ Decrease reward if it's a valid number greater than 0
+        if (typeof state.reward === 'number' && state.reward > 0) {
+          state.reward -= 1;
         }
       })
       .addCase(fetchChatSessions.pending, (state) => {
@@ -223,5 +235,6 @@ export const {
   stopLoading,
   setToolName,
   setModelType,
+  setReward,
 } = chatSlice.actions;
 export default chatSlice.reducer;

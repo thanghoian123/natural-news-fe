@@ -3,29 +3,68 @@
 /* ////////////////////////////////////////////////////////////////// */
 
 @media (max-width: 1049.9px) {
-#Top { display: block; z-index: 1000; width: 100%; position: fixed; left: 0px; top: 0px; margin-bottom: 40px; }
+  #Top {
+    display: block;
+    z-index: 1000;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    margin-bottom: 40px;
+  }
 }
 
 @media (min-width: 1050px) {
-#Top { display: none; }
+  #Top {
+    display: none;
+  }
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-.MastheadTable { display: table; width: 100%; }
-.MastheadCol { display: table-cell; vertical-align: middle; }
-.MastheadColMenu { width: 30px; padding-left: 10px; padding-right: 15px; }
-.MastheadColLogo { width: 150px; padding-right: 15px; padding-top: 4px; }
-.MastheadColNav { width: auto; text-align: right; padding-right: 15px; }
-.MastheadColMenu .ButtonBox .ButtonIcon { margin-right: 2px; }
+.MastheadTable {
+  display: table;
+  width: 100%;
+  z-index: 1000;
+}
+.MastheadCol {
+  display: table-cell;
+  vertical-align: middle;
+}
+.MastheadColMenu {
+  width: 30px;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+.MastheadColLogo {
+  width: 150px;
+  padding-right: 15px;
+  padding-top: 4px;
+}
+.MastheadColNav {
+  width: auto;
+  text-align: right;
+  padding-right: 15px;
+}
+.MastheadColMenu .ButtonBox .ButtonIcon {
+  margin-right: 2px;
+}
 
 @media (max-width: 429.9px) {
-.MastheadColLogo { width: 120px; }
+  .MastheadColLogo {
+    width: 120px;
+  }
 }
 
 /* ////////////////////////////////////////////////////////////////// */
 
-#SectionMasthead { padding: 0px; }
-#SectionMasthead .Content { display: table; width: 100%; padding: 10px 0px 20px 0px; }
+#SectionMasthead {
+  padding: 0px;
+}
+#SectionMasthead .Content {
+  display: table;
+  width: 100%;
+  padding: 10px 0px 20px 0px;
+}
 
 /* ////////////////////////////////////////////////////////////////// */

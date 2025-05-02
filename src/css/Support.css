@@ -140,9 +140,8 @@ input {
 
 input::placeholder,
 input:-ms-input-placeholder,
-input::-ms-input-placeholder,
-input::-webkit-input-placeholder {
-  color: var(--InputPlaceholder) !important;
+input::-ms-input-placeholder {
+  color: var(--InputPlaceholder);
 }
 
 input:-webkit-autofill,
@@ -159,7 +158,8 @@ textarea {
   border-radius: 0px;
   font-family: var(--FontText);
 }
-::-webkit-input-placeholder textarea::placeholder,
+
+textarea::placeholder,
 textarea:-ms-input-placeholder,
 textarea::-ms-input-placeholder {
   color: var(--InputPlaceholder);
@@ -257,7 +257,6 @@ textarea::-ms-input-placeholder {
   max-width: 400px;
   margin: 0px auto 40px auto;
 }
-
 .AuthLinks {
   display: block;
   max-width: 400px;
@@ -311,7 +310,6 @@ textarea::-ms-input-placeholder {
 .AuthResend {
   display: block;
   margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 /* ////////////////////////////////////////////////////////////////// */
@@ -331,15 +329,6 @@ textarea::-ms-input-placeholder {
 }
 .Support .Article {
   font-size: var(--FSLarge);
-}
-.Support .Article p {
-  margin: 16px 0;
-}
-.Support .Article ul {
-  list-style-type: disc; /* ensures dots are used */
-}
-
-.Support .Article ul li {
 }
 
 .Support .Tabs {
@@ -367,14 +356,14 @@ textarea::-ms-input-placeholder {
   display: block;
   padding: 20px 40px 20px 0px;
   cursor: pointer;
-  background-image: url('../assets/Images/Masks/Mask-Closed.svg');
+  background-image: url('../../Images/Masks/Mask-Closed.svg');
   background-size: 30px;
   background-position: center right 5px;
   background-repeat: no-repeat;
 }
 
 .QuestionOpen {
-  background-image: url('../assets/Images/Masks/Mask-Opened.svg');
+  background-image: url('../../Images/Masks/Mask-Opened.svg');
   color: var(--UIBG);
 }
 .Answer {

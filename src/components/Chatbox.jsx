@@ -5,6 +5,63 @@ import Bubble from './Bubble';
 import { setModelType } from '../redux/chatSlice';
 import { usePrompt } from '../hooks/usePrompt';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Dropdown from './Dropdown';
+
+const prompts = [
+  {
+    id: 1,
+    messages: 'Tell me about',
+    label: 'Tell me about',
+    options: [
+      { label: 'MAHA', value: 'MAHA' },
+      { label: 'Aloe Vera', value: 'Aloe Vera' },
+      { label: 'Turmeric', value: 'Turmeric' },
+      { label: 'Covid-19', value: 'Covid-19' },
+    ],
+  },
+  {
+    id: 2,
+    messages: 'What are the benefits of',
+    label: 'What are the benefits',
+    options: [
+      { label: 'Weight Loss', value: 'Weight Loss' },
+      { label: 'Vitamin D', value: 'Vitamin D' },
+      { label: 'Eating Less Sugar', value: 'Eating Less Sugar' },
+    ],
+  },
+  {
+    id: 3,
+    messages: 'What are the dangers of',
+    label: 'What are the dangers',
+    options: [
+      { label: 'Vegetable Oils', value: 'Vegetable Oils' },
+      { label: 'Food Dyes', value: 'Food Dyes' },
+      { label: 'Junk Food', value: 'Junk Food' },
+      { label: 'Blue Light', value: 'Blue Light' },
+    ],
+  },
+  {
+    id: 4,
+    messages: 'Give me advice about',
+    label: 'Give me advice about',
+    options: [
+      { label: 'Losing Weight', value: 'Losing Weight' },
+      { label: 'Walking 10k Steps', value: 'Walking 10k Steps' },
+      { label: 'Strength Training', value: 'Strength Training' },
+    ],
+  },
+  {
+    id: 5,
+    label: 'Summarize',
+    messages: 'Summarize this text: [Paste text here]',
+    options: [
+      // { label: 'Dashboard', value: 'dashboard' },
+      // { label: 'Settings', value: 'settings' },
+      // { label: 'Earnings', value: 'earnings' },
+      // { label: 'Sign out', value: 'signout' },
+    ],
+  },
+];
 
 export default function Chatbox({
   onSendMessage,
@@ -13,12 +70,10 @@ export default function Chatbox({
   disconnectWebSocket,
   isStreaming,
 }) {
-  console.log('🚀 ~ isStreaming:----------------', isStreaming);
   const [input, setInput] = useState('');
   // const [isStreaming, setIsStreaming] = useState(false);
-  const { sessions, isLoading, modelType } = useSelector((state) => state.chat);
+  const { sessions, isLoading, modelType, reward } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
 
@@ -34,12 +89,13 @@ export default function Chatbox({
     setInput('');
   };
 
-
   useEffect(() => {
     const currentId = new URLSearchParams(location.search).get('id');
     if (lastId !== currentId) {
       if (isStreaming) {
-        const confirmed = window.confirm('A response is still streaming. Leaving now will charge a credit without completing the reply. Are you sure?');
+        const confirmed = window.confirm(
+          'A response is still streaming. Leaving now will charge a credit without completing the reply. Are you sure?'
+        );
         if (!confirmed) {
           // User canceled → stay at previous id
           navigate(`/chat?id=${lastId}`, { replace: true });
@@ -57,12 +113,13 @@ export default function Chatbox({
     const handleBeforeUnload = (event) => {
       if (isStreaming) {
         event.preventDefault();
-        event.returnValue = 'You are in the middle of a response. Leaving now will charge a credit without completing the reply. Are you sure?';
+        event.returnValue =
+          'You are in the middle of a response. Leaving now will charge a credit without completing the reply. Are you sure?';
       }
     };
-  
+
     window.addEventListener('beforeunload', handleBeforeUnload);
-  
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -76,7 +133,6 @@ export default function Chatbox({
   const handlePress = (finalMessage) => {
     setInput(finalMessage); // Just set the input directly
   };
-  
 
   const handleSelect = (value, prompt) => {
     handlePress(prompt, value);
@@ -90,7 +146,7 @@ export default function Chatbox({
   return (
     <>
       {isNewChat ? (
-        <div className="UITable">
+        <div className="UITable pt-[102px]">
           <div className="UICol UIMiddle">
             <div id="Canvas">
               <div className="Section Narrow" id="SectionHomeChat">
@@ -112,7 +168,7 @@ export default function Chatbox({
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     sendMessage={handleSendMessage}
-                    tokenRemaining={user?.reward || 0}
+                    tokenRemaining={reward}
                     isNewChat={isNewChat}
                     handleSelectPrompt={handleSelect}
                     handlePressPropmt={handlePress}
@@ -121,6 +177,81 @@ export default function Chatbox({
                     disconnectWebSocket={disconnectWebSocket}
                     isStreaming={isStreaming}
                   />
+                </div>
+              </div>
+              <div className="Section Narrow" id="SectionHomePresets">
+                {isNewChat && (
+                  <div className="Content">
+                    <div className="Block ScrollContainer">
+                      {/* <div class="ScrollBox"> */}
+                      <div class="ScrollBox">
+                        <div className="flex flex-row gap-[1px]" id="HomePresets">
+                          {prompts.map((p) => (
+                            <div key={p.label} className="relative">
+                              <Dropdown
+                                label={p.label}
+                                options={p.options}
+                                onSelect={(option) => {
+                                  const needsQuestionMark = [2, 3].includes(p.id);
+                                  let fullMessage = `${p.messages} ${option.value}`.trim();
+
+                                  if (needsQuestionMark && !fullMessage.endsWith('?')) {
+                                    fullMessage += '?';
+                                  }
+
+                                  handlePress(fullMessage); // ✅ Send clean full message only
+                                }}
+                                onPress={() => handlePress(p.messages)} // ⚠️ No option selected here
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      className="Block Disclaimer Centered PresetLink NoClose"
+                      onClick={() => {
+                        handlePress({
+                          messages: `Why it is so important to lab-test your food and supplements for heavy metals,microbiology, glyphosate and other contaminants?`,
+                        });
+                      }}
+                    >
+                      Why it is so important to lab-test your food and supplements for heavy metals,
+                      microbiology, glyphosate and other contaminants?
+                    </div>
+                  </div>
+                )}
+
+                <div className="Section Narrow" id="SectionHomeDetails">
+                  <div className="Content">
+                    <div className="ChatNotice Centered">
+                      <p>
+                        Enoch AI is experimental. These statements are not intended to diagnose,
+                        treat, or cure any medical condition. Please verify all important
+                        information and always seek advice from your doctor, healthcare
+                        professional, or naturopath before making any changes to your existing
+                        medication or health routine.
+                      </p>
+                    </div>
+                    {isNewChat && (
+                      <div className="Disclaimer Centered">
+                        <a href="/Support/home" target="_blank" rel="noopener noreferrer">
+                          Visit our support area
+                        </a>{' '}
+                        for a detailed guide on using Enoch AI.
+                        <p>
+                          <a href="Support/Terms" target="_blank" rel="noopener noreferrer">
+                            Terms of Service
+                          </a>{' '}
+                          •{' '}
+                          <a href="Support/Privacy" target="_blank" rel="noopener noreferrer">
+                            Privacy Policy
+                          </a>
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,7 +286,7 @@ export default function Chatbox({
               value={input}
               onChange={(e) => setInput(e.target.value)}
               sendMessage={handleSendMessage}
-              tokenRemaining={user?.reward || 0}
+              tokenRemaining={reward}
               isNewChat={isNewChat}
               handleSelectPrompt={handleSelect}
               handlePressPropmt={handlePress}

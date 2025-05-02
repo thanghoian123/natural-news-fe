@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Layout from './index';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../redux/userSlice';
-import { fetchChatSessions } from '../../redux/chatSlice';
+import { fetchChatSessions, setReward } from '../../redux/chatSlice';
 
 const ProtectedLayout = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const ProtectedLayout = () => {
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchChatSessions(user.id));
+      dispatch(setReward(user.reward));
     }
   }, [user]);
 

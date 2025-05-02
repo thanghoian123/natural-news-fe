@@ -417,7 +417,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  z-index: 3;
+  /* z-index: 3; */
   border-radius: 10px;
 }
 .PostAction {
@@ -442,7 +442,7 @@
   position: absolute;
   bottom: 20px;
   left: 0px;
-  z-index: 4;
+  z-index: 1;
   text-align: center;
   color: var(--White);
 }
@@ -492,8 +492,6 @@
   margin: 0px auto;
   max-width: 1960px;
 }
-
-
 
 @media (max-width: 1049.9px) {
   .VIPTools {
