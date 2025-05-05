@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import InputChat from './InputChat';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Bubble from './Bubble';
-import { setModelType } from '../redux/chatSlice';
 import { usePrompt } from '../hooks/usePrompt';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Dropdown from './Dropdown';
@@ -71,9 +70,18 @@ export default function Chatbox({
   isStreaming,
 }) {
   const [input, setInput] = useState('');
+  const [selectedPrompt, setSelectedPrompt] = useState('');
+  const [selectedSubPrompt, setSelectedSubPrompt] = useState('');
+
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const dropdownRefs = useRef({});
+  const scrollBoxRef = useRef(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
   // const [isStreaming, setIsStreaming] = useState(false);
-  const { sessions, isLoading, modelType, reward } = useSelector((state) => state.chat);
-  const dispatch = useDispatch();
+  const { sessions, isLoading, reward } = useSelector((state) => state.chat);
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
 
@@ -134,15 +142,16 @@ export default function Chatbox({
     setInput(finalMessage); // Just set the input directly
   };
 
-  const handleSelect = (value, prompt) => {
-    handlePress(prompt, value);
-  };
-
-  const handleChangeModel = (option) => {
-    dispatch(setModelType(option));
-  };
-
   const isNewChat = !activeChat?.history.length;
+
+  useEffect(() => {
+    if (selectedPrompt && selectedSubPrompt) {
+      const finalMessage = `${selectedPrompt} ${selectedSubPrompt}`;
+      handlePress(finalMessage);
+      setSelectedPrompt('');
+      setSelectedSubPrompt('');
+    }
+  }, [selectedPrompt, selectedSubPrompt]);
   return (
     <>
       {isNewChat ? (
@@ -169,11 +178,6 @@ export default function Chatbox({
                     onChange={(e) => setInput(e.target.value)}
                     sendMessage={handleSendMessage}
                     tokenRemaining={reward}
-                    isNewChat={isNewChat}
-                    handleSelectPrompt={handleSelect}
-                    handlePressPropmt={handlePress}
-                    handleChangeModel={handleChangeModel}
-                    modelType={modelType}
                     disconnectWebSocket={disconnectWebSocket}
                     isStreaming={isStreaming}
                   />
@@ -184,37 +188,100 @@ export default function Chatbox({
                   <div className="Content">
                     <div className="Block ScrollContainer">
                       {/* <div class="ScrollBox"> */}
-                      <div class="ScrollBox">
+                      <div class="ScrollBox" ref={scrollBoxRef}>
                         <div className="flex flex-row gap-[1px]" id="HomePresets">
-                          {prompts.map((p) => (
-                            <div key={p.label} className="relative">
+                          {prompts.map((p, index) => (
+                            <div
+                              key={p.label}
+                              className="relative"
+                              ref={(el) => (dropdownRefs.current[index] = el)}
+                            >
                               <Dropdown
                                 label={p.label}
                                 options={p.options}
-                                onSelect={(option) => {
-                                  const needsQuestionMark = [2, 3].includes(p.id);
-                                  let fullMessage = `${p.messages} ${option.value}`.trim();
-
-                                  if (needsQuestionMark && !fullMessage.endsWith('?')) {
-                                    fullMessage += '?';
+                                onPress={() => {
+                                  console.log(p);
+                                  if (!p?.options.length) {
+                                    handlePress(p.messages); // Set selected prompt
+                                  } else {
+                                    setSelectedPrompt(p.messages); // Set selected prompt
+                                    setSelectedOptions(p.options); // Set selected options
                                   }
 
-                                  handlePress(fullMessage); // ✅ Send clean full message only
-                                }}
-                                onPress={() => handlePress(p.messages)} // ⚠️ No option selected here
+                                  // ---------------------------
+                                  setIsDropdownVisible(true);
+
+                                  const dropdownEl = dropdownRefs.current[index];
+                                  const containerEl = scrollBoxRef.current;
+
+                                  if (dropdownEl && containerEl) {
+                                    const dropdownRect = dropdownEl.getBoundingClientRect();
+                                    const containerRect = containerEl.getBoundingClientRect();
+
+                                    const relativeLeft =
+                                      dropdownRect.left -
+                                      containerRect.left +
+                                      containerEl.scrollLeft;
+                                    const relativeTop =
+                                      dropdownRect.bottom -
+                                      containerRect.top +
+                                      containerEl.scrollTop;
+
+                                    setDropdownPosition({
+                                      left: relativeLeft,
+                                      top: relativeTop,
+                                    });
+                                  }
+                                }} // ⚠️ No option selected here
                               />
                             </div>
                           ))}
                         </div>
                       </div>
+                      {isDropdownVisible && selectedOptions.length > 0 && (
+                        <div
+                          class="Dropdown DropdownPrimary BoxShadow NoClose USN ActiveElement block absolute z-50"
+                          style={{
+                            top: dropdownPosition.top,
+                            left: dropdownPosition.left,
+                          }}
+                          id="DropdownPreset"
+                        >
+                          <div class="DropdownTable">
+                            <div class="DropdownCol">
+                              <div class="ButtonIcon Close">
+                                <div class="Icon"></div>
+                              </div>
+                              <div class="DropdownBox">
+                                <div class="DropdownPanel NoClose">
+                                  <div class="PresetGroup">
+                                    {selectedOptions.map((option, index) => (
+                                      <div
+                                        class="PresetOption"
+                                        key={index}
+                                        onClick={() => {
+                                          setSelectedSubPrompt(option.label); // Set selected sub-prompt
+                                          setIsDropdownVisible(false);
+                                        }}
+                                      >
+                                        {option.label}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div
                       className="Block Disclaimer Centered PresetLink NoClose"
                       onClick={() => {
-                        handlePress({
-                          messages: `Why it is so important to lab-test your food and supplements for heavy metals,microbiology, glyphosate and other contaminants?`,
-                        });
+                        handlePress(
+                          'Why it is so important to lab-test your food and supplements for heavy metals, microbiology, glyphosate and other contaminants?'
+                        );
                       }}
                     >
                       Why it is so important to lab-test your food and supplements for heavy metals,
@@ -287,13 +354,8 @@ export default function Chatbox({
               onChange={(e) => setInput(e.target.value)}
               sendMessage={handleSendMessage}
               tokenRemaining={reward}
-              isNewChat={isNewChat}
-              handleSelectPrompt={handleSelect}
-              handlePressPropmt={handlePress}
-              handleChangeModel={handleChangeModel}
-              modelType={modelType}
-              isStreaming={isStreaming}
               disconnectWebSocket={disconnectWebSocket}
+              isStreaming={isStreaming}
             />
           </div>
         </div>

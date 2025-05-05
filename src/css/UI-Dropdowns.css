@@ -1,16 +1,15 @@
 /* DROPDOWNS */
 
 .Dropdown {
-  /* display: none;
+  /* display: none; */
   min-width: 120px;
   border: solid 1px var(--CardBorder);
   border-radius: 5px;
-  position: fixed;
-  top: 0px;
-  left: 0px;
+  /* position: fixed; */
+  /* top: 0px;
+  left: 0px; */
   padding: 0px;
-  z-index: 30; */
-  /* background-color: red; */
+  z-index: 30;
 }
 .DropdownContent {
   display: block;
@@ -70,7 +69,7 @@
   text-decoration: none;
 }
 
-///////////////////////////////////////////////////////////////
+/* /////////////////////////////////////////////////////////////// */
 
 #DropdownChatSettings {
   max-width: 260px;

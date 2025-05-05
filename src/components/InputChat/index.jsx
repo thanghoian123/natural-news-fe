@@ -10,11 +10,7 @@ function InputChat(props) {
     onChange,
     sendMessage,
     tokenRemaining = 0,
-    isNewChat,
-    handleSelectPrompt,
-    handlePressPropmt,
-    handleChangeModel,
-    modelType,
+
     disconnectWebSocket,
     isStreaming,
   } = props;
