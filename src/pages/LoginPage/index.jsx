@@ -4,18 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import useLoginHandler from './handler.jsx';
 
 function LoginPage() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       navigate('/home', { replace: true });
-  //     }
-  //   } catch (error) {
-  //     console.error('Error checking auth token:', error);
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        navigate('/home', { replace: true });
+      }
+    } catch (error) {
+      console.error('Error checking auth token:', error);
+    }
+  }, [navigate]);
   const {
     email,
     code,

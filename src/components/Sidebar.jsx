@@ -17,6 +17,7 @@ import ProfileDetail from './ProfileDetail';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { Link } from 'react-router-dom';
+import { set } from 'lodash';
 
 export default function Sidebar({ children }) {
   const { addToast } = useToast();
@@ -38,6 +39,7 @@ export default function Sidebar({ children }) {
 
   const handleNewSession = () => {
     navigate(`/chat`);
+    setIsOpen(false); // Close dropdown on mobile
   };
 
   const handleDeleteChat = async () => {

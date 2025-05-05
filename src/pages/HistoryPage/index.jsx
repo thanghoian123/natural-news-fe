@@ -37,7 +37,7 @@ function HistoryPage() {
   };
 
   return (
-    <div className="z-100">
+    <div className="z-100 pt-[102px]">
       <div class="UITable ">
         <div class="UICol">
           <div class="Questionnaire">
