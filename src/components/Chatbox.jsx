@@ -203,6 +203,7 @@ export default function Chatbox({
                                   console.log(p);
                                   if (!p?.options.length) {
                                     handlePress(p.messages); // Set selected prompt
+                                    setSelectedOptions(p.options); // Set selected options
                                   } else {
                                     setSelectedPrompt(p.messages); // Set selected prompt
                                     setSelectedOptions(p.options); // Set selected options
@@ -240,7 +241,7 @@ export default function Chatbox({
                       </div>
                       {isDropdownVisible && selectedOptions.length > 0 && (
                         <div
-                          class="Dropdown DropdownPrimary BoxShadow NoClose USN ActiveElement block absolute z-50"
+                          class="Dropdown DropdownPrimary BoxShadow NoClose USN ActiveElement block absolute z-50 dark:bg-[#1E1E1E]"
                           style={{
                             top: dropdownPosition.top,
                             left: dropdownPosition.left,
