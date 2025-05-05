@@ -24,9 +24,9 @@ export default function Modal({ isOpen, onClose, children }) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg p-2"
+                  className="text-gray-500 p-2 cursor-pointer"
                 >
-                  <X size={18} />
+                  <X size={24} />
                 </button>
               </div>
 
