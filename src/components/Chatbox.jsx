@@ -214,15 +214,15 @@ export default function Chatbox({
 
                                   const dropdownEl = dropdownRefs.current[index];
                                   const containerEl = scrollBoxRef.current;
+                                  console.log('🚀 ~ containerEl:', containerEl.scrollLeft);
 
                                   if (dropdownEl && containerEl) {
                                     const dropdownRect = dropdownEl.getBoundingClientRect();
                                     const containerRect = containerEl.getBoundingClientRect();
 
-                                    const relativeLeft =
-                                      dropdownRect.left -
-                                      containerRect.left +
-                                      containerEl.scrollLeft;
+                                    const relativeLeft = dropdownRect.left - containerRect.left;
+                                    // containerEl.scrollLeft;
+
                                     const relativeTop =
                                       dropdownRect.bottom -
                                       containerRect.top +
