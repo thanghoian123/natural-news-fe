@@ -51,7 +51,7 @@
 @media (min-width: 600px) {
   .Popup {
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);  
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     position: fixed;
     width: 100%;
@@ -81,6 +81,7 @@
     max-width: 520px;
     background-color: var(--CardBG);
     border-radius: 15px;
+    height: fit-content !important;
   }
   .Popup .Close {
     position: absolute;
@@ -185,5 +186,7 @@
 }
 .backdrop {
   background-color: var(--Trans2);
+  width: 100vw;
+  height: 100vh;
 }
 /* ////////////////////////////////////////////////////////////////// */

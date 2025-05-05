@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, X, Trash, PlusIcon, Sparkle, TrashIcon, Clock } from 'lucide-react'; // Icons
 import logoColor from '../assets/Images/Logo-Color.svg'; // Adjust path as needed
 import logoWhite from '../assets/Images/Logo-White.svg'; // Adjust path as needed
@@ -61,6 +61,7 @@ export default function Sidebar({ children }) {
     const result = await dispatch(deleteMyChatHistory());
     if (deleteMyChatHistory.fulfilled.match(result)) {
       addToast('Chat deleted successfully!', 'success');
+      navigate(`/chat`);
     } else {
       addToast('Failed to delete chat.', 'error');
     }
@@ -93,6 +94,11 @@ export default function Sidebar({ children }) {
   const rewardRemaining =
     user?.tier === 'Platinum' ? 'Unlimited Question Remain' : `${reward} Questions Remaining`;
 
+  useEffect(() => {
+    if (isOpenProfile || isOpenConfirmDelete || isOpenConfirmDeleteAll) {
+      setIsOpen(false);
+    }
+  }, [isOpenProfile, isOpenConfirmDelete, isOpenConfirmDeleteAll]);
   return (
     <>
       <div id="Top" style={{ zIndex: isOpen ? -1 : 0 }}>
