@@ -26,6 +26,7 @@ function HistoryPage() {
       const result = await dispatch(removeChatSession(deleteId));
       if (removeChatSession.fulfilled.match(result)) {
         addToast('Chat deleted successfully!', 'success');
+        navigate(`/chat`);
       } else {
         addToast('Failed to delete chat.', 'error');
       }
@@ -82,16 +83,17 @@ function HistoryPage() {
             <div class="Block Text">Are you sure you want to delete this chat?</div>
 
             <div class="ButtonBox ButtonBox ButtonBoxLeft">
-              <button class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete" onClick={handleDeleteChat}>
+              <button
+                class="Button ButtonAuto ButtonAutoLeft ButtonRed ButtonDelete"
+                onClick={handleDeleteChat}
+              >
                 <div class="Auto">
                   <div class="AutoCol AutoIcon">
                     <div class="Icon IconSmall">
                       <span class="Mask MaskDelete"></span>
                     </div>
                   </div>
-                  <div class="AutoCol AutoLabel">
-                    Delete
-                  </div>
+                  <div class="AutoCol AutoLabel">Delete</div>
                 </div>
               </button>
               <button

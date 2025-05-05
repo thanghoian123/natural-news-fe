@@ -4,9 +4,9 @@ import logoWhite from '../../assets/Images/Logo-White.svg'; // Adjust path as ne
 import { useTheme } from '../../contexts/ThemeContext';
 import { Link } from 'react-router-dom';
 function NormalLayout({ children }) {
-  const { theme } = useTheme();
+  const { curTheme } = useTheme();
 
-  const logoSrc = theme === 'dark' ? logoWhite : logoColor;
+  const logoSrc = curTheme === 'dark' ? logoWhite : logoColor;
 
   return (
     <div id="Page">

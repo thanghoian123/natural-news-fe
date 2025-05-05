@@ -128,6 +128,9 @@ const chatSlice = createSlice({
         if (lastMessage.sender === 'assistant') {
           session.history.pop(); // Remove the last message
         }
+        if (typeof state.reward === 'number' && state.reward > 0) {
+          state.reward -= 1;
+        }
       }
     },
     setActiveSession: (state, action) => {

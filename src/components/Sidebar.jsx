@@ -23,14 +23,14 @@ export default function Sidebar({ children }) {
   const { user } = useSelector((state) => state.user);
   const { reward } = useSelector((state) => state.chat);
 
-  const { theme } = useTheme();
+  const { curTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false); // Toggle menu
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
   const [isOpenConfirmDeleteAll, setIsOpenConfirmDeleteAll] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const isBronze = user?.tier === 'Bronze';
-  const logoSrc = theme === 'dark' ? logoWhite : logoColor;
+  const logoSrc = curTheme === 'dark' ? logoWhite : logoColor;
   const navigate = useNavigate();
   const { sessions } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ export default function Sidebar({ children }) {
       const result = await dispatch(removeChatSession(deleteId));
       if (removeChatSession.fulfilled.match(result)) {
         addToast('Chat deleted successfully!', 'success');
+        navigate(`/chat`);
       } else {
         addToast('Failed to delete chat.', 'error');
       }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
@@ -9,33 +9,6 @@ function ProfileDetail({ user, onClearChat }) {
   const { theme, changeTheme } = useTheme();
 
   // Detect system theme
-  const detectSystemTheme = () => {
-    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return isDarkMode ? 'dark' : 'light';
-  };
-
-  // Set theme to system preference on component mount
-  useEffect(() => {
-    const systemTheme = detectSystemTheme();
-    if (theme === 'system') {
-      changeTheme(systemTheme); // Sync with system theme when the mode is set to 'system'
-    }
-
-    // Listen for system theme changes
-    const themeChangeListener = (e) => {
-      if (theme === 'system') {
-        changeTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-    
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', themeChangeListener);
-
-    // Clean up listener on component unmount
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', themeChangeListener);
-    };
-  }, [theme, changeTheme]);
-
   const engineList = [
     {
       id: 1,
@@ -92,7 +65,13 @@ function ProfileDetail({ user, onClearChat }) {
           </div>
           <div className="AutoCol AutoLabel">
             <b>{user?.tier} Member</b> •{' '}
-            <a href="https://www.healthrangerstore.com/enoch" target="_blank" rel="noopener noreferrer">Learn More</a>
+            <a
+              href="https://www.healthrangerstore.com/enoch"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </a>
           </div>
         </div>
 
@@ -105,7 +84,9 @@ function ProfileDetail({ user, onClearChat }) {
 
           <div className="AutoCol AutoLabel">
             <b>{reward}</b> •{' '}
-            <a href="/Support/home" target="_blank" rel="noopener noreferrer">How to Get More</a>
+            <a href="/Support/home" target="_blank" rel="noopener noreferrer">
+              How to Get More
+            </a>
           </div>
         </div>
       </div>

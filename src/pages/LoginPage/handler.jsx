@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, verifyOtp } from '../../redux/userSlice';
 import { useToast } from '../../contexts/ToastContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 function useLoginHandler() {
   console.log('useLoginHandler called');
@@ -15,6 +16,12 @@ function useLoginHandler() {
   const [isVerifyOTP, setIsVerifyOTP] = useState(false);
   const [error, setError] = useState('');
   const [resendClicked, setResendClicked] = useState(false);
+
+  const { changeTheme } = useTheme();
+
+  useEffect(() => {
+    changeTheme('light');
+  }, []);
 
   const validateEmail = (value) => {
     setEmail(value);
