@@ -26,7 +26,9 @@ const Dropdown = ({ label, onPress }) => {
       <button
         onClick={onPressBtn}
         className={`Button ButtonTransBorder Preset NoClose ${
-          isOpen ? 'ring-2 ring-ui-bg dark:ring-primary !text-ui-bg dark:!text-primary' : ''
+          isOpen
+            ? '!bg-[#f4f4fa] dark:!bg-[#1e1e1e] dark:ring-primary !text-ui-bg dark:!text-primary'
+            : ''
         }`}
         id={`Button${label.replace(/\s+/g, '')}`}
       >
