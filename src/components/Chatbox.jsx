@@ -332,7 +332,7 @@ export default function Chatbox({
         <div className="flex flex-col w-full  h-screen px-[24px] py-4 items-center justify-center ">
           {/* Chat messages */}
           {!isNewChat && (
-            <div className="overflow-y-auto p-4 space-y-2 h-[85vh] md:h-[80vh] w-full max-w-[720px] min-w-[300px]">
+            <div className="overflow-y-auto px-4 py-[38px] space-y-3 h-[85vh] md:h-[80vh] w-full max-w-[720px] min-w-[300px]">
               {activeChat?.history.map((msg, index) => (
                 <Bubble
                   key={index}

@@ -12,8 +12,10 @@ function EmojiText({ children }) {
         /:([a-zA-Z0-9_+-]+):/g,
         (match, name) => emoji.getUnicode(name) || match
       );
+    } else if (Array.isArray(child)) {
+      return child.map(renderText);
     }
-    return child; // preserve React elements or objects
+    return child;
   };
 
   return <>{React.Children.map(children, renderText)}</>;
@@ -54,9 +56,9 @@ function Bubble({ sender, text, onRegenerateMessage, isLoading }) {
             remarkPlugins={[remarkGfm]}
             components={{
               p: ({ children }) => (
-                <span style={{ whiteSpace: 'pre-wrap' }}>
+                <p className="mb-2 whitespace-pre-wrap">
                   <EmojiText>{children}</EmojiText>
-                </span>
+                </p>
               ),
               ol: ({ children }) => (
                 <ol className="list-decimal list-inside ml-6 leading-normal">{children}</ol>
@@ -113,6 +115,7 @@ function Bubble({ sender, text, onRegenerateMessage, isLoading }) {
                 <code className="bg-gray-100 p-1 rounded text-sm font-mono">{children}</code>
               ),
             }}
+            skipHtml={false}
           >
             {streamedText}
           </ReactMarkdown>
