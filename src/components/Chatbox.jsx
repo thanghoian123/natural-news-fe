@@ -23,9 +23,9 @@ const prompts = [
     messages: 'What are the benefits of',
     label: 'What are the benefits',
     options: [
-      { label: 'Weight Loss', value: 'Weight Loss' },
-      { label: 'Vitamin D', value: 'Vitamin D' },
-      { label: 'Eating Less Sugar', value: 'Eating Less Sugar' },
+      { label: 'Weight Loss', value: 'Weight Loss', isQuestion: true },
+      { label: 'Vitamin D', value: 'Vitamin D', isQuestion: true },
+      { label: 'Eating Less Sugar', value: 'Eating Less Sugar', isQuestion: true },
     ],
   },
   {
@@ -33,10 +33,10 @@ const prompts = [
     messages: 'What are the dangers of',
     label: 'What are the dangers',
     options: [
-      { label: 'Vegetable Oils', value: 'Vegetable Oils' },
-      { label: 'Food Dyes', value: 'Food Dyes' },
-      { label: 'Junk Food', value: 'Junk Food' },
-      { label: 'Blue Light', value: 'Blue Light' },
+      { label: 'Vegetable Oils', value: 'Vegetable Oils', isQuestion: true },
+      { label: 'Food Dyes', value: 'Food Dyes', isQuestion: true },
+      { label: 'Junk Food', value: 'Junk Food', isQuestion: true },
+      { label: 'Blue Light', value: 'Blue Light', isQuestion: true },
     ],
   },
   {
@@ -190,53 +190,54 @@ export default function Chatbox({
                       {/* <div class="ScrollBox"> */}
                       <div class="ScrollBox" ref={scrollBoxRef}>
                         <div className="flex flex-row gap-[1px]" id="HomePresets">
-                          {prompts.map((p, index) => (
-                            <div
-                              key={p.label}
-                              className="relative"
-                              ref={(el) => (dropdownRefs.current[index] = el)}
-                            >
-                              <Dropdown
-                                label={p.label}
-                                options={p.options}
-                                onPress={() => {
-                                  console.log(p);
-                                  if (!p?.options.length) {
-                                    handlePress(p.messages); // Set selected prompt
-                                    setSelectedOptions(p.options); // Set selected options
-                                  } else {
-                                    setSelectedPrompt(p.messages); // Set selected prompt
-                                    setSelectedOptions(p.options); // Set selected options
-                                  }
+                          {prompts.map((p, index) => {
+                            return (
+                              <div
+                                key={p.label}
+                                className="relative"
+                                ref={(el) => (dropdownRefs.current[index] = el)}
+                              >
+                                <Dropdown
+                                  label={p.label}
+                                  options={p.options}
+                                  onPress={() => {
+                                    if (!p?.options.length) {
+                                      handlePress(p.messages); // Set selected prompt
+                                      setSelectedOptions(p.options); // Set selected options
+                                    } else {
+                                      handlePress(p.messages); // Set selected prompt
+                                      setSelectedPrompt(p.messages); // Set selected prompt
+                                      setSelectedOptions(p.options); // Set selected options
+                                    }
 
-                                  // ---------------------------
-                                  setIsDropdownVisible(true);
+                                    // ---------------------------
+                                    setIsDropdownVisible(true);
 
-                                  const dropdownEl = dropdownRefs.current[index];
-                                  const containerEl = scrollBoxRef.current;
-                                  console.log('🚀 ~ containerEl:', containerEl.scrollLeft);
+                                    const dropdownEl = dropdownRefs.current[index];
+                                    const containerEl = scrollBoxRef.current;
 
-                                  if (dropdownEl && containerEl) {
-                                    const dropdownRect = dropdownEl.getBoundingClientRect();
-                                    const containerRect = containerEl.getBoundingClientRect();
+                                    if (dropdownEl && containerEl) {
+                                      const dropdownRect = dropdownEl.getBoundingClientRect();
+                                      const containerRect = containerEl.getBoundingClientRect();
 
-                                    const relativeLeft = dropdownRect.left - containerRect.left;
-                                    // containerEl.scrollLeft;
+                                      const relativeLeft = dropdownRect.left - containerRect.left;
+                                      // containerEl.scrollLeft;
 
-                                    const relativeTop =
-                                      dropdownRect.bottom -
-                                      containerRect.top +
-                                      containerEl.scrollTop;
+                                      const relativeTop =
+                                        dropdownRect.bottom -
+                                        containerRect.top +
+                                        containerEl.scrollTop;
 
-                                    setDropdownPosition({
-                                      left: relativeLeft,
-                                      top: relativeTop,
-                                    });
-                                  }
-                                }} // ⚠️ No option selected here
-                              />
-                            </div>
-                          ))}
+                                      setDropdownPosition({
+                                        left: relativeLeft,
+                                        top: relativeTop,
+                                      });
+                                    }
+                                  }} // ⚠️ No option selected here
+                                />
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                       {isDropdownVisible && selectedOptions.length > 0 && (
@@ -261,7 +262,9 @@ export default function Chatbox({
                                         class="PresetOption"
                                         key={index}
                                         onClick={() => {
-                                          setSelectedSubPrompt(option.label); // Set selected sub-prompt
+                                          setSelectedSubPrompt(
+                                            option?.isQuestion ? `${option.label}?` : option.label
+                                          );
                                           setIsDropdownVisible(false);
                                         }}
                                       >

@@ -7,6 +7,7 @@ import logoWhite from '../assets/Images/Logo-White.svg'; // Adjust path as neede
 import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteMyChatHistory,
+  fetchChatSessions,
   removeChatSession,
   setActiveSession,
   startNewSession,
@@ -39,6 +40,7 @@ export default function Sidebar({ children }) {
 
   const handleNewSession = () => {
     navigate(`/chat`);
+    dispatch(fetchChatSessions(user?.id));
     setIsOpen(false); // Close dropdown on mobile
   };
 

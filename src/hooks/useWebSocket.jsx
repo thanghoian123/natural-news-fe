@@ -40,19 +40,33 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
   const handleIncomingMessage = useCallback(
     (event) => {
       messageRef.current = event;
+      console.log('🚀 ~ useWebSocket ~ messageRef:', messageRef);
       setIsStreaming(true);
-      const streamNextChunk = () => {
-        if (!messageRef.current) return;
 
-        const chunk = messageRef.current.slice(0, 10);
-        messageRef.current = messageRef.current.slice(10);
+      const streamNextChunk = () => {
+        // Ensure we are processing the current messageRef.current properly
+        let message = messageRef.current;
+        if (!message || message.length === 0) return;
+
+        // Get the chunk (10 characters at a time)
+        const chunk = message.slice(0, 10); // Take first 10 characters
+        console.log('🚀 ~ streamNextChunk ~ chunk:', chunk);
+
+        // Remove the chunk from the message
+        messageRef.current = message.slice(10); // Update messageRef for next chunk
 
         if (chunk) {
+          // Dispatch the chunk to your state or any other required logic
           dispatch(appendMessage({ sessionId: activeSession, text: chunk, sender: 'assistant' }));
-          setTimeout(streamNextChunk, 500);
+
+          // If there is more message left, keep streaming
+          if (messageRef.current.length > 0) {
+            setTimeout(streamNextChunk, 500); // Continue after delay
+          }
         }
       };
-      streamNextChunk();
+
+      streamNextChunk(); // Start streaming the first chunk
     },
     [dispatch, activeSession]
   );

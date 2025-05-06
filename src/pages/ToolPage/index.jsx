@@ -8,7 +8,7 @@ function ToolPage() {
     window.scrollTo(0, 0);
   }, []); // Runs once when the component mounts
   return (
-    <div className="p-4 pt-[102px]">
+    <div className="p-4  mt-[102px] lg:mt-0">
       <ToolForm category={category} />
     </div>
   );

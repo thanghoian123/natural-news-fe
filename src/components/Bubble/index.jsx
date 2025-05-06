@@ -1,55 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Copy, RefreshCw } from 'lucide-react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useToast } from '../../contexts/ToastContext';
 import ChatSkeleton from './ChatSkeleton';
-import emoji from 'emoji-dictionary'; // <-- Install this if not already
+import emoji from 'emoji-dictionary'; // <-- Make sure it's installed
 
 function EmojiText({ children }) {
-  const flattenChildren = (children) => {
-    if (Array.isArray(children)) {
-      return children.map(flattenChildren).join('');
-    } else if (typeof children === 'string') {
-      return children;
-    } else if (typeof children === 'object' && children?.props?.children) {
-      return flattenChildren(children.props.children);
-    } else {
-      return '';
+  const renderText = (child) => {
+    if (typeof child === 'string') {
+      return child.replace(
+        /:([a-zA-Z0-9_+-]+):/g,
+        (match, name) => emoji.getUnicode(name) || match
+      );
     }
+    return child; // preserve React elements or objects
   };
 
-  const text = flattenChildren(children);
-  const parsed = text.replace(
-    /:([a-zA-Z0-9_+-]+):/g,
-    (match, name) => emoji.getUnicode(name) || match
-  );
-
-  return <>{parsed}</>;
+  return <>{React.Children.map(children, renderText)}</>;
 }
 
-function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
-  const [streamedText, setStreamedText] = useState('');
-  const [index, setIndex] = useState(0);
+function Bubble({ sender, text, onRegenerateMessage, isLoading }) {
+  // const [streamedText, setStreamedText] = useState('');
   const [copied, setCopied] = useState(false);
   const { addToast } = useToast();
   const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    if (!isStreaming) {
-      setStreamedText(text);
-      return;
-    }
-
-    if (index < [...text].length) {
-      const timeout = setTimeout(() => {
-        setStreamedText((prev) => prev + [...text][index]);
-        setIndex(index + 1);
-      }, 5);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [index, text, isStreaming]);
+  const streamedText = text; // useAnimateText(text, { enabled: false });
 
   const handleCopy = async () => {
     try {
@@ -76,38 +51,24 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
           <ChatSkeleton />
         ) : (
           <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            p: ({ children }) => (
-              // use a span instead of a <p> so there is no block‑margin
-              <span style={{ whiteSpace: 'pre-wrap' }}>
-                <EmojiText>{children}</EmojiText>
-              </span>
-            ),
-        
-            ol: ({ children }) => (
-              <ol
-                className="list-disc list-inside ml-6 leading-normal inline-block mt-0 mb-0 align-top"
-                style={{ verticalAlign: 'top' }}
-              >
-                {children}
-              </ol>
-            ),
-            ul: ({ children }) => (
-              <ul
-                className="list-disc list-inside ml-6 leading-normal inline-block mt-0 mb-0 align-top"
-                style={{ verticalAlign: 'top' }}
-              >
-                {children}
-              </ul>
-            ),
-        
-            li: ({ children }) => (
-              // li can remain the default list‑item display
-              <li>
-                <EmojiText>{children}</EmojiText>
-              </li>
-            ),
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p: ({ children }) => (
+                <span style={{ whiteSpace: 'pre-wrap' }}>
+                  <EmojiText>{children}</EmojiText>
+                </span>
+              ),
+              ol: ({ children }) => (
+                <ol className="list-decimal list-inside ml-6 leading-normal">{children}</ol>
+              ),
+              ul: ({ children }) => (
+                <ul className="list-disc list-inside ml-6 leading-normal">{children}</ul>
+              ),
+              li: ({ children }) => (
+                <li>
+                  <EmojiText>{children}</EmojiText>
+                </li>
+              ),
               h1: ({ children }) => (
                 <h1 className="text-2xl font-bold">
                   <EmojiText>{children}</EmojiText>
@@ -149,10 +110,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
                 </a>
               ),
               code: ({ children }) => (
-                <code className="bg-gray-100 p-1 rounded text-sm font-mono">
-                  {/* Do NOT EmojiText here */}
-                  {children}
-                </code>
+                <code className="bg-gray-100 p-1 rounded text-sm font-mono">{children}</code>
               ),
             }}
           >
@@ -160,6 +118,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
           </ReactMarkdown>
         )}
       </div>
+
       {sender !== 'user' && (
         <div className="flex gap-1 transition-opacity mt-2 dark:text-text-dark text-black">
           {/* Copy Button */}
@@ -190,6 +149,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
           </div>
         </div>
       )}
+
       {/* Popup Modal */}
       {showPopup && (
         <div className="Popup USN" id="PopupRegenerate">
@@ -221,7 +181,7 @@ function Bubble({ sender, text, isStreaming, onRegenerateMessage, isLoading }) {
                       className="Button ButtonAuto ButtonAutoLeft ButtonPrimary ButtonClose"
                       onClick={() => {
                         setShowPopup(false);
-                        onRegenerateMessage(); // Trigger regeneration
+                        onRegenerateMessage();
                       }}
                     >
                       <div className="Auto">

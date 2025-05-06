@@ -14,7 +14,6 @@ const CheckboxGroup = React.forwardRef(
     },
     ref
   ) => {
-    console.log('🚀 ~CheckboxGroup error:', error);
     const handleCheckboxChange = (value) => {
       const updatedValues = selectedValues.includes(value)
         ? selectedValues.filter((item) => item !== value)
@@ -31,7 +30,7 @@ const CheckboxGroup = React.forwardRef(
         </div>
         <div className={`Text ${error && 'RequiredText ChooseError'}`}>{questionLabel}</div>
         <div className="FormOptionsTable">
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-1">
             {options.map((option) => (
               <div className="FormCheckbox" key={option.value}>
                 <label>
