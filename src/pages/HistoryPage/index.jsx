@@ -58,7 +58,6 @@ function HistoryPage() {
                     <div
                       class="AutoCol ChatOptions"
                       onClick={(e) => {
-                        console.log('🚀 ~ HistoryPage ~ e:', chat.id);
                         e.stopPropagation();
                         setDeleteId(chat.id);
                         setIsOpenConfirmDelete(true);

@@ -40,7 +40,6 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
   const handleIncomingMessage = useCallback(
     (event) => {
       messageRef.current = event;
-      console.log('🚀 ~ useWebSocket ~ messageRef:', messageRef);
       setIsStreaming(true);
 
       const streamNextChunk = () => {
@@ -50,7 +49,6 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
 
         // Get the chunk (10 characters at a time)
         const chunk = message.slice(0, 10); // Take first 10 characters
-        console.log('🚀 ~ streamNextChunk ~ chunk:', chunk);
 
         // Remove the chunk from the message
         messageRef.current = message.slice(10); // Update messageRef for next chunk

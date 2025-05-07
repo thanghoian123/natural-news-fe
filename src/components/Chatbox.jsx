@@ -77,11 +77,11 @@ export default function Chatbox({
   const dropdownRefs = useRef({});
   const scrollBoxRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // const [isStreaming, setIsStreaming] = useState(false);
   const { sessions, isLoading, reward } = useSelector((state) => state.chat);
+  const { user } = useSelector((state) => state.user);
+
   const chatEndRef = useRef(null);
   const activeChat = sessions.find((s) => s.id === activeSession);
 
@@ -345,6 +345,7 @@ export default function Chatbox({
                     index === lastBotMessageIndex && msg.sender === 'assistant' && isStreaming
                   }
                   onRegenerateMessage={onRegenerateMessage}
+                  tier={user?.tier}
                 />
               ))}
               <div ref={chatEndRef} /> {/* Scroll anchor */}

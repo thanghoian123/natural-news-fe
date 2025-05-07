@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
       const windowScrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
 
       const scrollTop = Math.max(pageScrollTop, windowScrollTop);
-      console.log('📱 Combined Scroll Top:', scrollTop);
 
       if (scrollTop > 200) {
         setFadeClass('fade-in');

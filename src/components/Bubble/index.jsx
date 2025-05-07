@@ -21,7 +21,7 @@ function EmojiText({ children }) {
   return <>{React.Children.map(children, renderText)}</>;
 }
 
-function Bubble({ sender, text, onRegenerateMessage, isLoading }) {
+function Bubble({ sender, text, onRegenerateMessage, isLoading, tier = 'Silver' }) {
   // const [streamedText, setStreamedText] = useState('');
   const [copied, setCopied] = useState(false);
   const { addToast } = useToast();
@@ -142,7 +142,13 @@ function Bubble({ sender, text, onRegenerateMessage, isLoading }) {
 
           {/* Regenerate Button */}
           <div
-            onClick={() => setShowPopup(true)}
+            onClick={() => {
+              if (tier === 'Platinum') {
+                onRegenerateMessage();
+              } else {
+                setShowPopup(true);
+              }
+            }}
             title="Regenerate"
             className="ButtonIcon ButtonIconSmall ButtonRegenerate NoClose rounded-full hover:bg-gray-200 hover:text-background-dark transition"
           >

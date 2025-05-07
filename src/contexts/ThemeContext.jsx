@@ -34,7 +34,6 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const current = theme === 'system' ? getSystemTheme() : theme;
-    console.log('🚀 ~ useEffect ~ current:', current);
 
     applyTheme(current);
     setCurTheme(current);
