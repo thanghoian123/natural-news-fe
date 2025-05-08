@@ -110,7 +110,9 @@ function ChatPage() {
   useEffect(() => {
     const isFirstMessage = activeChat?.title === 'New Chat' && activeChat?.history?.length === 2;
 
-    const isSocketClosed = socketRef.current?.readyState === WebSocket.CLOSED;
+    const isSocketClosed =
+      socketRef.current?.readyState === WebSocket.CLOSING ||
+      socketRef.current?.readyState === WebSocket.CLOSED;
 
     if (isFirstMessage && isSocketClosed && !hasFetchedSessions.current) {
       hasFetchedSessions.current = true;

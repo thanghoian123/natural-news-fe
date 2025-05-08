@@ -5,10 +5,11 @@ const wsUrl = 'wss://api-enochvip.consumerwellness.org/chats/ws'; //import.meta.
 
 export default function useWebSocket({ activeSession, dispatch, userID }) {
   const socketRef = useRef(null);
-  const messageRef = useRef('');
   const pendingRegenerate = useRef(false);
   const pendingMessage = useRef(null);
   const reconnecting = useRef(false);
+  const messageQueue = useRef([]);
+  const processing = useRef(false);
   const [url, setUrl] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const { modelType, toolName } = useSelector((state) => state.chat);
@@ -37,36 +38,36 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
     }
   }, []);
 
+  const processQueue = useCallback(() => {
+    if (processing.current || messageQueue.current.length === 0 || !activeSession) return;
+
+    processing.current = true;
+    const message = messageQueue.current.shift();
+    let index = 0;
+
+    const streamNextChunk = () => {
+      if (index >= message.length) {
+        processing.current = false;
+        processQueue(); // Continue with next message
+        return;
+      }
+
+      const chunk = message.slice(index, index + 10);
+      index += 10;
+
+      dispatch(appendMessage({ sessionId: activeSession, text: chunk, sender: 'assistant' }));
+      setTimeout(streamNextChunk, 10);
+    };
+
+    streamNextChunk();
+  }, [dispatch, activeSession]);
+
   const handleIncomingMessage = useCallback(
     (event) => {
-      messageRef.current = event;
-      setIsStreaming(true);
-
-      const streamNextChunk = () => {
-        // Ensure we are processing the current messageRef.current properly
-        let message = messageRef.current;
-        if (!message || message.length === 0) return;
-
-        // Get the chunk (10 characters at a time)
-        const chunk = message.slice(0, 10); // Take first 10 characters
-
-        // Remove the chunk from the message
-        messageRef.current = message.slice(10); // Update messageRef for next chunk
-
-        if (chunk) {
-          // Dispatch the chunk to your state or any other required logic
-          dispatch(appendMessage({ sessionId: activeSession, text: chunk, sender: 'assistant' }));
-
-          // If there is more message left, keep streaming
-          if (messageRef.current.length > 0) {
-            setTimeout(streamNextChunk, 500); // Continue after delay
-          }
-        }
-      };
-
-      streamNextChunk(); // Start streaming the first chunk
+      messageQueue.current.push(event.data);
+      processQueue(); // ✅ This is now valid
     },
-    [dispatch, activeSession]
+    [processQueue] // ✅ Add dependency
   );
 
   const connectWebSocket = useCallback(
@@ -96,7 +97,9 @@ export default function useWebSocket({ activeSession, dispatch, userID }) {
           pendingMessage.current = null;
         }
       };
-      socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
+      socketRef.current.onmessage = handleIncomingMessage;
+
+      // socketRef.current.onmessage = (event) => handleIncomingMessage(event.data);
       socketRef.current.onerror = (error) => console.error('❌ WebSocket Error:', error);
       socketRef.current.onclose = (event) => {
         setIsStreaming(false);
